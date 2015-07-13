@@ -20,7 +20,7 @@ db = client.designerHub
 engine = MongoEngine()
 engine.init_app(app)
 
-api = MongoRest()
+api = MongoRest(app)
 
 if __name__ == '__main__':
     app.run(host='localhost', port=4900)
