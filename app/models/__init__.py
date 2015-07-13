@@ -23,6 +23,21 @@ class Node(engine.Document):
 
 
 
-class Gallery(object):
+class Gallery(Node):
     image_gallery = engine.ListField(Node)
+
+class Location(object):
+    location = engine.StringField()
+    geo_location = engine.PointField()
+    city = engine.StringField()
+    state = engine.StringField()
+    country = engine.StringField()
+    zipCode = engine.StringField()
+
+
+class Charge(object):
+    price = engine.DecimalField()
+    currency = engine.StringField(choices=['INR', 'USD'])
+    discount_percentage = db.IntField()
+
 
