@@ -1,9 +1,9 @@
 __author__ = 'anurag'
 
 from app import engine
-from app.models import Node
+from app.models import Node, Gallery
 
-class User(engine.Document):
+class User(Node, engine.Document):
 
     first_name = engine.StringField()
     last_name = engine.StringField()
@@ -13,7 +13,7 @@ class User(engine.Document):
     phone_Number = engine.StringField()
     mobile = engine.StringField()
     profile_photo = engine.ImageField(thumbnail_size=(128, 128))
-    cover_Image = engine.ImageField(thumbnail_size=(128, 128))
+
 
     meta = {
         'allow_inheritance' : True,
@@ -22,13 +22,19 @@ class User(engine.Document):
         ],
     }
 
-class MyWorks(Node, engine.Document):
-    
+
+
+
+class MyWork(Node, Gallery, engine.Document):
+
     designer = engine.StringField()
     view_count = engine.IntField()
+
 
 
 class Designers(User, engine.Document):
 
     bio = engine.StringField()
-    myWorks = engine.ListField(MyWorks())
+    myWorks = engine.ListField(MyWork())
+
+

@@ -8,7 +8,6 @@ class Node(engine.Document):
 
     title = engine.StringField()
     cover_Image = engine.ImageField(thumbnail_size=(128, 128))
-    image_gallery = engine.ListField(engine.ImageField(thumbnail_size=(128,128)))
     description = engine.StringField()
     created_timestamp = engine.DateTimeField(default=datetime.datetime.now())
     updated_timestamp = engine.DateTimeField(default=datetime.datetime.now())
@@ -22,4 +21,8 @@ class Node(engine.Document):
     def get_by_slug(cls, slug):
         return cls.objects(slug__iexact=slug).first()
 
+
+
+class Gallery(object):
+    image_gallery = engine.ListField(Node)
 
