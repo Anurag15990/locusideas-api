@@ -4,7 +4,7 @@ from app import engine, db
 import datetime
 
 
-class Node(object):
+class Node(engine.Document):
 
     title = engine.StringField()
     cover_Image = engine.ImageField(thumbnail_size=(128, 128))
@@ -21,4 +21,5 @@ class Node(object):
     @classmethod
     def get_by_slug(cls, slug):
         return cls.objects(slug__iexact=slug).first()
+
 
