@@ -13,7 +13,8 @@ class User(Node, engine.Document):
     phone_Number = engine.StringField()
     mobile = engine.StringField()
     profile_photo = engine.ImageField(thumbnail_size=(128, 128))
-
+    isAdmin = engine.BooleanField()
+    isModerator = engine.BooleanField()
 
     meta = {
         'allow_inheritance' : True,
@@ -32,8 +33,11 @@ class MyWork(Node, Gallery, engine.Document):
 
 
 
-class Designers(User, engine.Document):
+class Designer(User, engine.Document):
 
+    institution = engine.StringField()
+    experience = engine.StringField()
+    proficiency = engine.StringField()
     bio = engine.StringField()
     myWorks = engine.ListField(MyWork())
 
