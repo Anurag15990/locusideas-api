@@ -135,4 +135,30 @@ class Designer(User, engine.Document):
     myWorks = engine.ListField(MyWork())
 
 
+    @property
+    def get_institution(self):
+        if self.institution:
+            return self.institution
+
+    @property
+    def get_experience(self):
+        if self.experience:
+            return self.experience
+
+    @property
+    def get_proficiency(self):
+        if self.proficiency:
+            return self.proficiency
+
+    @property
+    def get_bio(self):
+        if self.bio:
+            return self.bio
+
+    @property
+    def get_myWorks(self):
+        if self.myWorks and len(self.myWorks) is not 0:
+            return self.myWorks
+
+
 
