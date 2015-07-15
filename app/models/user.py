@@ -4,6 +4,7 @@ from app import engine
 from app.models import Node, Gallery
 import datetime, hashlib
 from ago import human
+
 class User(Node, engine.Document):
 
     first_name = engine.StringField()
@@ -14,7 +15,7 @@ class User(Node, engine.Document):
     phone_Number = engine.StringField()
     mobile = engine.StringField()
     profile_photo = engine.ImageField(thumbnail_size=(128, 128))
-    roles = engine.ListField(engine.StringField(('Admin', 'Admin'), ('Moderator', 'Moderator'), ('Customer', 'Customer')))
+    roles = engine.ListField(engine.StringField(('Basic User', 'Basic User'), ('Admin', 'Admin'), ('Moderator', 'Moderator') , ('Designer', 'Designer')))
     is_verified = engine.BooleanField()
     admin_approved = engine.BooleanField()
     user_since = engine.DateTimeField(default=datetime.datetime.now())
@@ -126,14 +127,26 @@ class MyWork(Node, Gallery, engine.Document):
         setattr(self, key, value)
         return self
 
-class Designer(User, engine.Document):
+class Designer(Node, engine.Document):
 
+    user = engine.StringField()
     institution = engine.StringField()
     experience = engine.StringField()
     proficiency = engine.StringField()
     bio = engine.StringField()
-    myWorks = engine.ListField(MyWork())
+    myWorks = engine.ListField(engine.StringField())
 
+
+    @classmethod
+    def create(cls, user, **kwargs):
+        if not user:
+            raise Exception('User is required')
+        designer = Designer(user=user)
+        for(k, v) in kwargs:
+            if hasattr(designer, k):
+                setattr(designer, k)
+        designer.save()
+        return designer
 
     @property
     def get_institution(self):

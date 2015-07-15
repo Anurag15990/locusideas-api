@@ -41,3 +41,9 @@ class Charge(object):
     discount_percentage = db.IntField()
 
 
+    @property
+    def actual_price(self):
+        return self.price - (self.price * (self.discount_percentage / 100))
+
+
+
