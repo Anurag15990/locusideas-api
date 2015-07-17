@@ -25,3 +25,25 @@ class Design(Node, Gallery, Charge, engine.Document):
     def update(self, key, value):
         setattr(self, key, value)
         return self
+
+
+class DesignCategoryMap(object):
+
+    category = engine.GenericReferenceField()
+    sub_category = engine.GenericReferenceField()
+    design = engine.GenericReferenceField()
+
+    @classmethod
+    def create_design_category_map(cls, category, sub_category, design):
+        if DesignCategoryMap.objects(category=category, sub_category=sub_category,design=design).first() is None:
+            categoryMap = DesignCategoryMap(category=category, sub_category=sub_category,design=design)
+            categoryMap.save()
+            return categoryMap
+
+    @classmethod
+    def remove_design_category_map(cls, category, sub_category, design):
+        category_map = DesignCategoryMap(category=category, sub_category=sub_category, design=design).first()
+        if category_map is not None:
+            category_map.delete()
+            print("Removed Category Map: ", category_map)
+
