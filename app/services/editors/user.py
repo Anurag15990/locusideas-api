@@ -54,8 +54,6 @@ class DesignerEditor(NodeEditor):
     def _invoke(self):
         if self.command == 'register-designer-profile':
             create_designer_profile(self.node, self.data)
-        if self.command == 'add-my-work':
-            edit_my_work(self.action, self.node, self.data)
         if self.command == 'update-bio':
             update_bio(self.node, self.data)
         if self.command == 'update-institution':
@@ -71,17 +69,6 @@ def create_designer_profile(user, data):
    node.save()
    return node
 
-
-def edit_my_work(action, user, data):
-    node = Designer.objects(pk=user).first()
-    if action == 'add':
-        node.myWorks.append(data['myWork'])
-    elif action == 'remove':
-        node.myWorks.remove(data['myWork'])
-    else:
-        print("Invalid Action")
-    node.save()
-    return node
 
 def update_bio(user, data):
     node = Designer.objects(pk=user).first()

@@ -27,7 +27,7 @@ class Design(Node, Gallery, Charge, engine.Document):
         return self
 
 
-class DesignCategoryMap(object):
+class DesignCategoryMap(engine.Document):
 
     category = engine.GenericReferenceField()
     sub_category = engine.GenericReferenceField()
