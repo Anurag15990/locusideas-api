@@ -95,38 +95,6 @@ class User(Node, engine.Document):
     def update_last_login(self):
         self.last_login = datetime.datetime.now()
 
-
-class MyWork(Node, Gallery, engine.Document):
-
-    designer = engine.StringField()
-    view_count = engine.IntField()
-
-    @property
-    def get_designer(self):
-        return self.designer if self.designer else ('No Designer Linked')
-
-    @property
-    def get_view_count(self):
-        if self.view_count:
-            return self.view_count
-        else:
-            return 0
-
-    @classmethod
-    def create(cls, title, **kwargs):
-        if not title:
-            raise Exception('Title required')
-        myWork = MyWork(title=title)
-        for k, v in kwargs:
-            if hasattr(myWork, k):
-                setattr(myWork, k , v)
-        myWork.save()
-        return myWork
-
-    def update(self, key, value):
-        setattr(self, key, value)
-        return self
-
 class Designer(Node, engine.Document):
 
     user = engine.StringField()
@@ -134,7 +102,6 @@ class Designer(Node, engine.Document):
     experience = engine.StringField()
     proficiency = engine.StringField()
     bio = engine.StringField()
-    myWorks = engine.ListField(engine.StringField())
 
 
     @classmethod
@@ -168,10 +135,6 @@ class Designer(Node, engine.Document):
         if self.bio:
             return self.bio
 
-    @property
-    def get_myWorks(self):
-        if self.myWorks and len(self.myWorks) is not 0:
-            return self.myWorks
 
 
 

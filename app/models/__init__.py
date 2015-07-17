@@ -46,4 +46,13 @@ class Charge(object):
         return self.price - (self.price * (self.discount_percentage / 100))
 
 
+class Category(object):
 
+    name = engine.StringField()
+    description = engine.StringField()
+
+class SubCategory(object):
+
+    name = engine.StringField()
+    category = engine.StringField()
+    description = engine.StringField()
