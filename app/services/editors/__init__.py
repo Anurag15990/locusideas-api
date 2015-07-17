@@ -1,6 +1,6 @@
 __author__ = 'anurag'
 
-
+from app.services.editors.user import UserEditor, DesignerEditor
 
 class NodeEditor(object):
 
@@ -19,3 +19,7 @@ class NodeEditor(object):
             raise Exception('Invalid Message')
         if type is 'base':
             return NodeEditor(message)
+        if type is 'user':
+            return UserEditor(message)
+        if type is 'designer':
+            return DesignerEditor(message)

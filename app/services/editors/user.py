@@ -14,10 +14,6 @@ class UserEditor(NodeEditor):
         elif self.command == 'edit-role':
             edit_role(self.action, self.node, self.message['role'])
 
-
-
-
-
 def edit_profile(user, data):
     node = User.objects(pk=user).first()
     for k, v in data.iteritems():
