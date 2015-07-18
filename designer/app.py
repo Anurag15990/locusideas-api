@@ -33,7 +33,8 @@ def editor_invoke():
         message = request.get_json(force=True)
         from designer.services.editors.base import BaseEditor
         editor = BaseEditor.factory(message)
-        return jsonify(status='success')
+        response = editor._invoke()
+        return jsonify(status='success',response=response)
     except Exception, e:
         return jsonify(dict(status='error', message='Something went wrong', exception=str(e)))
 
