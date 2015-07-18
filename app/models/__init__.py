@@ -2,16 +2,44 @@ __author__ = 'anurag'
 
 from app import engine, db
 import datetime
+from app.services.utils import get_random, save_image
+
+
+class EmbeddedImageField(engine.Document):
+
+    image_id = engine.IntField(default=get_random)
+    image_path = engine.StringField()
+    thumbnail_path = engine.StringField()
+
+    @classmethod
+    def create(cls, base64String):
+       if not base64String:
+           raise Exception("Cannot create Image")
+       embedded_Image = EmbeddedImageField()
+       embedded_Image.image_path, embedded_Image.thumbnail_path = save_image(base64String)
+       embedded_Image.save()
+       return embedded_Image
+
+    @classmethod
+    def update(cls, image_id, base64String):
+        if EmbeddedImageField.objects(image_id=image_id).first() is None:
+            raise Exception("No Image with id: ", image_id)
+        else:
+            document = EmbeddedImageField(image_id=image_id)
+            document.image_path, document.thumbnail_path = save_image(base64String, document.image_path, document.thumbnail_path)
+            document.save()
+            return document
 
 
 class Node(engine.Document):
 
     title = engine.StringField()
-    cover_Image = engine.ImageField(thumbnail_size=(128, 128))
+    cover_image_path = EmbeddedImageField()
     description = engine.StringField()
     created_timestamp = engine.DateTimeField(default=datetime.datetime.now())
     updated_timestamp = engine.DateTimeField(default=datetime.datetime.now())
     slug = engine.StringField()
+    image_gallery = engine.ListField(EmbeddedImageField())
 
     @classmethod
     def get_by_id(cls, id):
@@ -22,11 +50,7 @@ class Node(engine.Document):
         return cls.objects(slug__iexact=slug).first()
 
 
-
-class Gallery(Node):
-    image_gallery = engine.ListField(Node)
-
-class Location(object):
+class Location(engine.Document):
     location = engine.StringField()
     geo_location = engine.PointField()
     city = engine.StringField()
@@ -35,7 +59,7 @@ class Location(object):
     zipCode = engine.StringField()
 
 
-class Charge(object):
+class Charge(engine.Document):
     price = engine.DecimalField()
     currency = engine.StringField(choices=['INR', 'USD'])
     discount_percentage = db.IntField()

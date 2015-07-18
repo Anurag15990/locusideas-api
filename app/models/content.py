@@ -1,10 +1,10 @@
 __author__ = 'anurag'
 
-from app.models import Node, Gallery, Charge, Category, SubCategory
+from app.models import Node,  Charge, Category, SubCategory
 from app import engine
 
 
-class Design(Node, Gallery, Charge, engine.Document):
+class Design(Node, Charge, engine.Document):
 
     user = engine.StringField()
     categories = engine.ListField(engine.StringField())
