@@ -1,7 +1,7 @@
 __author__ = 'anurag'
 
 from designer.services.editors.base import BaseEditor
-from designer.models.user import User, Designer
+from designer.models.user import User
 from designer.models import EmbeddedImageField
 import zope
 
@@ -16,6 +16,10 @@ class UserEditor(BaseEditor):
             response = edit_role(self.action, self.node, self.message['role'])
         elif self.command == "update_cover":
             response = update_cover_photo(self.node, self.data)
+        elif self.command == 'update-bio':
+            response = update_bio(self.node, self.data)
+        elif self.command == 'update-institution':
+            response = update_institution(self.node, self.data)
         return response
 
 
@@ -31,13 +35,17 @@ def edit_profile(user, data):
     return node
 
 def register(data):
-    email, password, confirm = data['email'], data['password'], data["confirm"]
+    email, password, confirm, roles = data['email'], data['password'], data["confirm"], data['roles']
     if User.objects(email__iexact=email).first() is not None:
         raise Exception('User already exists')
 
     user = User.objects(email__iexact=email).first()
     if not user:
-        user = User.create(name=data['name'], email=data['email'], roles=['Basic User'])
+        user = User.create(name=data['name'], email=data['email'])
+        if data['roles'] is None:
+            user.roles = ['Basic User']
+        else:
+            user.roles = data['roles']
     try:
         user.change_password(confirm=confirm, password=password)
         user.save()
@@ -63,29 +71,6 @@ def update_cover_photo(user, data):
     node.save()
     return node
 
-
-class DesignerEditor(BaseEditor):
-
-    def _invoke(self):
-        response = None
-        if self.command == 'register-designer-profile':
-            response = create_designer_profile(self.node, self.data)
-        if self.command == 'update-bio':
-            response = update_bio(self.node, self.data)
-        if self.command == 'update-institution':
-            response = update_institution(self.node, self.data)
-        return response
-
-def create_designer_profile(user, data):
-   node = Designer.objects(user__iexact=user).first()
-   if node is not None:
-       raise Exception('Designer already exists')
-   else:
-       node = Designer.create(user=user, bio=data['bio'], institution=data['institution'], experience=data['experience'])
-   node.save()
-   return node
-
-
 def update_bio(user, data):
     node = Designer.objects(pk=user).first()
     node.bio = data['Bio']
@@ -103,9 +88,3 @@ def update_experience(user, data):
     node.experience = data['Experience']
     node.save()
     return node
-
-
-
-
-
-
