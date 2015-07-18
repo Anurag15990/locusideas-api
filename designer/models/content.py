@@ -1,7 +1,7 @@
 __author__ = 'anurag'
 
-from app.models import Node,  Charge, Category, SubCategory
-from app import engine
+from designer.models import Node,  Charge, Category, SubCategory
+from designer.app import engine
 
 
 class Design(Node, Charge, engine.Document):

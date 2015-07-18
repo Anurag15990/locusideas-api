@@ -1,8 +1,9 @@
 __author__ = 'anurag'
 
-from app.services.editors.user import UserEditor, DesignerEditor
+from designer.app import flaskapp
+from flask import jsonify, request
 
-class NodeEditor(object):
+class BaseEditor(object):
 
     def __init__(self, message):
         self.message = message
@@ -12,14 +13,20 @@ class NodeEditor(object):
         self.node = message.get('node', None)
         self.type = message.get('node', None)
 
+    def _invoke(self):
+        print("Sub classes must implement this method")
+
     @classmethod
     def factory(cls, message):
+        from designer.services.editors.user import UserEditor, DesignerEditor
         type = message['type']
         if type is None:
             raise Exception('Invalid Message')
-        if type is 'base':
-            return NodeEditor(message)
-        if type is 'user':
+        if type == 'base':
+            return BaseEditor(message)
+        if type == 'user':
             return UserEditor(message)
-        if type is 'designer':
+        if type == 'designer':
             return DesignerEditor(message)
+
+

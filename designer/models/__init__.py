@@ -1,8 +1,8 @@
 __author__ = 'anurag'
 
-from app import engine, db
+from designer.app import engine
 import datetime
-from app.services.utils import get_random, save_image
+from designer.services.utils import get_random, save_image
 
 
 class EmbeddedImageField(engine.Document):
@@ -31,10 +31,10 @@ class EmbeddedImageField(engine.Document):
             return document
 
 
-class Node(engine.Document):
+class Node(object):
 
     title = engine.StringField()
-    cover_image_path = EmbeddedImageField()
+    cover_image = EmbeddedImageField()
     description = engine.StringField()
     created_timestamp = engine.DateTimeField(default=datetime.datetime.now())
     updated_timestamp = engine.DateTimeField(default=datetime.datetime.now())
@@ -62,7 +62,7 @@ class Location(engine.Document):
 class Charge(engine.Document):
     price = engine.DecimalField()
     currency = engine.StringField(choices=['INR', 'USD'])
-    discount_percentage = db.IntField()
+    discount_percentage = engine.IntField()
 
 
     @property

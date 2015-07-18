@@ -1,6 +1,6 @@
 __author__ = 'anurag'
 
-from app import engine
+from designer.app import engine
 
 WISHLISTED, WISHLISTED_BY = "wishlisted", "wishlisted_by"
 

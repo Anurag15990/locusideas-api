@@ -12,7 +12,7 @@ class NodeFactory(object):
 
     @classmethod
     def get_model_by_name(cls, name):
-        from app.models.user import User,Designer
+        from designer.models.user import User,Designer
         name = name.lower()
 
         if name == USER: return User

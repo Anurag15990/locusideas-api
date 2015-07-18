@@ -1,21 +1,19 @@
 __author__ = 'anurag'
 
-from app import engine
-from app.models import Node, Gallery
+from designer.app import engine
+from designer.models import Node
 import datetime, hashlib
 from ago import human
 
 class User(Node, engine.Document):
 
-    first_name = engine.StringField()
-    last_name = engine.StringField()
+    name = engine.StringField()
     email = engine.StringField()
     password = engine.StringField()
     address = engine.StringField()
     phone_Number = engine.StringField()
     mobile = engine.StringField()
-    profile_photo = engine.ImageField(thumbnail_size=(128, 128))
-    roles = engine.ListField(engine.StringField(('Basic User', 'Basic User'), ('Admin', 'Admin'), ('Moderator', 'Moderator') , ('Designer', 'Designer')))
+    roles = engine.ListField(engine.StringField())
     is_verified = engine.BooleanField()
     admin_approved = engine.BooleanField()
     user_since = engine.DateTimeField(default=datetime.datetime.now())
@@ -24,7 +22,7 @@ class User(Node, engine.Document):
     meta = {
         'allow_inheritance' : True,
         'indexes' : [
-            {'fields': ['first_name', 'last_name', 'email'], 'unique' : False, 'sparse': False, 'types': False}
+            {'fields': ['name', 'email'], 'unique' : False, 'sparse': False, 'types': False}
         ],
     }
 
@@ -39,7 +37,7 @@ class User(Node, engine.Document):
         return human(self.user_since, precision=1)
 
     @property
-    def password(self):
+    def passwd(self):
         return self.password
 
     def __repr__(self):
@@ -47,16 +45,14 @@ class User(Node, engine.Document):
 
 
     def setTitle(self):
-        if self.first_name:
-            self.title += self.first_name
-        if self.last_name:
-            self.title += self.last_name
+        if self.name:
+            self.title += self.name
         self.save()
         return self.title
 
-    @password.setter
-    def password(self, new_val):
-        self.password = hashlib.md5(new_val).hexdigest()
+    # @password.setter
+    # def password(self, new_val):
+    #     self.password = hashlib.md5(new_val).hexdigest()
 
     def change_password(self, **kwargs):
         if kwargs['confirm'] == kwargs['password']:
@@ -67,12 +63,16 @@ class User(Node, engine.Document):
 
     @classmethod
     def create(cls, name, email, **kwargs):
-        user = User(name=name, email=email)
-        for k, v in kwargs:
-            if hasattr(user, k):
-                setattr(user, k, v)
-        user.save()
-        return user
+        try:
+            user = User(name=name, email=email)
+            if kwargs != None:
+                for k in kwargs:
+                    if hasattr(user, k):
+                        setattr(user, k, kwargs.get(k))
+            user.save()
+            return user
+        except Exception, e:
+            raise e
 
     def update(self, key, value):
         setattr(self, key, value)
@@ -95,7 +95,7 @@ class User(Node, engine.Document):
     def update_last_login(self):
         self.last_login = datetime.datetime.now()
 
-class Designer(Node, engine.Document):
+class Designer(Node):
 
     user = engine.StringField()
     institution = engine.StringField()

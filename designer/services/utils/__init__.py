@@ -1,7 +1,7 @@
 __author__ = 'anurag'
 
 
-from app.settings import MEDIA_FOLDER
+from designer.settings import MEDIA_FOLDER
 import base64
 from PIL import Image
 from flask import g
