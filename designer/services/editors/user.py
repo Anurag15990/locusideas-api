@@ -14,7 +14,7 @@ class UserEditor(BaseEditor):
             response = register(self.data)
         elif self.command == 'edit-role':
             response = edit_role(self.action, self.node, self.message['role'])
-        elif self.command == "update_cover":
+        elif self.command == "update-cover":
             response = update_cover_photo(self.node, self.data)
         elif self.command == 'update-bio':
             response = update_bio(self.node, self.data)
