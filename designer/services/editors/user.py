@@ -31,7 +31,7 @@ def edit_profile(user, data):
         v = v.strip()
         setattr(node, k, v)
         print("K[%s] : V[%s]" %(k,v))
-    node.modify(upsert=True)
+    node.save()
     return node
 
 def register(data):
@@ -61,7 +61,7 @@ def edit_role(action, user, role):
         node.roles.remove(role)
     else:
         print "Invalid Action"
-    node.modify(upsert=True, roles=role)
+    node.save()
     return node
 
 def update_cover_photo(user, data):
@@ -74,19 +74,20 @@ def update_cover_photo(user, data):
 def update_bio(user, data):
     node = User(pk=user)
     if data['bio'] is not None:
-        node.modify(upsert=True, bio=data['bio'])
+        node.bio = data['bio']
+        node.save()
     return node
 
 def update_institution(user, data):
     node = User(pk=user)
     if data['institution'] is not None:
-        institution = data['institution']
-        node.modify(upsert=True, institution=institution)
+        node.institution = data['institution']
+        node.save()
     return node
 
 def update_experience(user, data):
     node = User(pk=user)
     if data['experience'] is None:
-        experience = data['Experience']
-    node.modify(upsert=True,experience=experience)
+        node.experience = data['Experience']
+        node.save()
     return node
