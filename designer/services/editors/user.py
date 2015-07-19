@@ -24,14 +24,14 @@ class UserEditor(BaseEditor):
 
 
 def edit_profile(user, data):
-    node = User(pk=user).first()
+    node = User(pk=user)
     for k, v in data.iteritems():
         if not hasattr(node, k) or k == 'email':
             continue
         v = v.strip()
         setattr(node, k, v)
         print("K[%s] : V[%s]" %(k,v))
-    node.save()
+    node.modify(upsert=True)
     return node
 
 def register(data):
@@ -61,30 +61,32 @@ def edit_role(action, user, role):
         node.roles.remove(role)
     else:
         print "Invalid Action"
-    node.save()
+    node.modify(upsert=True, roles=role)
     return node
 
 def update_cover_photo(user, data):
     node = User(pk=user)
-    if data['image'] is not None:
-        cover_image = EmbeddedImageField.create(data["image"])
+    if data['cover_image'] is not None:
+        cover_image = data['cover_image']
         node.modify(upsert=True, cover_image=cover_image)
     return node
 
 def update_bio(user, data):
-    node = User.objects(pk=user).first()
-    node.bio = data['Bio']
-    node.save()
+    node = User(pk=user)
+    if data['bio'] is not None:
+        node.modify(upsert=True, bio=data['bio'])
     return node
 
 def update_institution(user, data):
-    node = User.objects(pk=user).first()
-    node.institution = data['Institution']
-    node.save()
+    node = User(pk=user)
+    if data['institution'] is not None:
+        institution = data['institution']
+        node.modify(upsert=True, institution=institution)
     return node
 
 def update_experience(user, data):
-    node = User.objects(pk=user).first()
-    node.experience = data['Experience']
-    node.save()
+    node = User(pk=user)
+    if data['experience'] is None:
+        experience = data['Experience']
+    node.modify(upsert=True,experience=experience)
     return node
