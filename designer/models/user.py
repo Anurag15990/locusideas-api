@@ -18,6 +18,10 @@ class User(Node, engine.Document):
     admin_approved = engine.BooleanField()
     user_since = engine.DateTimeField(default=datetime.datetime.now())
     last_login = engine.DateTimeField()
+    institution = engine.StringField()
+    experience = engine.StringField()
+    proficiency = engine.StringField()
+    bio = engine.StringField()
 
     meta = {
         'allow_inheritance' : True,
@@ -94,26 +98,6 @@ class User(Node, engine.Document):
 
     def update_last_login(self):
         self.last_login = datetime.datetime.now()
-
-class Designer(Node):
-
-    user = engine.StringField()
-    institution = engine.StringField()
-    experience = engine.StringField()
-    proficiency = engine.StringField()
-    bio = engine.StringField()
-
-
-    @classmethod
-    def create(cls, user, **kwargs):
-        if not user:
-            raise Exception('User is required')
-        designer = Designer(user=user)
-        for(k, v) in kwargs:
-            if hasattr(designer, k):
-                setattr(designer, k)
-        designer.save()
-        return designer
 
     @property
     def get_institution(self):
