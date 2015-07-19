@@ -5,7 +5,7 @@ import datetime
 from designer.services.utils import get_random, save_image
 
 
-class EmbeddedImageField(engine.Document):
+class EmbeddedImageField(engine.EmbeddedDocument):
 
     image_id = engine.IntField(default=get_random)
     image_path = engine.StringField()
@@ -13,12 +13,15 @@ class EmbeddedImageField(engine.Document):
 
     @classmethod
     def create(cls, base64String):
-       if not base64String:
-           raise Exception("Cannot create Image")
-       embedded_Image = EmbeddedImageField()
-       embedded_Image.image_path, embedded_Image.thumbnail_path = save_image(base64String)
-       embedded_Image.save()
-       return embedded_Image
+       try:
+        if not base64String:
+               raise Exception("Cannot create Image")
+        embedded_Image = EmbeddedImageField()
+        embedded_Image.image_path, embedded_Image.thumbnail_path = save_image(base64String, image_path=None, image_thumbnail_path=None)
+        # embedded_Image.save()
+        return embedded_Image
+       except Exception,e:
+           print e.message
 
     @classmethod
     def update(cls, image_id, base64String):
@@ -27,14 +30,14 @@ class EmbeddedImageField(engine.Document):
         else:
             document = EmbeddedImageField(image_id=image_id)
             document.image_path, document.thumbnail_path = save_image(base64String, document.image_path, document.thumbnail_path)
-            document.save()
+            # document.save()
             return document
 
 
 class Node(object):
 
     title = engine.StringField()
-    cover_image = EmbeddedImageField()
+    cover_image = engine.EmbeddedDocumentField(EmbeddedImageField)
     description = engine.StringField()
     created_timestamp = engine.DateTimeField(default=datetime.datetime.now())
     updated_timestamp = engine.DateTimeField(default=datetime.datetime.now())

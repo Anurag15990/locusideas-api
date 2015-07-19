@@ -14,13 +14,13 @@ class UserEditor(BaseEditor):
             response = register(self.data)
         elif self.command == 'edit-role':
             response = edit_role(self.action, self.node, self.message['role'])
-        elif self.command == "update_cover":
+        elif self.command == 'update-cover':
             response = update_cover_photo(self.node, self.data)
         return response
 
 
 def edit_profile(user, data):
-    node = User.objects(pk=user).first()
+    node = User(pk=user).first()
     for k, v in data.iteritems():
         if not hasattr(node, k) or k == 'email':
             continue
@@ -59,8 +59,8 @@ def edit_role(action, user, role):
 def update_cover_photo(user, data):
     node = User(pk=user)
     if data['image'] is not None:
-        node.cover_image = EmbeddedImageField.create(data["image"])
-    node.save()
+        cover_image = EmbeddedImageField.create(data["image"])
+        node.modify(upsert=True, cover_image=cover_image)
     return node
 
 

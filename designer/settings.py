@@ -6,4 +6,4 @@ MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 
 MONGODB_DB = 'designerHub'
-MEDIA_FOLDER = os.getcwd() + "/app/assets/media"
+MEDIA_FOLDER = os.getcwd() + "/assets/media"

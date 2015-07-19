@@ -3,7 +3,7 @@ __author__ = 'anurag'
 
 from designer.settings import MEDIA_FOLDER
 import base64
-from PIL import Image
+from PIL import Image, ImageFile
 from flask import g
 import datetime, random
 import os
@@ -18,6 +18,7 @@ def decode_base64(data):
 
 
 def save_image(base64String, image_path, image_thumbnail_path):
+    ImageFile.LOAD_TRUNCATED_IMAGES = True
     size = 128, 128
     if not os.path.exists(MEDIA_FOLDER):
         os.mkdir(MEDIA_FOLDER)
