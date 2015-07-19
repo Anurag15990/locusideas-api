@@ -5,8 +5,8 @@ from designer.models import EmbeddedImageField
 class ImageEditor(BaseEditor):
 
     def _invoke(self):
-        if self.command == 'upload_image':
-            upload_image(self.data)
+        if self.command == 'upload-image':
+            return upload_image(self.data)
 
 
 def upload_image(data):

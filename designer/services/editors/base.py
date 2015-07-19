@@ -19,6 +19,7 @@ class BaseEditor(object):
     @classmethod
     def factory(cls, message):
         from designer.services.editors.user import UserEditor
+        from designer.services.editors.image import ImageEditor
         type = message['type']
         if type is None:
             raise Exception('Invalid Message')
@@ -26,5 +27,6 @@ class BaseEditor(object):
             return BaseEditor(message)
         if type == 'user':
             return UserEditor(message)
-
+        if type == 'photo':
+            return ImageEditor(message)
 

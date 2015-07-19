@@ -226,11 +226,25 @@ pZk+VyHoShuKQYKcvX+lD/xKZ8rCc4I/5rq6q1xrW0kbIxO8gXt5lS3xgR8xmhgRXV1GBFk3LFvJ
 node = "55aad0fa50eb684b7c4a7b1c"
 
 payload = {
-    "node": node,
-    "type": "user",
-    "command":"update-cover",
+    "type": "photo",
+    "command":"upload-image",
     "data": {
         "image": base64String
+    }
+}
+
+imageDocument = {
+    "thumbnail_path": "/Users/anurag/Documents/DesignerZone/designer/assets/media/20150719-996156190172979031-thumbnail.jpg",
+    "image_id": 854209739,
+    "image_path": "/Users/anurag/Documents/DesignerZone/designer/assets/media/20150719-996156190172979031.jpg"
+}
+
+payload2 = {
+    "node": node,
+    "type": "user",
+    "command": "update-cover",
+    "data" : {
+        "cover_image" : imageDocument
     }
 }
 
@@ -240,6 +254,6 @@ url = "http://localhost:4900/editors/invoke"
 request = urllib2.Request(url)
 request.add_header('Content-Type', 'application/json')
 
-response = urllib2.urlopen(request, json.dumps(payload))
+response = urllib2.urlopen(request, json.dumps(payload2))
 
-print str(response)
+print str(json.load(response))
