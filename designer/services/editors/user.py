@@ -72,19 +72,19 @@ def update_cover_photo(user, data):
     return node
 
 def update_bio(user, data):
-    node = Designer.objects(pk=user).first()
+    node = User.objects(pk=user).first()
     node.bio = data['Bio']
     node.save()
     return node
 
 def update_institution(user, data):
-    node = Designer.objects(pk=user).first()
+    node = User.objects(pk=user).first()
     node.institution = data['Institution']
     node.save()
     return node
 
 def update_experience(user, data):
-    node = Designer.objects(pk=user).first()
+    node = User.objects(pk=user).first()
     node.experience = data['Experience']
     node.save()
     return node
