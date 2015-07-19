@@ -1,6 +1,10 @@
 *idea*
 *.iml
+<<<<<<< HEAD
 *.pyc
 *.jpeg
 *.jpg
 .gitignore
+=======
+*.pyc
+>>>>>>> 85969abe603106479e5f9018e9cef9200fa9ee65
