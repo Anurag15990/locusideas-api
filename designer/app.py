@@ -1,6 +1,6 @@
 __author__ = 'anurag'
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import settings
 from flask.ext.mongoengine import MongoEngine
 from flask.ext.mongorest import MongoRest
@@ -10,7 +10,7 @@ import json
 
 sys.setrecursionlimit(10000)
 
-flaskapp = Flask(__name__, static_folder='assets')
+flaskapp = Flask(__name__, static_folder='assets', template_folder='webapps/')
 
 flaskapp.config['MONGODB_SETTINGS'] = {
     'db': settings.MONGODB_DB,
@@ -39,6 +39,12 @@ def editor_invoke():
         return jsonify(dict(status='error', message='Something went wrong', exception=str(e)))
 
 
+@flaskapp.route('/user/add')
+def render_template_for_user():
+    try:
+        return render_template('pages/index.html')
+    except Exception, e:
+        raise e
 
 
 if __name__ == '__main__':
