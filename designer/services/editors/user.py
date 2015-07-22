@@ -2,7 +2,6 @@ __author__ = 'anurag'
 
 from designer.services.editors.base import BaseEditor
 from designer.models.user import User
-from designer.models import EmbeddedImageField
 import zope
 
 class UserEditor(BaseEditor):
