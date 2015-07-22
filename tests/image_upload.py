@@ -223,21 +223,18 @@ Tz596K4j7NWAzMm5RvICzA2ziva6hy3jbwmbhOtbMT8Q09u2YCgep800ttakklVAnscffNdXVZiF
 pZk+VyHoShuKQYKcvX+lD/xKZ8rCc4I/5rq6q1xrW0kbIxO8gXt5lS3xgR8xmhgRXV1GBFk3LFvJ
 /l+5rq6uotAnXP/Z"""
 
-node = "55aad0fa50eb684b7c4a7b1c"
+node = "55afa9de50eb688360541439"
 
 payload = {
+    "node": node,
     "type": "photo",
-    "command":"upload-image",
+    "command":"upload-user-image",
     "data": {
         "image": base64String
     }
 }
 
-imageDocument = {
-    "thumbnail_path": "/Users/anurag/Documents/DesignerZone/designer/assets/media/20150719-996156190172979031-thumbnail.jpg",
-    "image_id": 854209739,
-    "image_path": "/Users/anurag/Documents/DesignerZone/designer/assets/media/20150719-996156190172979031.jpg"
-}
+imageDocument = "55afb54e50eb68857ddbe0f0"
 
 payload2 = {
     "node": node,
@@ -246,6 +243,21 @@ payload2 = {
     "data" : {
         "cover_image" : imageDocument
     }
+}
+
+payload3 = {
+    "node": node,
+    "type": "user",
+    "command": "register",
+    "data" : {
+        "name": "Anurag Agnihotri",
+        "email": "anurag.agnihotri@ensuantinc.com",
+        "password": "27572812",
+        "confirm": "27572812",
+        "phone": "27572812",
+        "roles": ["Basic User"]
+    }
+
 }
 
 

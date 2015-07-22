@@ -2,6 +2,7 @@ __author__ = 'anurag'
 
 from designer.services.editors.base import BaseEditor
 from designer.models.user import User
+from designer.models.image import UserImage
 import zope
 
 class UserEditor(BaseEditor):
@@ -15,6 +16,8 @@ class UserEditor(BaseEditor):
             response = edit_role(self.action, self.node, self.message['role'])
         elif self.command == "update-cover":
             response = update_cover_photo(self.node, self.data)
+        elif self.command == 'update-profile-photo':
+            response = update_profile_photo(self.node, self.data)
         elif self.command == 'update-bio':
             response = update_bio(self.node, self.data)
         elif self.command == 'update-institution':
@@ -67,7 +70,16 @@ def update_cover_photo(user, data):
     node = User(pk=user)
     if data['cover_image'] is not None:
         cover_image = data['cover_image']
-        node.modify(upsert=True, cover_image=cover_image)
+        cover_Image = UserImage.set_Cover(cover_image, user=user)
+        node.modify(upsert=True, cover_image=cover_Image)
+    return node
+
+def update_profile_photo(user, data):
+    node = User(pk=user)
+    if data['profile_photo'] is not None:
+        profile_photo = data['profile_photo']
+        profile_image = UserImage.set_Profile(profile_photo, user=user)
+        node.modify(upsert=True, profile_photo=profile_image)
     return node
 
 def update_bio(user, data):
