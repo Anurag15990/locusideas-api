@@ -255,7 +255,7 @@ payload3 = {
         "password": "27572812",
         "confirm": "27572812",
         "phone": "27572812",
-        "roles": ["Basic User"]
+        "roles": ["Basic User", "Admin", "Designer"]
     }
 
 }

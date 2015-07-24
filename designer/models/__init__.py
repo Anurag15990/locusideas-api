@@ -70,24 +70,3 @@ class Location(engine.Document):
     zipCode = engine.StringField()
 
 
-class Charge(engine.Document):
-    price = engine.DecimalField()
-    currency = engine.StringField(choices=['INR', 'USD'])
-    discount_percentage = engine.IntField()
-
-
-    @property
-    def actual_price(self):
-        return self.price - (self.price * (self.discount_percentage / 100))
-
-
-class Category(object):
-
-    name = engine.StringField()
-    description = engine.StringField()
-
-class SubCategory(object):
-
-    name = engine.StringField()
-    category = engine.StringField()
-    description = engine.StringField()
