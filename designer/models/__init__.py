@@ -8,7 +8,7 @@ import os, random, base64
 from designer.settings import MEDIA_FOLDER
 
 
-class ImageModel(object):
+class ImageModel(engine.Document):
 
     image = engine.ImageField()
     image_path = engine.StringField()
@@ -17,6 +17,10 @@ class ImageModel(object):
     thumbnail_updated_time = engine.DateTimeField(default=datetime.datetime.now())
     icon_path = engine.StringField()
     icon_updated_time = engine.DateTimeField(default=datetime.datetime.now())
+
+    meta = {
+        "allow_inheritance" : True,
+    }
 
 def save_image(base64String):
     ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -38,7 +42,7 @@ def save_image(base64String):
     image.thumbnail(icon_size, Image.ADAPTIVE)
     image.save(icon_path, "JPEG")
     file.close()
-    return path, thumbnail_path, icon_path, original_image
+    return path, thumbnail_path, icon_path, path
 
 class Node(object):
 

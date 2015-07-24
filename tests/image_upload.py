@@ -266,6 +266,6 @@ url = "http://localhost:4900/editors/invoke"
 request = urllib2.Request(url)
 request.add_header('Content-Type', 'application/json')
 
-response = urllib2.urlopen(request, json.dumps(payload2))
+response = urllib2.urlopen(request, json.dumps(payload))
 
 print str(json.load(response))

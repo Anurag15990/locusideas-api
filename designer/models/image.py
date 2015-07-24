@@ -16,7 +16,8 @@ class UserImage(ImageModel, engine.Document):
             if not data:
                 raise Exception("Cannot create Image")
             image = UserImage()
-            image.image_path, image.thumbnail_path, image.icon_path, image.upload_image = save_image(data['image'])
+            image.image_path, image.thumbnail_path, image.icon_path, path = save_image(data['image'])
+            image.image = open(path, "rb")
             image.user = User(pk=user)
             image.save()
             return image
