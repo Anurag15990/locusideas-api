@@ -234,7 +234,7 @@ payload = {
     }
 }
 
-imageDocument = "55afb54e50eb68857ddbe0f0"
+imageDocument = "55b2739350eb6822e3681b62"
 
 payload2 = {
     "node": node,
@@ -266,6 +266,6 @@ url = "http://localhost:4900/editors/invoke"
 request = urllib2.Request(url)
 request.add_header('Content-Type', 'application/json')
 
-response = urllib2.urlopen(request, json.dumps(payload))
+response = urllib2.urlopen(request, json.dumps(payload2))
 
 print str(json.load(response))

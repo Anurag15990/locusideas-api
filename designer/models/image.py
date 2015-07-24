@@ -32,11 +32,11 @@ class UserImage(ImageModel, engine.Document):
         if image.is_Current_Cover is True:
             print('Already Current Cover')
         else:
+            if UserImage.objects(user=user, is_Current_Cover=True).first() is not None:
+                previous_Image = UserImage.objects(user=user, is_Current_Cover=True).first()
+                previous_Image.modify(upsert=True, is_Current_Cover=False)
             image.is_Current_Cover = True
-            previous_Image = UserImage(user=user, is_Current_Cover=True)
-            previous_Image.is_Current_Cover = False
-            previous_Image.save()
-            image.save()
+            image.modify(upsert=True, is_Current_Cover=True)
             return image
 
     @classmethod
@@ -47,11 +47,10 @@ class UserImage(ImageModel, engine.Document):
         if image.is_Current_Profile is True:
             print("Already Current Profile Image")
         else:
-            image.is_Current_Profile = True
-            previous_Image = UserImage(user=user, is_Current_Profile=True)
-            previous_Image.is_Current_Profile = False
-            previous_Image.save()
-            image.save()
+            if UserImage.objects(user=user, is_Current_Profile=True).first() is not None:
+                previous_Image = UserImage.objects(user=user, is_Current_Profile=True).first()
+                previous_Image.modify(upsert=True, is_Current_Profile=False)
+            image.modify(upsert=True, is_Current_Profile=True)
             return image
 
 

@@ -71,16 +71,14 @@ def update_cover_photo(user, data):
     if data['cover_image'] is not None:
         cover_image = data['cover_image']
         cover_Image = UserImage.set_Cover(cover_image, user=user)
-        node.modify(upsert=True, cover_image=cover_Image)
-    return node
+    return cover_Image
 
 def update_profile_photo(user, data):
     node = User(pk=user)
     if data['profile_photo'] is not None:
         profile_photo = data['profile_photo']
         profile_image = UserImage.set_Profile(profile_photo, user=user)
-        node.modify(upsert=True, profile_photo=profile_image)
-    return node
+    return profile_image
 
 def update_bio(user, data):
     node = User(pk=user)

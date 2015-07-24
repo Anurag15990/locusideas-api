@@ -10,8 +10,6 @@ class User(Node, engine.Document):
     name = engine.StringField()
     email = engine.StringField()
     password = engine.StringField()
-    cover_Image = engine.ReferenceField("UserImage")
-    profile_photo = engine.ReferenceField("UserImage")
     address = engine.StringField()
     phone_Number = engine.StringField()
     mobile = engine.StringField()
