@@ -110,6 +110,6 @@ def update_institution(user, data):
 def update_experience(user, data):
     node = User(pk=user)
     if data['experience'] is None:
-        node.experience = data['Experience']
+        node.experience = data['experience']
         node.save()
     return node
