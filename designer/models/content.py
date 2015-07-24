@@ -1,49 +1,31 @@
 __author__ = 'anurag'
 
-from designer.models import Node,  Charge, Category, SubCategory
+
 from designer.app import engine
+import datetime
 
+class Creatives(engine.Document):
 
-class Design(Node, Charge, engine.Document):
+    title = engine.StringField()
+    description = engine.StringField()
+    owner = engine.ReferenceField('User')
+    category = engine.ListField(engine.StringField())
+    sub_category = engine.ListField(engine.StringField())
+    created_timestamp = engine.DateTimeField(default=datetime.datetime.now())
+    updated_timestamp = engine.DateTimeField(default=datetime.datetime.now())
+    slug = engine.StringField()
 
-    user = engine.StringField()
-    categories = engine.ListField(engine.StringField())
-    sub_categories = engine.ListField(engine.StringField())
+    meta = {
+        "allow_inheritance" : True
+    }
 
-    @classmethod
-    def create(cls, title, cover_Image, **kwargs):
-        if not title:
-            raise Exception('Title Required')
+class Designs(Creatives):
 
-        design = Design(title=title, cover_Image=cover_Image)
-        for k, v in kwargs:
-            if hasattr(design, k):
-                setattr(design, k, v)
-        design.save()
-        return design
+    price = engine.DecimalField()
+    currency = engine.StringField(choices=['INR', 'USD'])
+    discount = engine.IntField()
 
-    def update(self, key, value):
-        setattr(self, key, value)
-        return self
-
-
-class DesignCategoryMap(engine.Document):
-
-    category = engine.GenericReferenceField()
-    sub_category = engine.GenericReferenceField()
-    design = engine.GenericReferenceField()
-
-    @classmethod
-    def create_design_category_map(cls, category, sub_category, design):
-        if DesignCategoryMap.objects(category=category, sub_category=sub_category,design=design).first() is None:
-            categoryMap = DesignCategoryMap(category=category, sub_category=sub_category,design=design)
-            categoryMap.save()
-            return categoryMap
-
-    @classmethod
-    def remove_design_category_map(cls, category, sub_category, design):
-        category_map = DesignCategoryMap(category=category, sub_category=sub_category, design=design).first()
-        if category_map is not None:
-            category_map.delete()
-            print("Removed Category Map: ", category_map)
+    @property
+    def actual_price(self):
+        return self.price - (self.price * (self.discount_percentage / 100))
 
