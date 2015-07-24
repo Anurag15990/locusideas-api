@@ -255,7 +255,9 @@ payload3 = {
         "password": "27572812",
         "confirm": "27572812",
         "phone": "27572812",
-        "roles": ["Basic User"]
+        "roles": ["Basic User"],
+        "mobile": "9876543210",
+        "address": "C.B.D Belapur, Navi mumbai, Maharashtra - 400 614"
     }
 
 }
@@ -266,6 +268,6 @@ url = "http://localhost:4900/editors/invoke"
 request = urllib2.Request(url)
 request.add_header('Content-Type', 'application/json')
 
-response = urllib2.urlopen(request, json.dumps(payload2))
+response = urllib2.urlopen(request, json.dumps(payload3))
 
 print str(json.load(response))

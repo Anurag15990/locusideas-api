@@ -11,7 +11,7 @@ class User(Node, engine.Document):
     email = engine.StringField()
     password = engine.StringField()
     address = engine.StringField()
-    phone_Number = engine.StringField()
+    phone = engine.StringField()
     mobile = engine.StringField()
     roles = engine.ListField(engine.StringField())
     is_verified = engine.BooleanField()

@@ -50,6 +50,19 @@ def register(data):
             user.roles = data['roles']
     try:
         user.change_password(confirm=confirm, password=password)
+
+        if data['address'] is not None:
+            user.address = data['address']
+
+        if data['phone'] is not None:
+            user.phone = data['phone']
+
+        if data['mobile'] is not None:
+            user.mobile = data['mobile']
+
+        user.is_verified = False
+        user.admin_approved = False
+
         user.save()
     except Exception,e:
         raise Exception(e)
