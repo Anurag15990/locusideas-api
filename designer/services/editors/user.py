@@ -22,6 +22,10 @@ class UserEditor(BaseEditor):
             response = update_bio(self.node, self.data)
         elif self.command == 'update-institution':
             response = update_institution(self.node, self.data)
+        elif self.command == 'update-experience':
+            response = update_experience(self.node, self.data)
+        elif self.command == 'update-contact-info':
+            response = update_contact_info(self.node, self.data)
         return response
 
 
@@ -80,36 +84,49 @@ def edit_role(action, user, role):
     return node
 
 def update_cover_photo(user, data):
-    node = User(pk=user)
     if data['cover_image'] is not None:
         cover_image = data['cover_image']
         cover_Image = UserImage.set_Cover(cover_image, user=user)
     return cover_Image
 
 def update_profile_photo(user, data):
-    node = User(pk=user)
     if data['profile_photo'] is not None:
         profile_photo = data['profile_photo']
         profile_image = UserImage.set_Profile(profile_photo, user=user)
     return profile_image
 
 def update_bio(user, data):
-    node = User(pk=user)
+    node = User.objects(pk=user).first()
     if data['bio'] is not None:
         node.bio = data['bio']
         node.save()
     return node
 
 def update_institution(user, data):
-    node = User(pk=user)
+    node = User.objects(pk=user).first()
     if data['institution'] is not None:
         node.institution = data['institution']
         node.save()
     return node
 
 def update_experience(user, data):
-    node = User(pk=user)
-    if data['experience'] is None:
+    node = User.objects(pk=user).first()
+    if data['experience'] is not None:
         node.experience = data['experience']
         node.save()
     return node
+
+def update_contact_info(user, data):
+    node = User.objects(pk=user).first()
+    if data['address'] is not None:
+        node.address = data['address']
+
+    if data['mobile'] is not None:
+        node.mobile = data['mobile']
+
+    if data['phone'] is not None:
+        node.phone = data['phone']
+
+    node.save()
+    return node
+
