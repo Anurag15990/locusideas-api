@@ -2,6 +2,7 @@ __author__ = 'anurag'
 
 from designer.app import engine
 from designer.models.user import User
+from designer.models.image import CreativesImage
 import datetime
 from ago import human
 
@@ -50,6 +51,14 @@ class Creatives(engine.Document):
     @property
     def get_Owner(self):
         return User.objects(pk=self.owner).first()
+
+    @property
+    def get_Cover_Image(self):
+        return CreativesImage.objects(creative=self, is_Current_Cover=True).first()
+
+    @property
+    def get_Images(self):
+        return CreativesImage.objects(creative=self).all()
 
 
 class Designs(Creatives):
@@ -100,4 +109,12 @@ class PortFolio(Creatives):
             tagList.append(tag)
         return tagList
 
-
+    @classmethod
+    def create(cls, title, user, **kwargs):
+        node = PortFolio(title=title, user=user)
+        if kwargs != None:
+            for k in kwargs:
+                if hasattr(node, k):
+                    setattr(node, k, kwargs.get(k))
+        node.save()
+        return node

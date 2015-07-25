@@ -2,6 +2,7 @@ __author__ = 'anurag'
 
 from designer.models import ImageModel, save_image
 from designer.models.user import User
+from designer.models.creatives import Creatives
 from designer.app import engine
 
 class UserImage(ImageModel, engine.Document):
@@ -54,36 +55,37 @@ class UserImage(ImageModel, engine.Document):
             return image
 
 
-class ContentImage(ImageModel, engine.Document):
+class CreativesImage(ImageModel, engine.Document):
 
-    content = engine.ReferenceField('Content')
+    creative = engine.ReferenceField('Creatives')
     is_Current_Cover = engine.BooleanField()
     caption = engine.StringField()
 
     @classmethod
-    def create(cls, data, content):
+    def create(cls, data, creative):
         try:
             if not data:
                 raise Exception("Cannot create Image")
-            image = ContentImage()
-            image.image_path, image.thumbnail_path, image.icon_path, image.image = save_image(data['image'])
+            image = CreativesImage()
+            image.image_path, image.thumbnail_path, image.icon_path, path = save_image(data['image'])
+            image.image = open(path, 'rb')
+            image.creative = Creatives(creative)
             image.save()
             return image
         except Exception, e:
             raise e
 
     @classmethod
-    def set_Cover(cls, image, content):
-        if ContentImage(pk=image, content=content) is None:
+    def set_Cover(cls, image, creative):
+        if CreativesImage(pk=image, creative=creative) is None:
             raise Exception("Image does not exist")
-        image = UserImage(pk=image, content=content)
+        image = CreativesImage(pk=image, creative=creative)
         if image.is_Current_Cover is True:
             print('Already Current Cover')
         else:
-            image.is_Current_Cover = True
-            previous_Image = UserImage(content=content, is_Current_Cover=True)
-            previous_Image.is_Current_Cover = False
-            previous_Image.save()
-            image.save()
+            if CreativesImage.objects(creative=creative, is_Current_Cover=True) is not None:
+                previous_Image = UserImage(creative=creative, is_Current_Cover=True)
+                previous_Image.modify(upsert=True, is_Current_Cover=False)
+            image.modify(upsert=True, is_Current_Cover=True)
             return image
 
