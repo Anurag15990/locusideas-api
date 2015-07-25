@@ -1,7 +1,7 @@
 __author__ = 'anurag'
 
 from designer.services.editors.base import BaseEditor
-from designer.models.image import UserImage, ContentImage
+from designer.models.image import UserImage, CreativesImage
 class ImageEditor(BaseEditor):
 
     def _invoke(self):
@@ -18,4 +18,4 @@ def upload_user_image(data, node):
 
 def upload_content_image(data, node):
     if data['image'] is not None:
-        return ContentImage.create(data, node)
+        return CreativesImage.create(data, node)

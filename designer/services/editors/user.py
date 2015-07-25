@@ -13,7 +13,7 @@ class UserEditor(BaseEditor):
         elif self.command == 'register':
             response = register(self.data)
         elif self.command == 'edit-role':
-            response = edit_role(self.action, self.node, self.message['role'])
+            response = edit_role(self.action, self.node, self.data['role'])
         elif self.command == "update-cover":
             response = update_cover_photo(self.node, self.data)
         elif self.command == 'update-profile-photo':
@@ -73,7 +73,7 @@ def register(data):
     return user
 
 def edit_role(action, user, role):
-    node = User(pk=user)
+    node = User.objects(pk=user).first()
     if action == "add":
         node.roles.append(role)
     elif action == "remove":
