@@ -1,6 +1,5 @@
 __author__ = 'anurag'
 
-
 from designer.app import engine
 from designer.models.user import User
 import datetime
@@ -100,4 +99,5 @@ class PortFolio(Creatives):
         for tag in self.tags:
             tagList.append(tag)
         return tagList
+
 
