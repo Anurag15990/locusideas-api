@@ -18,19 +18,11 @@ class Creatives(engine.Document):
     slug = engine.StringField()
 
     meta = {
-        "allow_inheritance" : True
+        'allow_inheritance': True,
+        'indexes': [
+            { 'fields': ['-updated_timestamp', 'owner'], 'unique': False, 'sparse' : False, 'types' : False}
+        ]
     }
-
-class Designs(Creatives):
-
-    price = engine.DecimalField()
-    currency = engine.StringField(choices=['INR', 'USD'])
-    discount = engine.IntField()
-    view_Count = engine.IntField()
-
-    @property
-    def actual_price(self):
-        return self.price - (self.price * (self.discount_percentage / 100))
 
     @property
     def get_Title(self):
@@ -60,6 +52,18 @@ class Designs(Creatives):
     def get_Owner(self):
         return User.objects(pk=self.owner).first()
 
+
+class Designs(Creatives):
+
+    price = engine.DecimalField()
+    currency = engine.StringField(choices=['INR', 'USD'])
+    discount = engine.IntField()
+    view_Count = engine.IntField()
+
+    @property
+    def actual_price(self):
+        return self.price - (self.price * (self.discount_percentage / 100))
+
     @property
     def get_views(self):
         return self.view_Count
@@ -82,4 +86,18 @@ class PortFolio(Creatives):
     likes = engine.IntField()
     tags = engine.ListField(engine.StringField())
 
+    @property
+    def get_views(self):
+        return self.view_Count
+
+    @property
+    def get_likes(self):
+        return self.likes
+
+    @property
+    def get_tags(self):
+        tagList = []
+        for tag in self.tags:
+            tagList.append(tag)
+        return tagList
 
