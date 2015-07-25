@@ -22,6 +22,8 @@ class UserEditor(BaseEditor):
             response = update_bio(self.node, self.data)
         elif self.command == 'update-institution':
             response = update_institution(self.node, self.data)
+        elif self.command == 'update-contact-info':
+            response = update_contact_info(self.node, self.data)
         return response
 
 
@@ -109,7 +111,22 @@ def update_institution(user, data):
 
 def update_experience(user, data):
     node = User(pk=user)
-    if data['experience'] is None:
+    if data['experience'] is not None:
         node.experience = data['experience']
         node.save()
     return node
+
+def update_contact_info(user, data):
+    node = User.objects(pk=user).first()
+    if data['address'] is not None:
+        node.address = data['address']
+
+    if data['mobile'] is not None:
+        node.mobile = data['mobile']
+
+    if data['phone'] is not None:
+        node.phone = data['phone']
+
+    node.save()
+    return node
+
