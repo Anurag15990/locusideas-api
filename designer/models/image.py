@@ -58,6 +58,7 @@ class ContentImage(ImageModel, engine.Document):
 
     content = engine.ReferenceField('Content')
     is_Current_Cover = engine.BooleanField()
+    caption = engine.StringField()
 
     @classmethod
     def create(cls, data, content):
