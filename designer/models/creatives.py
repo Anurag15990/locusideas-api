@@ -2,7 +2,6 @@ __author__ = 'anurag'
 
 from designer.app import engine
 from designer.models.user import User
-from designer.models.image import CreativesImage
 import datetime
 from ago import human
 
@@ -54,10 +53,12 @@ class Creatives(engine.Document):
 
     @property
     def get_Cover_Image(self):
+        from designer.models.image import CreativesImage
         return CreativesImage.objects(creative=self, is_Current_Cover=True).first()
 
     @property
     def get_Images(self):
+        from designer.models.image import CreativesImage
         return CreativesImage.objects(creative=self).all()
 
 
