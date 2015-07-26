@@ -11,6 +11,8 @@ import json
 sys.setrecursionlimit(10000)
 
 flaskapp = Flask(__name__, static_folder='assets', template_folder='webapps/')
+from designer.models.extra.session import MongoSessionInterface
+flaskapp.session_interface = MongoSessionInterface(db='designerHub')
 
 flaskapp.config['MONGODB_SETTINGS'] = {
     'db': settings.MONGODB_DB,
