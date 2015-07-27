@@ -1,0 +1,47 @@
+.home{
+    background-color: #000;
+    .main-landing{
+        .main-banner{
+            .box-sizing(border-box);
+            padding-top: 50px;
+            background-image: url('../images/main-banner-bg.jpg');
+
+            min-height: 768px;
+
+            background-color: @gray-dark;
+            h1{
+                font-family: @robotoSlabThin;
+            }
+            .logo-container{
+                height: 150px;
+                background: @gray-dark;
+
+                .logo{
+                    float: left;
+                    margin-left: 51px;
+                    margin-top: 35px;
+                    width: 140px;
+                    height: 82px;
+                    background-image: url('../images/logo.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+            }
+        }
+    }
+
+
+    .box{
+        width: 1000px;
+        height: 1500px;
+        margin: 0px auto 20px;
+        position: relative;
+        .box-small{
+            .box-small(@top:30px, @left: 100px, @width: 100px, @height: 100px);
+        }
+        .box-small-doc1{
+            .box-small(@top:30px, @left: 200px, @width: 200px, @height: 300px)
+        }
+    }
+
+}
