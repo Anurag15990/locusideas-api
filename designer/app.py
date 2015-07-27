@@ -48,6 +48,13 @@ def render_template_for_user():
     except Exception, e:
         raise e
 
+@flaskapp.route("/")
+def render_home_template():
+    try:
+        return render_template('pages/home.html')
+    except Exception,e:
+        raise e
+
 
 if __name__ == '__main__':
     flaskapp.run(host='0.0.0.0', port=4900)
