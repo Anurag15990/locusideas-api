@@ -10,10 +10,8 @@ class User(Node, engine.Document):
     name = engine.StringField()
     email = engine.StringField()
     password = engine.StringField()
-    cover_Image = engine.ReferenceField("UserImage")
-    profile_photo = engine.ReferenceField("UserImage")
     address = engine.StringField()
-    phone_Number = engine.StringField()
+    phone = engine.StringField()
     mobile = engine.StringField()
     roles = engine.ListField(engine.StringField())
     is_verified = engine.BooleanField()
@@ -121,6 +119,16 @@ class User(Node, engine.Document):
         if self.bio:
             return self.bio
 
+    @property
+    def get_cover_image(self):
+        from designer.models.image import UserImage
+        return UserImage.objects(user=self, is_Current_Cover=True).first()
+
+    @property
+    def get_profile_image(self):
+        from designer.models.image import UserImage
+        return UserImage.objects(user=self, is_Current_Profile=True).first()
+    
 
 
 
