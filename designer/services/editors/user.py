@@ -3,7 +3,7 @@ __author__ = 'anurag'
 from designer.services.editors.base import BaseEditor, response_handler
 from designer.models.user import User
 from designer.models.image import UserImage
-from flask import session
+from flask import jsonify
 from designer.services.utils import login_user_session
 import zope
 
@@ -43,7 +43,7 @@ def edit_profile(user, data):
         setattr(node, k, v)
         print("K[%s] : V[%s]" %(k,v))
     node.save()
-    return node
+    return jsonify(node)
 
 @response_handler('User Registered Successfully', 'Error occurred while Registering User', login_required=False)
 def register(data):
@@ -76,7 +76,7 @@ def register(data):
         user.save()
     except Exception,e:
         raise Exception(e)
-    return user
+    return str(user)
 
 @response_handler('Successfully edited role', 'Error occurred while editing role')
 def edit_role(action, user, role):
@@ -88,20 +88,20 @@ def edit_role(action, user, role):
     else:
         print "Invalid Action"
     node.save()
-    return node
+    return str(node)
 
 @response_handler('Successfully updated cover photo', 'Failed to update cover photo')
 def update_cover_photo(user, data):
     if data['cover_image'] is not None:
         cover_image = data['cover_image']
         cover_Image = UserImage.set_Cover(cover_image, user=user)
-    return cover_Image
+    return str(cover_Image)
 
 def update_profile_photo(user, data):
     if data['profile_photo'] is not None:
         profile_photo = data['profile_photo']
         profile_image = UserImage.set_Profile(profile_photo, user=user)
-    return profile_image
+    return str(profile_image)
 
 @response_handler('Successfully updated bio', 'Failed to update bio')
 def update_bio(user, data):
@@ -109,7 +109,7 @@ def update_bio(user, data):
     if data['bio'] is not None:
         node.bio = data['bio']
         node.save()
-    return node
+    return str(node)
 
 @response_handler('Successfully updated institution', 'Failed to update institution')
 def update_institution(user, data):
@@ -117,7 +117,7 @@ def update_institution(user, data):
     if data['institution'] is not None:
         node.institution = data['institution']
         node.save()
-    return node
+    return str(node)
 
 @response_handler('Successfully updated experience', 'Failed to update experience')
 def update_experience(user, data):
@@ -125,7 +125,7 @@ def update_experience(user, data):
     if data['experience'] is not None:
         node.experience = data['experience']
         node.save()
-    return node
+    return str(node)
 
 @response_handler('Successfully updated contact info', "Failed to update contact info")
 def update_contact_info(user, data):
@@ -140,7 +140,7 @@ def update_contact_info(user, data):
         node.phone = data['phone']
 
     node.save()
-    return node
+    return str(node)
 
 
 def login(data):
@@ -148,7 +148,7 @@ def login(data):
     user = User.authenticate(email, password)
     if user and user.id:
         login_user_session(user)
-        response =  dict(status='success', message='Successfully logged in', node=str(user))
+        response =  dict(status='success', message='Successfully logged in', node=str(user), slug=str(user.slug))
         return response
     return dict(status='error', message='Invalid EmailId and/or Password')
 

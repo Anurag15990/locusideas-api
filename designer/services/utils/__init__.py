@@ -20,6 +20,7 @@ def decode_base64(data):
 def login_user_session(user):
     session['user'] = str(user.id)
     session['just_logged_in'] = True
+    print(str(session))
 
 
 def get_random():
