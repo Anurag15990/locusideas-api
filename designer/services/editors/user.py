@@ -3,6 +3,8 @@ __author__ = 'anurag'
 from designer.services.editors.base import BaseEditor, response_handler
 from designer.models.user import User
 from designer.models.image import UserImage
+from flask import session
+from designer.services.utils import login_user_session
 import zope
 
 class UserEditor(BaseEditor):
@@ -26,6 +28,8 @@ class UserEditor(BaseEditor):
             response = update_experience(self.node, self.data)
         elif self.command == 'update-contact-info':
             response = update_contact_info(self.node, self.data)
+        elif self.command == 'login':
+            response = login(self.data)
         return response
 
 
@@ -137,4 +141,14 @@ def update_contact_info(user, data):
 
     node.save()
     return node
+
+
+def login(data):
+    email, password = data['email'], data['password']
+    user = User.authenticate(email, password)
+    if user and user.id:
+        login_user_session(user)
+        response =  dict(status='success', message='Successfully logged in', node=str(user))
+        return response
+    return dict(status='error', message='Invalid EmailId and/or Password')
 
