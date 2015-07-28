@@ -1,7 +1,22 @@
 __author__ = 'anurag'
 
 from designer.app import flaskapp
-from flask import jsonify, request
+from flask import jsonify, request, g
+import json
+
+def response_handler(success, failure, login_required=True):
+    def wrap(f):
+        def wrapped_f(*kargs, **kwargs):
+            if login_required:
+                if not hasattr(g, 'user') or g.user is None or not hasattr(g.user, 'id') or g.user.id is None:
+                    return dict(status='error', message='Please login before making requests')
+            try:
+                node = f(*kargs, **kwargs)
+                return dict(status='success', message=success, node=node)
+            except Exception, e:
+                return dict(staus='error', message=failure, exception=str(e))
+        return wrapped_f
+    return wrap
 
 class BaseEditor(object):
 

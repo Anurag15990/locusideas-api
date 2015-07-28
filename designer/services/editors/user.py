@@ -1,8 +1,10 @@
 __author__ = 'anurag'
 
-from designer.services.editors.base import BaseEditor
+from designer.services.editors.base import BaseEditor, response_handler
 from designer.models.user import User
 from designer.models.image import UserImage
+from flask import jsonify
+from designer.services.utils import login_user_session
 import zope
 
 class UserEditor(BaseEditor):
@@ -26,11 +28,14 @@ class UserEditor(BaseEditor):
             response = update_experience(self.node, self.data)
         elif self.command == 'update-contact-info':
             response = update_contact_info(self.node, self.data)
+        elif self.command == 'login':
+            response = login(self.data)
         return response
 
 
+@response_handler('Successfully edited Profile', 'Failed to Edit Profile')
 def edit_profile(user, data):
-    node = User(pk=user)
+    node = User.objects(pk=user).first()
     for k, v in data.iteritems():
         if not hasattr(node, k) or k == 'email':
             continue
@@ -40,6 +45,7 @@ def edit_profile(user, data):
     node.save()
     return node
 
+@response_handler('User Registered Successfully', 'Error occurred while Registering User', login_required=False)
 def register(data):
     email, password, confirm, roles = data['email'], data['password'], data["confirm"], data['roles']
     if User.objects(email__iexact=email).first() is not None:
@@ -72,6 +78,7 @@ def register(data):
         raise Exception(e)
     return user
 
+@response_handler('Successfully edited role', 'Error occurred while editing role')
 def edit_role(action, user, role):
     node = User.objects(pk=user).first()
     if action == "add":
@@ -83,6 +90,7 @@ def edit_role(action, user, role):
     node.save()
     return node
 
+@response_handler('Successfully updated cover photo', 'Failed to update cover photo')
 def update_cover_photo(user, data):
     if data['cover_image'] is not None:
         cover_image = data['cover_image']
@@ -95,6 +103,7 @@ def update_profile_photo(user, data):
         profile_image = UserImage.set_Profile(profile_photo, user=user)
     return profile_image
 
+@response_handler('Successfully updated bio', 'Failed to update bio')
 def update_bio(user, data):
     node = User.objects(pk=user).first()
     if data['bio'] is not None:
@@ -102,6 +111,7 @@ def update_bio(user, data):
         node.save()
     return node
 
+@response_handler('Successfully updated institution', 'Failed to update institution')
 def update_institution(user, data):
     node = User.objects(pk=user).first()
     if data['institution'] is not None:
@@ -109,6 +119,7 @@ def update_institution(user, data):
         node.save()
     return node
 
+@response_handler('Successfully updated experience', 'Failed to update experience')
 def update_experience(user, data):
     node = User.objects(pk=user).first()
     if data['experience'] is not None:
@@ -116,6 +127,7 @@ def update_experience(user, data):
         node.save()
     return node
 
+@response_handler('Successfully updated contact info', "Failed to update contact info")
 def update_contact_info(user, data):
     node = User.objects(pk=user).first()
     if data['address'] is not None:
@@ -129,4 +141,14 @@ def update_contact_info(user, data):
 
     node.save()
     return node
+
+
+def login(data):
+    email, password = data['email'], data['password']
+    user = User.authenticate(email, password)
+    if user and user.id:
+        login_user_session(user)
+        response =  dict(status='success', message='Successfully logged in', node=user)
+        return response
+    return dict(status='error', message='Invalid EmailId and/or Password')
 
