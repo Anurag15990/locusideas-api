@@ -32,7 +32,6 @@ api = MongoRest(flaskapp)
 def before_request():
     from designer.models.user import User
     session.permanent = True
-    print(session.get('user'))
     if session.get('user') is not None:
         g.user = User.objects(pk=session['user']).first()
     else:
