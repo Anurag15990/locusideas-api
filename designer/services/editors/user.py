@@ -3,7 +3,7 @@ __author__ = 'anurag'
 from designer.services.editors.base import BaseEditor, response_handler
 from designer.models.user import User
 from designer.models.image import UserImage
-from flask import jsonify
+from flask import jsonify, g, session
 from designer.services.utils import login_user_session
 import zope
 
@@ -28,8 +28,12 @@ class UserEditor(BaseEditor):
             response = update_experience(self.node, self.data)
         elif self.command == 'update-contact-info':
             response = update_contact_info(self.node, self.data)
+        elif self.command == 'change-password':
+            response = change_password(self.node, self.data)
         elif self.command == 'login':
             response = login(self.data)
+        elif self.command == 'logout':
+            response = logout()
         return response
 
 
@@ -152,3 +156,17 @@ def login(data):
         return response
     return dict(status='error', message='Invalid EmailId and/or Password')
 
+
+@response_handler('Logged out successfully', 'Error Logging out')
+def logout():
+    if hasattr(g, 'user'):
+        g.user = None
+        session.clear()
+        return None
+
+@response_handler('Successfully changed password', 'Error while changing password')
+def change_password(user, data):
+    node = User.objects(pk=user).first()
+    node.change_password(password=data['password'], confirm=data['confirm'])
+    node.save()
+    return node
