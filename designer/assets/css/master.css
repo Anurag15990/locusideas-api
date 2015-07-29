@@ -6779,17 +6779,31 @@ button.close {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'BebasNeuewebfont';
+  src: url('../../../fonts/BebasNeue/BebasNeuewebfont.eot');
+  src: local('BebasNeuewebfont'), url('../../../fonts/BebasNeue/BebasNeuewebfont.woff') format('woff'), url('../../../fonts/BebasNeue/BebasNeuewebfont.ttf') format('truetype');
+}
 .home {
   background-color: #000;
+}
+.home .main-landing {
+  /*position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        min-height: 100%;*/
+
 }
 .home .main-landing .main-banner {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding-top: 50px;
-  background-image: url('../images/main-banner-bg.jpg');
-  min-height: 768px;
-  background-color: #333333;
+  min-height: 1100px;
+  background-size: cover;
+  background: transparent;
 }
 .home .main-landing .main-banner h1 {
   font-family: "roboto_slabthin";
@@ -6807,6 +6821,94 @@ button.close {
   background-image: url('../images/logo.png');
   background-repeat: no-repeat;
   background-size: cover;
+}
+.home .main-landing .main-banner .yellow-heading {
+  margin-top: 150px;
+}
+.home .main-landing .main-banner .yellow-heading h1 {
+  font-family: 'BebasNeuewebfont';
+  font-size: 100px;
+  text-align: center;
+  color: #fdbc11;
+}
+.home .main-landing .main-banner .sub-heading h1 {
+  text-align: center;
+}
+.home .main-landing .main-banner .sub-heading h1 span {
+  font-size: 80px;
+  color: #ffffff;
+  background-color: #333333;
+  padding: 0px 30px;
+}
+.home .main-landing .main-banner .buttons ul {
+  margin: 0;
+  padding: 0;
+}
+.home .main-landing .main-banner .buttons ul li {
+  float: left;
+  width: 50%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  list-style: none;
+  padding: 30px 16%;
+  cursor: pointer;
+}
+.home .main-landing .main-banner .buttons ul li .button {
+  width: 300px;
+  padding: 20px 30px;
+  color: #fdbc11;
+  font-family: "roboto_slabthin";
+  text-align: center;
+  border: 1px solid #ffffff;
+  text-transform: uppercase;
+  font-size: 20px;
+  background: none;
+}
+.home .info-one {
+  background-color: #0f7884;
+  min-height: 1100px;
+}
+.home .info-one .top-head {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 100px 0;
+}
+.home .info-one .top-head h1 {
+  text-align: center;
+  font-family: "roboto_slabthin";
+  font-size: 42px;
+  color: #ffffff;
+  margin: 0;
+}
+.home .info-one .heads {
+  width: 100%;
+}
+.home .info-one .heads ul {
+  margin: 0;
+  padding: 0;
+}
+.home .info-one .heads ul li {
+  text-align: center;
+  list-style: none;
+  float: left;
+  width: 50%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.home .info-one .heads ul li .image-ico {
+  padding-bottom: 337px;
+  background-repeat: no-repeat;
+  width: 292px;
+  margin: 0 auto;
+}
+.home .info-one .heads ul li span {
+  text-align: center;
+  font-family: "roboto_slabthin";
+  color: #ffffff;
+  font-size: 42px;
 }
 .home .box {
   width: 1000px;

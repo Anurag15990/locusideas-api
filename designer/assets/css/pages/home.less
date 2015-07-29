@@ -1,14 +1,19 @@
 .home{
     background-color: #000;
     .main-landing{
+        /*position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        min-height: 100%;*/
         .main-banner{
             .box-sizing(border-box);
             padding-top: 50px;
-            background-image: url('../images/main-banner-bg.jpg');
-
-            min-height: 768px;
-
-            background-color: @gray-dark;
+            //background-image: url('../images/main-banner-bg.jpg');
+            min-height: 1100px;
+            background-size: cover;
+            background: transparent;
             h1{
                 font-family: @robotoSlabThin;
             }
@@ -25,6 +30,94 @@
                     background-image: url('../images/logo.png');
                     background-repeat: no-repeat;
                     background-size: cover;
+                }
+            }
+            .yellow-heading{
+                margin-top: 150px;
+                h1{
+                    font-family: @bebasNeueRegular;
+                    font-size: 100px;
+                    text-align: center;
+                    color: @yellowLogistics;
+                }
+            }
+            .sub-heading{
+                h1{
+                    text-align: center;
+                    span{
+                        font-size: 80px;
+                        color: @white;
+                        background-color: @gray-dark;
+                        padding: 0px 30px;
+                    }
+                }
+            }
+            .buttons{
+                ul{
+                    margin: 0;
+                    padding: 0;
+                    li{
+                        float: left;
+                        width: 50%;
+                        .box-sizing(border-box);
+                        list-style: none;
+                        padding: 30px 16%;
+                        cursor: pointer;
+                        .button{
+                            width: 300px;
+                            padding: 20px 30px;
+                            color: @yellowLogistics;
+                            font-family: @robotoSlabThin;
+                            text-align: center;
+                            border: 1px solid @white;
+                            text-transform: uppercase;
+                            font-size: 20px;
+                            background: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .info-one{
+        background-color: @deepSeaBlue;
+        min-height: 1100px;
+        .top-head{
+            .box-sizing(border-box);
+            padding: 100px 0;
+            h1{
+                text-align: center;
+                font-family: @robotoSlabThin;
+                font-size: 42px;
+                color: @white;
+                margin: 0;
+            }
+        }
+        .heads{
+            width: 100%;
+            ul{
+                margin: 0;
+                padding: 0;
+                li{
+                    text-align: center;
+                    list-style: none;
+                    float: left;
+                    width: 50%;
+                    .box-sizing(border-box);
+                    .image-ico{
+                        padding-bottom: 337px;
+                        background-repeat: no-repeat;
+                        width: 292px;
+                        margin: 0 auto;
+                    }
+                    span{
+                        text-align: center;
+                        font-family: @robotoSlabThin;
+                        color: @white;
+                        font-size: 42px;
+
+                    }
                 }
             }
         }
