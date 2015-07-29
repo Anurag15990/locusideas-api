@@ -6801,7 +6801,7 @@ button.close {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding-top: 50px;
-  min-height: 1100px;
+  height: 1100px;
   background-size: cover;
   background: transparent;
 }
