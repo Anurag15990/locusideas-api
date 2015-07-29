@@ -59,8 +59,8 @@ class User(Node, engine.Document):
     #     self.password = hashlib.md5(new_val).hexdigest()
 
     def change_password(self, **kwargs):
-        if kwargs['confirm'] == kwargs['password']:
-            self.password = hashlib.md5(kwargs['password']).hexdigest()
+        if kwargs.get('confirm') == kwargs.get('password'):
+            self.password = hashlib.md5(kwargs.get('password')).hexdigest()
             self.save()
         else:
             raise Exception('Passwords do not match')

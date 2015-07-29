@@ -28,6 +28,8 @@ class UserEditor(BaseEditor):
             response = update_experience(self.node, self.data)
         elif self.command == 'update-contact-info':
             response = update_contact_info(self.node, self.data)
+        elif self.command == 'change-password':
+            response = change_password(self.node, self.data)
         elif self.command == 'login':
             response = login(self.data)
         elif self.command == 'logout':
@@ -161,3 +163,10 @@ def logout():
         g.user = None
         session.clear()
         return None
+
+@response_handler('Successfully changed password', 'Error while changing password')
+def change_password(user, data):
+    node = User.objects(pk=user).first()
+    node.change_password(password=data['password'], confirm=data['confirm'])
+    node.save()
+    return node
