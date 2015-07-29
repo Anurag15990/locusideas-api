@@ -89,9 +89,9 @@ class User(Node, engine.Document):
             return False
         user = User.objects(email__iexact=email).first()
         if user and user.password == hashlib.md5(password).hexdigest():
-            if user.user_since is None:
-                user.user_since = datetime.datetime.now()
-                user.save()
+                if user.user_since is None:
+                    user.user_since = datetime.datetime.now()
+                    user.save()
                 return user
         else:
             return False

@@ -1,6 +1,6 @@
 __author__ = 'anurag'
 
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, session, g
 import settings
 from flask.ext.mongoengine import MongoEngine
 from flask.ext.mongorest import MongoRest
@@ -28,6 +28,19 @@ engine.init_app(flaskapp)
 
 api = MongoRest(flaskapp)
 
+@flaskapp.before_request
+def before_request():
+    from designer.models.user import User
+    session.permanent = True
+    if session.get('user') is not None:
+        g.user = User.objects(pk=session['user']).first()
+    else:
+        g.user = None
+    if session.get('just_logged_in', False):
+        g.just_logged_in = True
+        session['just_logged_in'] = False
+
+
 
 @flaskapp.route('/editors/invoke', methods=['POST'])
 def editor_invoke():
@@ -36,7 +49,7 @@ def editor_invoke():
         from designer.services.editors.base import BaseEditor
         editor = BaseEditor.factory(message)
         response = editor._invoke()
-        return jsonify(status='success',response=response)
+        return jsonify(response)
     except Exception, e:
         return jsonify(dict(status='error', message='Something went wrong', exception=str(e)))
 
@@ -46,6 +59,13 @@ def render_template_for_user():
     try:
         return render_template('pages/index.html')
     except Exception, e:
+        raise e
+
+@flaskapp.route("/")
+def render_home_template():
+    try:
+        return render_template('pages/home.html')
+    except Exception,e:
         raise e
 
 
