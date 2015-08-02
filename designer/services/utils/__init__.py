@@ -9,6 +9,8 @@ import datetime, random
 import os
 
 
+PAGE_SIZE = 50
+
 
 def decode_base64(data):
         missing_padding = 4 - len(data) % 4
@@ -26,3 +28,13 @@ def get_random():
     return random.randint(0, 999999999)
 
 
+def convert_filters_to_query(filters):
+    query_filters = {}
+    for filter in filters:
+        if filter.get('list') is True:
+            inner_filter = {}
+            inner_filter['$in'] = filter.get('value')
+            query_filters[filter.get('name')] = inner_filter
+        elif filter.get('entity') is True:
+            query_filters[filter.get('name')] = filter.get('value')
+    return query_filters
