@@ -34,6 +34,12 @@ class UserEditor(BaseEditor):
             response = login(self.data)
         elif self.command == 'logout':
             response = logout()
+        elif self.command == 'update-work-focus':
+            response = update_work_focus(self.node,self.data)
+        elif self.command == 'update-work-style':
+            response = update_work_style(self.node,self.data)
+        elif self.command == 'update-work-interest':
+            response = update_work_interest(self.node,self.data)
         return response
 
 
@@ -168,5 +174,26 @@ def logout():
 def change_password(user, data):
     node = User.objects(pk=user).first()
     node.change_password(password=data['password'], confirm=data['confirm'])
+    node.save()
+    return node
+
+@response_handler('Successfully updated work-focus','Error while updating work-focus',login_required=True)
+def update_work_focus(user,data):
+    node = User.objects(pk=user).first()
+    node.work_focus = data['work-focus']
+    node.save()
+    return node
+
+@response_handler('Successfully updated work-style','Error while updating work-style',login_required=True)
+def update_work_style(user,data):
+    node = User.objects(pk=user).first()
+    node.work_style = data['work-style']
+    node.save()
+    return node
+
+@response_handler('Successfully updated work-interest','Error while updating work-interest',login_required=True)
+def update_work_interest(user,data):
+    node = User.objects(pk=user).first()
+    node.work_interest = data['work-interest']
     node.save()
     return node
