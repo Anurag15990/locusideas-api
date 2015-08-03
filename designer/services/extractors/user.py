@@ -17,9 +17,10 @@ class UserExtractor(BaseExtractor):
             return dict(status='success', users=response_Array)
         else:
             users = User.objects().all()
+            facets = self.getFacets(users)
             for user in users:
                 response_Array.append(self.getCard(user))
-            return dict(status='success', users=response_Array)
+            return dict(status='success', users=response_Array, facets=facets)
 
     def getCard(self, user):
         userObject = {}
@@ -71,8 +72,8 @@ class UserExtractor(BaseExtractor):
                 interest_list.add(interest for interest in user.get_work_interest())
             if user.get_work_focus() is not None:
                 focus_list.add(focus for focus in user.get_work_focus())
-            if user.get_work_type() is not None:
-                style_list.add(style for style in user.get_work_type())
+            if user.get_work_style() is not None:
+                style_list.add(style for style in user.get_work_style())
         facets["Work Styles"] = style_list
         facets["Work Focus"] = focus_list
         facets["Work Interest"] = interest_list
