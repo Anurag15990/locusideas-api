@@ -189,30 +189,24 @@ class User(Node, engine.Document):
         if self.is_admin() or (self.is_designer() and self.is_admin_approved()):
             if self.work_focus:
                 return self.work_focus
-        elif self.is_designer and not self.is_admin_approved:
-            return "Waiting for Admin Approval"
         else:
-            return "Is not a Designer"
+            return None
 
     @property
     def get_work_interest(self):
         if self.is_admin() or (self.is_designer() and self.is_admin_approved()):
             if self.work_interest:
                 return self.work_interest
-        elif self.is_designer and not self.is_admin_approved:
-            return "Waiting for Admin Approval"
         else:
-            return "Is not a Designer"
+            return None
 
     @property
     def get_work_style(self):
         if self.is_admin() or (self.is_designer() and self.is_admin_approved()):
             if self.work_style:
                 return self.work_style
-        elif self.is_designer and not self.is_admin_approved:
-            return "Waiting for Admin Approval"
         else:
-            return "Is not a Designer"
+            return None
 
     def deactivate(self):
         self.deactivated = True
