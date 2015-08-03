@@ -31,14 +31,15 @@ def get_random():
 
 def convert_filters_to_query(filters):
     query_filters = {}
-    for filter in filters:
-        if filter.get('list') is True:
-            inner_filter = {}
-            inner_filter['$in'] = filter.get('value')
-            query_filters[filter.get('name')] = inner_filter
-        elif filter.get('entity') is True:
-            query_filters[filter.get('name')] = filter.get('value')
-    return query_filters
+    if filters is not None and len(filters) > 0:
+        for filter in filters:
+            if filter.get('list') is True:
+                inner_filter = {}
+                inner_filter['$in'] = filter.get('value')
+                query_filters[filter.get('name')] = inner_filter
+            elif filter.get('entity') is True:
+                query_filters[filter.get('name')] = filter.get('value')
+        return query_filters
 
 
 class JSONSetEncoder(json.JSONEncoder):

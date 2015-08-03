@@ -10,20 +10,17 @@ from designer.services.utils import JSONSetEncoder
 class UserExtractor(BaseExtractor):
 
     def _invoke(self):
+        users = None
         response_Array = []
-        if self.filters is not None or len(self.filters) > 0:
-            query = convert_filters_to_query(filters=self.filters)
+        query = convert_filters_to_query(filters=self.filters)
+        if query is not None:
             users = User.objects(__raw__=query).all()
-            facets = self.getFacets(users)
-            for user in users:
-                response_Array.append(self.getCard(user))
-            return dict(status='success', users=response_Array, facets=facets)
         else:
             users = User.objects().all()
-            facets = self.getFacets(users)
-            for user in users:
-                response_Array.append(self.getCard(user))
-            return dict(status='success', users=response_Array, facets=facets)
+        facets = self.getFacets(users)
+        for user in users:
+            response_Array.append(self.getCard(user))
+        return dict(status='success', users=response_Array, facets=facets)
 
     def getCard(self, user):
         userObject = {}
