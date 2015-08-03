@@ -49,3 +49,6 @@ class JSONSetEncoder(json.JSONEncoder):
         else:
             return json.JSONEncoder.default(self, obj)
 
+
+def login_required(f):
+    
