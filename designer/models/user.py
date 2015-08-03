@@ -186,24 +186,24 @@ class User(Node, engine.Document):
 
     @property
     def get_work_focus(self):
-        if self.is_admin() or (self.is_designer() and self.is_admin_approved()):
-            if self.work_focus:
+        if self.is_admin or (self.is_designer and self.is_admin_approved):
+            if self.work_focus is not None:
                 return self.work_focus
         else:
             return None
 
     @property
     def get_work_interest(self):
-        if self.is_admin() or (self.is_designer() and self.is_admin_approved()):
-            if self.work_interest:
+        if self.is_admin or (self.is_designer and self.is_admin_approved):
+            if self.work_interest is not None:
                 return self.work_interest
         else:
             return None
 
     @property
     def get_work_style(self):
-        if self.is_admin() or (self.is_designer() and self.is_admin_approved()):
-            if self.work_style:
+        if self.is_admin or (self.is_designer and self.is_admin_approved):
+            if self.work_style is not None:
                 return self.work_style
         else:
             return None

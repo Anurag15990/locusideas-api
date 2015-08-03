@@ -7,6 +7,7 @@ from PIL import Image, ImageFile
 from flask import g, session
 import datetime, random
 import os
+import json, collections
 
 
 PAGE_SIZE = 50
@@ -38,3 +39,12 @@ def convert_filters_to_query(filters):
         elif filter.get('entity') is True:
             query_filters[filter.get('name')] = filter.get('value')
     return query_filters
+
+
+class JSONSetEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, collections.Set):
+            return list(obj)
+        else:
+            return json.JSONEncoder.default(self, obj)
+
