@@ -40,6 +40,15 @@ class UserExtractor(BaseExtractor):
             userObject["cover_Image"] = self.getCover(str(user.id))
         if self.getProfileImage(str(user.id)) is not None:
             userObject["profile_photo"] = self.getProfileImage(str(user.id))
+        if user.is_designer == True:
+            profileObject = {}
+            if user.get_work_type() is not None:
+                profileObject["workStyle"] = user.get_work_type()
+            if user.get_work_focus() is not None:
+                profileObject["workFocus"] = user.get_work_focus()
+            if user.get_work_interest() is not None:
+                profileObject["workInterest"] = user.get_work_interest()
+            userObject['DesignerProfile'] = profileObject
         return userObject
 
     def getCover(self, user):
@@ -51,4 +60,25 @@ class UserExtractor(BaseExtractor):
         profile_photo = UserImage.objects(user=user, is_Current_Profile=True).first()
         if profile_photo is not None:
           return profile_photo
+
+    def getFacets(self, users):
+        facets = {}
+        interest_list = set([])
+        focus_list = set([])
+        style_list = set([])
+        for user in users:
+            if user.get_work_interest() is not None:
+                interest_list.add(interest for interest in user.get_work_interest())
+            if user.get_work_focus() is not None:
+                focus_list.add(focus for focus in user.get_work_focus())
+            if user.get_work_type() is not None:
+                style_list.add(style for style in user.get_work_type())
+        facets["Work Styles"] = style_list
+        facets["Work Focus"] = focus_list
+        facets["Work Interest"] = interest_list
+        return facets
+
+
+
+
 
