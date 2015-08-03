@@ -205,7 +205,7 @@ class User(Node, engine.Document):
             return "Is not a Designer"
 
     @property
-    def get_work_type(self):
+    def get_work_style(self):
         if self.is_admin() or (self.is_designer() and self.is_admin_approved()):
             if self.work_style:
                 return self.work_style
