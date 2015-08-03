@@ -44,11 +44,19 @@ class UserExtractor(BaseExtractor):
         if user.is_designer == True:
             profileObject = {}
             if user.get_work_style is not None:
-                profileObject["workStyle"] = user.get_work_style
+                profileObject["workstyle"] = user.get_work_style
             if user.get_work_focus is not None:
-                profileObject["workFocus"] = user.get_work_focus
+                profileObject["workfocus"] = user.get_work_focus
             if user.get_work_interest is not None:
-                profileObject["workInterest"] = user.get_work_interest
+                profileObject["workinterest"] = user.get_work_interest
+            if user.get_bio is not None:
+                profileObject["bio"] = user.get_bio
+            if user.get_experience is not None:
+                profileObject["experience"] = user.get_experience
+            if user.get_institution is not None:
+                profileObject["institution"] = user.get_institution
+            if user.get_proficiency is not None:
+                profileObject["proficiency"] = user.get_proficiency
             userObject['DesignerProfile'] = profileObject
         return userObject
 
