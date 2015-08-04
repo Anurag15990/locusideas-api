@@ -4,10 +4,11 @@ __author__ = 'anurag'
 from designer.settings import MEDIA_FOLDER
 import base64
 from PIL import Image, ImageFile
-from flask import g, session
+from flask import g, session, jsonify
 import datetime, random
 import os
 import json, collections
+from functools import wraps
 
 
 PAGE_SIZE = 50
@@ -33,11 +34,11 @@ def convert_filters_to_query(filters):
     query_filters = {}
     if filters is not None and len(filters) > 0:
         for filter in filters:
-            if filter.get('list') is True:
+            if filter.get('type') == 'list':
                 inner_filter = {}
                 inner_filter['$in'] = filter.get('value')
                 query_filters[filter.get('name')] = inner_filter
-            elif filter.get('entity') is True:
+            elif filter.get('type') == 'entity':
                 query_filters[filter.get('name')] = filter.get('value')
         return query_filters
 
@@ -50,5 +51,12 @@ class JSONSetEncoder(json.JSONEncoder):
             return json.JSONEncoder.default(self, obj)
 
 
-def login_required(f):
-    
+def login_required(func):
+
+    @wraps(func)
+    def decorate(*args,**kwargs):
+        if hasattr(g, 'user') and g.user is not None and g.user.id is not None:
+            return func(*args, **kwargs)
+        else:
+            return dict(status='Failure', message='Please Login before proceeding')
+    return decorate

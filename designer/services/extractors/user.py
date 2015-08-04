@@ -6,9 +6,11 @@ from designer.models.image import UserImage
 from designer.services.utils import convert_filters_to_query
 import json
 from designer.services.utils import JSONSetEncoder
+from designer.services.utils import login_required
 
 class UserExtractor(BaseExtractor):
 
+    @login_required
     def _invoke(self):
 
         response_Array = []
@@ -44,7 +46,13 @@ class UserExtractor(BaseExtractor):
             userObject["address"] = user.address
        
         if user.since is not None:
-            userObject["userSince"] = user.since
+            userObject["userSince"] = user.user_since
+
+        if user.roles is not None:
+            userObject['roles'] = user.roles
+
+        if user.is_verified is not None:
+            userObject['is_verified'] = user.is_verified
        
         if self.getCover(str(user.id)) is not None:
             userObject["cover_Image"] = self.getCover(str(user.id))
