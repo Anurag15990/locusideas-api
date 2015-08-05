@@ -111,11 +111,8 @@ class PortFolio(Creatives):
         return tagList
 
     @classmethod
-    def create(cls, title, user, **kwargs):
-        node = PortFolio(title=title, user=user)
-        if kwargs != None:
-            for k in kwargs:
-                if hasattr(node, k):
-                    setattr(node, k, kwargs.get(k))
+    def create(cls, title, owner):
+        node = PortFolio(title=title, owner=owner)
+
         node.save()
         return node
