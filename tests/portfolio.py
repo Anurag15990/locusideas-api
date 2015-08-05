@@ -27,6 +27,32 @@ payload2 = {
     }
 }
 
+payload3 = {
+    "node" : portfolio,
+    "type" : "creatives",
+    "command" : "update-category",
+    "action" : "add",
+    "category" : "Architectural Photography"
+}
+
+payload4 = {
+    "node" : portfolio,
+    "type" : "creative",
+    "command" : "update-sub-category",
+    "action" : "add",
+    "sub-category" : "Black and White Photography"
+}
+
+payload5 = {
+    "node" : portfolio,
+    "type" : "creatives",
+    "command" : "update-tags",
+    "action" : "remove",
+    "tag" : "Illustration"
+}
+
+
+
 url = "http://localhost:4900/editors/invoke"
 
 request = urllib2.Request(url)
