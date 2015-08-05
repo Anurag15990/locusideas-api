@@ -1,6 +1,6 @@
 __author__ = 'anurag'
 
-from designer.services.editors.base import BaseEditor
+from designer.services.editors.base import BaseEditor, response_handler
 from designer.models.creatives import PortFolio, Designs
 
 class CreativesEditor(BaseEditor):
@@ -20,6 +20,7 @@ class CreativesEditor(BaseEditor):
                 response = update_tags(self.action, self.node, self.data['tags'])
             return response
 
+@response_handler('Portfolio created successfully', 'Error occurred while creating Portfolio', login_required=True)
 def create_new_portfolio(data):
     portfolio = PortFolio.create(title=data['title'], owner=data['owner'])
     if data['description'] is not None:
@@ -37,6 +38,7 @@ def create_new_portfolio(data):
     portfolio.save()
     return portfolio
 
+@response_handler('Portfolio updated successfully', 'Failed to update Portfolio', login_required=True)
 def update_portfolio(portfolio,data):
     node = portfolio.objects(pk=portfolio).first()
 
@@ -49,6 +51,7 @@ def update_portfolio(portfolio,data):
     node.save()
     return node
 
+@response_handler('Category updated successfully', 'Failed to update Category', login_required=True)
 def update_category(action, portfolio, category):
     node = portfolio.objects(pk=portfolio).first()
 
@@ -60,6 +63,7 @@ def update_category(action, portfolio, category):
     node.save()
     return node
 
+@response_handler('Sub-category updated successfully', 'Failed to update Sub-category', login_required=True)
 def update_sub_category(action, portfolio, sub_category):
     node = portfolio.objects(pk=portfolio).first()
 
@@ -71,6 +75,7 @@ def update_sub_category(action, portfolio, sub_category):
     node.save()
     return node
 
+@response_handler('Tags updated successfully', 'Failed to update Tags', login_required=True)
 def update_tags(action, portfolio, tag):
     node = portfolio.objects(pk=portfolio).first()
 
