@@ -1,7 +1,7 @@
 __author__ = 'anurag'
 
 from designer.services.editors.base import BaseEditor, response_handler
-from designer.models.creatives import PortFolio, Designs
+from designer.models.creatives import Portfolio, Designs
 
 class CreativesEditor(BaseEditor):
 
@@ -22,7 +22,7 @@ class CreativesEditor(BaseEditor):
 
 #@response_handler('Portfolio created successfully', 'Error occurred while creating Portfolio', login_required=True)
 def create_new_portfolio(data):
-    portfolio = PortFolio.create(title=data['title'], owner=data['owner'])
+    portfolio = Portfolio.create(title=data['title'], owner=data['owner'])
     if data['description'] is not None:
         portfolio.description = data['description']
 
@@ -40,7 +40,10 @@ def create_new_portfolio(data):
 
 #@response_handler('Portfolio updated successfully', 'Failed to update Portfolio', login_required=True)
 def update_portfolio(portfolio,data):
-    node = portfolio.objects(pk=str(portfolio)).first()
+    node = Portfolio.objects(pk=str(portfolio)).first()
+
+    if node is None:
+        return "node is selectd empty"
 
     if data['title'] is not None:
         node.title = data['title']
@@ -53,7 +56,7 @@ def update_portfolio(portfolio,data):
 
 #@response_handler('Category updated successfully', 'Failed to update Category', login_required=True)
 def update_category(action, portfolio, category):
-    node = portfolio.objects(pk=portfolio).first()
+    node = Portfolio.objects(pk=portfolio).first()
 
     if action == "add":
         node.category.append(category)
@@ -65,7 +68,7 @@ def update_category(action, portfolio, category):
 
 #@response_handler('Sub-category updated successfully', 'Failed to update Sub-category', login_required=True)
 def update_sub_category(action, portfolio, sub_category):
-    node = portfolio.objects(pk=portfolio).first()
+    node = Portfolio.objects(pk=portfolio).first()
 
     if action == "add":
         node.sub_category.append(sub_category)
@@ -77,7 +80,7 @@ def update_sub_category(action, portfolio, sub_category):
 
 #@response_handler('Tags updated successfully', 'Failed to update Tags', login_required=True)
 def update_tags(action, portfolio, tag):
-    node = portfolio.objects(pk=portfolio).first()
+    node = Portfolio.objects(pk=portfolio).first()
 
     if action == "add":
         node.tags.append(tag)
@@ -88,7 +91,7 @@ def update_tags(action, portfolio, tag):
     return node
 
 def update_view_count(portfolio, data):
-    node = portfolio.objects(pk=portfolio).first()
+    node = Portfolio.objects(pk=portfolio).first()
 
     pass
 

@@ -89,7 +89,7 @@ class Designs(Creatives):
 
 
 
-class PortFolio(Creatives):
+class Portfolio(Creatives):
 
     view_Count = engine.IntField()
     likes = engine.IntField()
@@ -112,7 +112,7 @@ class PortFolio(Creatives):
 
     @classmethod
     def create(cls, title, owner):
-        node = PortFolio(title=title, owner=owner)
+        node = Portfolio(title=title, owner=owner)
 
         node.save()
         return node
