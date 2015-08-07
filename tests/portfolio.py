@@ -31,7 +31,7 @@ payload3 = {
     "node" : portfolio,
     "type" : "creatives",
     "command" : "update-category",
-    "action" : "add",
+    "action" : "remove",
     "data" : {
         "category" : "Architectural Photography"
     }
@@ -39,10 +39,12 @@ payload3 = {
 
 payload4 = {
     "node" : portfolio,
-    "type" : "creative",
+    "type" : "creatives",
     "command" : "update-sub-category",
     "action" : "add",
-    "sub-category" : "Black and White Photography"
+    "data" : {
+        "subcategory" : "Black and White Photography"
+    }
 }
 
 payload5 = {
@@ -59,6 +61,6 @@ url = "http://localhost:4900/editors/invoke"
 
 request = urllib2.Request(url)
 request.add_header('Content-type', 'application/json')
-response = urllib2.urlopen(request, json.dumps(payload3))
+response = urllib2.urlopen(request, json.dumps(payload4))
 
 print str(json.load(response))
