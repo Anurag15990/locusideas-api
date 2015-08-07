@@ -17,7 +17,7 @@ class CreativesEditor(BaseEditor):
             elif self.command == 'update-view-count':
                 response = update_view_count(self.node, self.data)
             elif self.command == 'update-tags':
-                response = update_tags(self.action, self.node, self.data['tags'])
+                response = update_tags(self.action, self.node, self.data['tag'])
             return response
 
 #@response_handler('Portfolio created successfully', 'Error occurred while creating Portfolio', login_required=True)

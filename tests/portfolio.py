@@ -52,7 +52,9 @@ payload5 = {
     "type" : "creatives",
     "command" : "update-tags",
     "action" : "remove",
-    "tag" : "Illustration"
+    "data" : {
+        "tag" : "Illustration"
+    }
 }
 
 
@@ -61,6 +63,6 @@ url = "http://localhost:4900/editors/invoke"
 
 request = urllib2.Request(url)
 request.add_header('Content-type', 'application/json')
-response = urllib2.urlopen(request, json.dumps(payload4))
+response = urllib2.urlopen(request, json.dumps(payload5))
 
 print str(json.load(response))
