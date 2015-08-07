@@ -32,7 +32,9 @@ payload3 = {
     "type" : "creatives",
     "command" : "update-category",
     "action" : "add",
-    "category" : "Architectural Photography"
+    "data" : {
+        "category" : "Architectural Photography"
+    }
 }
 
 payload4 = {
@@ -57,6 +59,6 @@ url = "http://localhost:4900/editors/invoke"
 
 request = urllib2.Request(url)
 request.add_header('Content-type', 'application/json')
-response = urllib2.urlopen(request, json.dumps(payload2))
+response = urllib2.urlopen(request, json.dumps(payload3))
 
 print str(json.load(response))
