@@ -40,10 +40,7 @@ def create_new_portfolio(data):
 
 #@response_handler('Portfolio updated successfully', 'Failed to update Portfolio', login_required=True)
 def update_portfolio(portfolio,data):
-    node = Portfolio.objects(pk=str(portfolio)).first()
-
-    if node is None:
-        return "node is selectd empty"
+    node = Portfolio.objects(pk=portfolio).first()
 
     if data['title'] is not None:
         node.title = data['title']

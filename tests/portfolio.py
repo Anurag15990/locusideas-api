@@ -2,7 +2,7 @@ __author__ = 'neha'
 
 import json, urllib2
 
-portfolio = "55c360671925f36447bbae0f"
+portfolio = "55c4578109d0d302a437cd4c"
 
 payload = {
     "type" : "creatives",
@@ -18,12 +18,12 @@ payload = {
 }
 
 payload2 = {
-    "node" : "55c360671925f36447bbae0f",
+    "node" : portfolio,
     "type" : "creatives",
     "command" : "update-portfolio",
     "data" : {
         "title" : "B.i.t.s of Bombay",
-        "description" : "Changed data."
+        "description" : "Images of the city that always moves and never sleeps."
     }
 }
 
