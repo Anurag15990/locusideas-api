@@ -2,8 +2,29 @@ __author__ = 'anurag'
 
 from designer.app import engine
 from designer.models import Node
-import datetime, hashlib
+import datetime, hashlib, random
 from ago import human
+
+
+class Verification(engine.EmbeddedDocument):
+    verification_link = engine.StringField()
+    expiration = engine.DateTimeField()
+
+    @classmethod
+    def create_verification_link(self, user):
+        v = Verification()
+        v.verification_link = "/email-verification/%s/%s" % (str(user.id), str(hashlib.md5(str(random.randrange(000000000, 1000000000))).hexdigest()))
+        v.expiration = datetime.datetime.now() + datetime.timedelta(days=2)
+        return v
+
+    def is_expired(self):
+        return self.expiration <= datetime.datetime.now()
+
+    def match(self, id, linkr):
+        val = '/email-verification/%s/%s' % (id, linkr)
+        print self.verification_link
+        print val
+        return self.verification_link == val
 
 class User(Node, engine.Document):
 
@@ -16,6 +37,10 @@ class User(Node, engine.Document):
     roles = engine.ListField(engine.StringField())
     is_verified = engine.BooleanField()
     admin_approved = engine.BooleanField()
+    work_focus = engine.ListField()
+    work_interest = engine.ListField()
+    work_style = engine.ListField()
+    deactivated = engine.BooleanField(default=False)
     user_since = engine.DateTimeField(default=datetime.datetime.now())
     last_login = engine.DateTimeField()
     institution = engine.StringField()
@@ -24,14 +49,44 @@ class User(Node, engine.Document):
     bio = engine.StringField()
 
     meta = {
-        'allow_inheritance' : True,
         'indexes' : [
             {'fields': ['name', 'email'], 'unique' : False, 'sparse': False, 'types': False}
         ],
     }
 
+    def create_verification_link(self):
+        self.verification = Verification.create_verification_link(self)
+        self.save()
+        return self.verification.verification_link
+
+    @classmethod
+    def verify_user(cls, id, linkr):
+        user = User.objects(pk=id).first()
+        if user.is_verified:
+            return True
+        if user.verification.is_expired() :
+            return False
+        elif not user.verification.match(id, linkr):
+            return False
+        else:
+            user.is_verified = True
+            user.save()
+            return user
+
     @property
-    def is_admin_approved_profile(self):
+    def is_admin(self):
+        if not self.roles or len(self.roles) is 0:
+            return False
+        return 'Admin' in self.roles
+
+    @property
+    def is_designer(self):
+        if not self.roles or len(self.roles) is 0:
+            return False
+        return 'Designer' in self.roles
+
+    @property
+    def is_admin_approved(self):
         if hasattr(self, 'admin_approved') and self.admin_approved:
             return True
         return False
@@ -54,9 +109,6 @@ class User(Node, engine.Document):
         self.save()
         return self.title
 
-    # @password.setter
-    # def password(self, new_val):
-    #     self.password = hashlib.md5(new_val).hexdigest()
 
     def change_password(self, **kwargs):
         if kwargs.get('confirm') == kwargs.get('password'):
@@ -119,16 +171,47 @@ class User(Node, engine.Document):
         if self.bio:
             return self.bio
 
-    @property
-    def get_cover_image(self):
-        from designer.models.image import UserImage
-        return UserImage.objects(user=self, is_Current_Cover=True).first()
+    # @property
+    # def get_cover_image(self):
+    #     from designer.models.image import UserImage
+    #     image = UserImage.objects(user=self.id, is_Current_Cover=True).first()
+    #     return image
+    #
+    # @property
+    # def get_profile_image(self):
+    #     from designer.models.image import UserImage
+    #     return UserImage.objects(user=self.pk, is_Current_Profile=True).first()
+    #
+
 
     @property
-    def get_profile_image(self):
-        from designer.models.image import UserImage
-        return UserImage.objects(user=self, is_Current_Profile=True).first()
-    
+    def get_work_focus(self):
+        if self.is_admin or (self.is_designer and self.is_admin_approved):
+            if self.work_focus is not None:
+                return self.work_focus
+        else:
+            return None
+
+    @property
+    def get_work_interest(self):
+        if self.is_admin or (self.is_designer and self.is_admin_approved):
+            if self.work_interest is not None:
+                return self.work_interest
+        else:
+            return None
+
+    @property
+    def get_work_style(self):
+        if self.is_admin or (self.is_designer and self.is_admin_approved):
+            if self.work_style is not None:
+                return self.work_style
+        else:
+            return None
+
+    def deactivate(self):
+        self.deactivated = True
+        self.save()
+
 
 
 

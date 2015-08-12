@@ -53,6 +53,16 @@ def editor_invoke():
     except Exception, e:
         return jsonify(dict(status='error', message='Something went wrong', exception=str(e)))
 
+@flaskapp.route('/extractors/invoke', methods=['POST'])
+def extractor_invoke():
+    try:
+        message = request.get_json(force=True)
+        from designer.services.extractors.base import BaseExtractor
+        extractor = BaseExtractor.factory(message)
+        response = extractor._invoke()
+        return jsonify(response)
+    except Exception, e:
+        return jsonify(dict(status='error', message='Something went wrong', exception=str(e)))
 
 @flaskapp.route('/user/add')
 def render_template_for_user():
