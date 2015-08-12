@@ -74,7 +74,7 @@ def render_template_for_user():
 @flaskapp.route("/")
 def render_home_template():
     try:
-        return render_template('pages/home.html')
+        return render_template('pages/index2.html')
     except Exception,e:
         raise e
 
