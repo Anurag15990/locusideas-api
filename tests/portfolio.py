@@ -2,7 +2,11 @@ __author__ = 'neha'
 
 import json, urllib2
 
+<<<<<<< Updated upstream
 portfolio = "55c4578109d0d302a437cd4c"
+=======
+portfolio = "55c4532650eb684e072a2335"
+>>>>>>> Stashed changes
 
 payload = {
     "type" : "creatives",
