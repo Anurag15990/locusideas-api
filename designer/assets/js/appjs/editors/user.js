@@ -93,6 +93,7 @@ $(document).ready(function () {
 
     App.user.update_contact_info = function (node, address, mobile, phone, callback) {
         var options = {
+            node : node,
             type : 'user',
             command : 'update-contact-info',
             data : {
@@ -103,4 +104,24 @@ $(document).ready(function () {
         };
         App.editor(options, callback)
     };
+
+    App.user.register = function (name, email, password, confirm, roles, address, mobile, phone, callback) {
+        var options = {
+            type : 'user',
+            command : 'register',
+            data : {
+                name : name,
+                email : email,
+                password : password,
+                confirm : confirm,
+                roles : roles,
+                address : address,
+                mobile : mobile,
+                phone : phone
+            }
+        };
+        App.editor(options, callback)
+    };
+
+
 })  
