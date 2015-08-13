@@ -78,6 +78,12 @@ def render_home_template():
     except Exception,e:
         raise e
 
+@flaskapp.route("/login")
+def login():
+    try:
+        return render_template('pages/sign-in.html')
+    except Exception,e:
+        raise e
 
 if __name__ == '__main__':
     flaskapp.run(host='0.0.0.0', port=4900)
