@@ -120,7 +120,43 @@ $(document).ready(function () {
                 phone : phone
             }
         };
-        App.editor(options, callback)
+        App.editor(options, callback);
+    };
+
+    App.user.update_work_focus = function (node, work_focus, callback) {
+        var options = {
+            node : node,
+            type : 'user',
+            command : 'update-work-focus',
+            data : {
+                work_focus : work_focus
+            }
+        };
+        App.editor(options, callback);
+    };
+
+    App.user.update_work_style = function(node, work_style, callback) {
+        var options = {
+            node : node,
+            type : 'user',
+            command : 'update-work-style',
+            data : {
+                work_style : work_style
+            }
+        };
+        App.editor(options, callback);
+    };
+
+    App.user.update_work_interest = function(node, work_interest, callback) {
+        var options = {
+            node : node,
+            type : 'user',
+            command : 'update-work-interest',
+            data : {
+                work_interest : work_interest
+            }
+        };
+        App.editor(options, callback);
     };
 
 
