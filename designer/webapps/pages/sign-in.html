@@ -9,9 +9,12 @@
 
 <body>
 <header>
-    <div class="header-content">
-        <div class="header-content-inner">
-            <h1>Sign In</h1>
+    <div class="container">
+        <div class="row to">
+            <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <h1 class="text-center login-title">Sign In</h1>
+                <div class="account-wall">
+
             <input id="login-username" type="text" required data-validation-required-message="Please enter your email" class="form-control" name="username" placeholder="yourEmail@xyz.com"/>
             <br/>
             <input id="login-password" type="text" required data-validation-required-message="Please enter your password" class="form-control" name="password" placeholder="Your password"/>
@@ -19,11 +22,14 @@
             <label>
                 <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
             </label>
-            <div class="">
+            <div class="text-nowrap">
                 <a href="#" class="show_forgot_password">Forgot Password?</a>
             </div>
             <br/>
             <button id="login-btn-1" type="button" class="btn btn-xl btn-primary">Sign<strong> In</strong></button>
+
+                </div>
+            </div>
         </div>
     </div>
 </header>
