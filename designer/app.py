@@ -7,6 +7,7 @@ from flask.ext.mongorest import MongoRest
 from pymongo import MongoClient
 import sys
 import json
+import jinja2
 
 sys.setrecursionlimit(10000)
 
