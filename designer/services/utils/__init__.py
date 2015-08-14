@@ -60,3 +60,11 @@ def login_required(func):
         else:
             return dict(status='Failure', message='Please Login before proceeding')
     return decorate
+
+def setup_context():
+    user = g.user if hasattr(g, 'user') and g.user is not None else None
+    if hasattr(g, 'just_logged_in') and g.just_logged_in:
+        show_message_notification = True
+    else:
+        show_message_notification = False
+    return dict(user=user, show_message_notification=show_message_notification)

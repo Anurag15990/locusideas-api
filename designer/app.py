@@ -6,6 +6,7 @@ from flask.ext.mongoengine import MongoEngine
 from flask.ext.mongorest import MongoRest
 from pymongo import MongoClient
 import sys
+from designer.services.utils import setup_context
 import json
 
 sys.setrecursionlimit(10000)
@@ -40,8 +41,6 @@ def before_request():
         g.just_logged_in = True
         session['just_logged_in'] = False
 
-
-
 @flaskapp.route('/editors/invoke', methods=['POST'])
 def editor_invoke():
     try:
@@ -51,7 +50,7 @@ def editor_invoke():
         response = editor._invoke()
         return jsonify(response)
     except Exception, e:
-        return jsonify(dict(status='error', message='Something went wrong', exception=str(e)))
+        return jsonify(dict(status='error', message='Something went wrong', exception=str(e)), context=setup_context())
 
 @flaskapp.route('/extractors/invoke', methods=['POST'])
 def extractor_invoke():
@@ -62,7 +61,7 @@ def extractor_invoke():
         response = extractor._invoke()
         return jsonify(response)
     except Exception, e:
-        return jsonify(dict(status='error', message='Something went wrong', exception=str(e)))
+        return jsonify(dict(status='error', message='Something went wrong', exception=str(e)), context=setup_context())
 
 @flaskapp.route('/user/add')
 def render_template_for_user():
