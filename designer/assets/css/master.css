@@ -9744,6 +9744,7 @@ body {
 }
 .sign-in-main .sign-in .form-signin .form-signin-heading {
   color: #ffffff;
+  text-align: center;
 }
 .sign-in-main .sign-in .form-signin .checkbox {
   color: #ffffff;

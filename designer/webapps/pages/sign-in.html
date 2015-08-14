@@ -7,7 +7,7 @@
 </head>
 
 
-<body class="sign-in-main">
+<body class="sign-in-main" ng-app="login">
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -35,7 +35,6 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-
                 <li>
                     <a class="page-scroll" href=/login>Register/Login</a>
                 </li>
@@ -45,38 +44,41 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-<div class="container sign-in">
+<div class="container sign-in" ng-controller="loginCtrl">
 
     <form class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading">Please Login</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="" ng-model="username">
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" ng-model="password">
         <div class="checkbox">
             <label>
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="submit()">Login</button>
     </form>
 
 </div>
-   <script src="../../assets/js/external/jquery-1.11.3.min.js"></script>
-   <script src="../../assets/js/external/parallax.min.js"></script>
-   <script src="../../assets/js/external/wow.js"></script>
+<script src="../../assets/js/external/jquery-1.11.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-route.min.js"></script>
+<script src="../../assets/js/external/parallax.min.js"></script>
+<script src="../../assets/js/external/wow.js"></script>
 
 
 
-   <!-- Bootstrap Core JavaScript -->
-   <script src="../../assets/js/external/bootstrap.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="../../assets/js/external/bootstrap.min.js"></script>
 
-   <!-- Plugin JavaScript -->
-   <script src="../../assets/js/external/jquery.easing.min.js"></script>
-   <script src="../../assets/js/external/jquery.fittext.js"></script>
-   <script src="../../assets/js/external/wow.js"></script>
+<!-- Plugin JavaScript -->
+<script src="../../assets/js/external/jquery.easing.min.js"></script>
+<script src="../../assets/js/external/jquery.fittext.js"></script>
 
-   <!-- Custom Theme JavaScript -->
-   <script src="../../assets/js/external/creative.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../../assets/js/external/creative.js"></script>
+<script src="../../assets/js/appjs/sign-in.js"></script>
 </body>
 </html>
