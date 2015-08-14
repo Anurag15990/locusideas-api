@@ -7,26 +7,61 @@
 </head>
 
 
-<body>
-<header>
-    <div class="header-content">
-        <div class="header-content-inner">
-            <h1>Sign In</h1>
-            <input id="login-username" type="text" required data-validation-required-message="Please enter your email" class="form-control" name="username" placeholder="yourEmail@xyz.com"/>
-            <br/>
-            <input id="login-password" type="text" required data-validation-required-message="Please enter your password" class="form-control" name="password" placeholder="Your password"/>
-            <br/>
-            <label>
-                <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
-            </label>
-            <div class="">
-                <a href="#" class="show_forgot_password">Forgot Password?</a>
-            </div>
-            <br/>
-            <button id="login-btn-1" type="button" class="btn btn-xl btn-primary">Sign<strong> In</strong></button>
+<body class="sign-in-main">
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">DesignVerve</a>
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a class="page-scroll" href="#portfolio">Trending Designs</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#about">About</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#contact">Contact</a>
+                </li>
+            </ul>
         </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+
+                <li>
+                    <a class="page-scroll" href=/login>Register/Login</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
-</header>
+    <!-- /.container-fluid -->
+</nav>
+<div class="container sign-in">
+
+    <form class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+
+</div>
    <script src="../../assets/js/external/jquery-1.11.3.min.js"></script>
    <script src="../../assets/js/external/parallax.min.js"></script>
    <script src="../../assets/js/external/wow.js"></script>
