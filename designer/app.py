@@ -8,9 +8,7 @@ from pymongo import MongoClient
 import sys
 from designer.services.utils import setup_context
 import json
-from jinja2 import FileSystemLoader, Environment
 
-env = Environment(loader=FileSystemLoader(settings.TEMPLATE_FOLDER))
 
 sys.setrecursionlimit(10000)
 
@@ -18,7 +16,6 @@ flaskapp = Flask(__name__, static_folder='assets', template_folder='webapps/')
 from designer.models.extra.session import MongoSessionInterface
 flaskapp.session_interface = MongoSessionInterface(db='designerHub')
 
-flaskapp.jinja_env.add_extension('jinja2.ext.loopcontrols')
 flaskapp.config['MONGODB_SETTINGS'] = {
     'db': settings.MONGODB_DB,
     'host': settings.MONGODB_HOST,
@@ -33,8 +30,7 @@ engine.init_app(flaskapp)
 
 api = MongoRest(flaskapp)
 
-assets = Environment(flaskapp)
-flaskapp.jinja_env.cache = {()}
+
 
 @flaskapp.before_request
 def before_request():
