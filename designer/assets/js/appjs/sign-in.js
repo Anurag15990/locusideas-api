@@ -6,14 +6,10 @@ app.controller('loginCtrl', function($scope, $http){
     $scope.submit = function(){
         email = $scope.username;
         password = $scope.password;
-        var url = 'http://localhost:4900/editors/invoke';
+        var url = 'http://localhost:4900/login';
         var data = {
-            type: 'user',
-            command: 'login',
-            data: {
-                email: email,
-                password: password
-            }
+            email: email,
+            password: password
         };
 
         $http.post(url, data).
