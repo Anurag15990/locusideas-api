@@ -111,5 +111,5 @@ def register():
         raise e
 
 if __name__ == '__main__':
-    flaskapp.run(host='0.0.0.0', port=4901)
+    flaskapp.run(host='0.0.0.0', port=4901, debug=True)
 
