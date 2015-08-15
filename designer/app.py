@@ -87,6 +87,13 @@ def login():
     except Exception,e:
         raise e
 
+@flaskapp.route("/register")
+def register():
+    try:
+        return render_template('pages/register.html')
+    except Exception,e:
+        raise e
+
 if __name__ == '__main__':
-    flaskapp.run(host='0.0.0.0', port=4900)
+    flaskapp.run(host='0.0.0.0', port=4901)
 
