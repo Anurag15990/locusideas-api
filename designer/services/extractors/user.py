@@ -6,7 +6,8 @@ from designer.models.image import UserImage
 from designer.services.utils import convert_filters_to_query
 import json
 from designer.services.utils import JSONSetEncoder
-from designer.services.utils import login_required
+from designer.services.utils import login_required, setup_context
+
 
 class UserExtractor(BaseExtractor):
 
@@ -22,7 +23,7 @@ class UserExtractor(BaseExtractor):
         facets = self.getFacets(users)
         for user in users:
             response_Array.append(self.getCard(user))
-        return dict(status='success', users=response_Array, facets=facets)
+        return dict(status='success', users=response_Array, facets=facets, context=setup_context())
 
 
     def getCard(self, user):

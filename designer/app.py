@@ -6,8 +6,11 @@ from flask.ext.mongoengine import MongoEngine
 from flask.ext.mongorest import MongoRest
 from pymongo import MongoClient
 import sys
+from designer.services.utils import setup_context
 import json
-import jinja2
+from jinja2 import FileSystemLoader, Environment
+
+env = Environment(loader=FileSystemLoader(settings.TEMPLATE_FOLDER))
 
 sys.setrecursionlimit(10000)
 
@@ -15,6 +18,7 @@ flaskapp = Flask(__name__, static_folder='assets', template_folder='webapps/')
 from designer.models.extra.session import MongoSessionInterface
 flaskapp.session_interface = MongoSessionInterface(db='designerHub')
 
+flaskapp.jinja_env.add_extension('jinja2.ext.loopcontrols')
 flaskapp.config['MONGODB_SETTINGS'] = {
     'db': settings.MONGODB_DB,
     'host': settings.MONGODB_HOST,
@@ -29,6 +33,9 @@ engine.init_app(flaskapp)
 
 api = MongoRest(flaskapp)
 
+assets = Environment(flaskapp)
+flaskapp.jinja_env.cache = {()}
+
 @flaskapp.before_request
 def before_request():
     from designer.models.user import User
@@ -41,8 +48,6 @@ def before_request():
         g.just_logged_in = True
         session['just_logged_in'] = False
 
-
-
 @flaskapp.route('/editors/invoke', methods=['POST'])
 def editor_invoke():
     try:
@@ -52,7 +57,7 @@ def editor_invoke():
         response = editor._invoke()
         return jsonify(response)
     except Exception, e:
-        return jsonify(dict(status='error', message='Something went wrong', exception=str(e)))
+        return jsonify(dict(status='error', message='Something went wrong', exception=str(e)), context=setup_context())
 
 @flaskapp.route('/extractors/invoke', methods=['POST'])
 def extractor_invoke():
@@ -63,7 +68,7 @@ def extractor_invoke():
         response = extractor._invoke()
         return jsonify(response)
     except Exception, e:
-        return jsonify(dict(status='error', message='Something went wrong', exception=str(e)))
+        return jsonify(dict(status='error', message='Something went wrong', exception=str(e)), context=setup_context())
 
 @flaskapp.route('/user/add')
 def render_template_for_user():
