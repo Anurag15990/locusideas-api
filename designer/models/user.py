@@ -1,7 +1,7 @@
 __author__ = 'anurag'
 
 from designer.app import engine
-from designer.models import Node
+from designer.models import Node, update_content
 import datetime, hashlib, random
 from ago import human
 
@@ -26,6 +26,7 @@ class Verification(engine.EmbeddedDocument):
         print val
         return self.verification_link == val
 
+@update_content.apply
 class User(Node, engine.Document):
 
     name = engine.StringField()

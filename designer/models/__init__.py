@@ -6,7 +6,7 @@ from designer.services.utils import get_random, decode_base64
 from PIL import Image, ImageFile
 import os, random, base64
 from designer.settings import MEDIA_FOLDER
-
+from mongoengine import signals
 
 class ImageModel(engine.Document):
 
@@ -70,3 +70,36 @@ class Location(engine.Document):
     zipCode = engine.StringField()
 
 
+def handler(event):
+
+    def decorator(fn):
+        def apply(cls):
+            event.connect(fn, sender=cls)
+            return cls
+
+        fn.apply = apply
+        return fn
+    return decorator
+
+
+@handler(signals.pre_save)
+def update_content(sender, document):
+    if hasattr(document, 'published') and document.published_timestamp is None:
+        document.published_timestamp = datetime.datetime.now()
+
+    if (not hasattr(document, 'slug') or document.slug is None or len(document.slug) is 0) and document.id is not None:
+        update_slug(sender, document, document.__class__.__name__.lower(), document.id)
+
+
+def update_slug(sender, document, type, id):
+    _doc = document.__class__.objects(pk=str(id)).first()
+    original_slug = '%s/%s' %(type, str(id))
+    if not _doc:
+        _slug = original_slug
+        count = 1
+        while document.__class__.objects(slug=_slug).first() is not None:
+            _slug = original_slug + str(count)
+            count += 1
+    else:
+        _slug = original_slug
+    document.slug = _slug
