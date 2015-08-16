@@ -8991,7 +8991,7 @@ header {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  background-image: url('../../assets/images/nyc.jpg');
+  background-image: url('https://s3-us-west-2.amazonaws.com/designerzone/assets/images/nyc.jpg');
   text-align: center;
   color: white;
 }
@@ -9715,7 +9715,7 @@ body {
   background-size: contain;
 }
 .sign-in-main {
-  background-image: url(../images/nyc.jpg);
+  background-image: url(https://s3-us-west-2.amazonaws.com/designerzone/assets/images/nyc.jpg);
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -9749,7 +9749,7 @@ body {
   color: #ffffff;
 }
 .register-main {
-  background-image: url(../images/nyc.jpg);
+  background-image: url(https://s3-us-west-2.amazonaws.com/designerzone/assets/images/nyc.jpg);
   background-size: cover;
   background-repeat: no-repeat;
 }
