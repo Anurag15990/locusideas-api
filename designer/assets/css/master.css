@@ -8854,12 +8854,18 @@ body {
   font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
 }
 hr {
-  border-color: #f05f40;
+  border-color: #17a697;
   border-width: 3px;
   max-width: 50px;
 }
+hr.top {
+  border-color: #f05f40;
+}
 hr.light {
   border-color: white;
+}
+hr.contact {
+  border-color: #f05f40;
 }
 a {
   -webkit-transition: all 0.35s;
@@ -8885,7 +8891,7 @@ p {
   margin-bottom: 20px;
 }
 .bg-primary {
-  background-color: #f05f40;
+  background-color: #6f4c9e;
 }
 .bg-dark {
   background-color: #222222;
@@ -9065,7 +9071,7 @@ header .header-content .header-content-inner p {
   color: white;
   opacity: 0;
   display: block;
-  background: rgba(240, 95, 64, 0.9);
+  background: rgba(255, 103, 99, 0.9);
   position: absolute;
   bottom: 0;
   text-align: center;
@@ -9110,7 +9116,7 @@ header .header-content .header-content-inner p {
   margin: 0 auto 20px;
 }
 .text-primary {
-  color: #f05f40;
+  color: #17a697;
 }
 .no-gutter > [class*='col-'] {
   padding-right: 0;

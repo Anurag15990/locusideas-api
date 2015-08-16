@@ -10,13 +10,21 @@ body {
 }
 
 hr {
-    border-color: @theme-primary;
+    border-color: @tealBlue;
     border-width: 3px;
     max-width: 50px;
 }
 
+hr.top {
+    border-color: @theme-primary;
+}
+
 hr.light {
     border-color: white;
+}
+
+hr.contact {
+    border-color: @theme-primary;
 }
 
 a {
@@ -44,7 +52,7 @@ p {
 }
 
 .bg-primary {
-    background-color: @theme-primary;
+    background-color: @voilet;
 }
 
 .bg-dark {
@@ -232,7 +240,7 @@ header {
         color: white;
         opacity: 0;
         display: block;
-        background: fade(@theme-primary, 90%);
+        background: fade(@lightRed, 90%);
         position: absolute;
         bottom: 0;
         text-align: center;
@@ -287,7 +295,7 @@ header {
 
 // Bootstrap Overrides
 .text-primary {
-    color: @theme-primary;
+    color: @tealBlue;
 }
 
 .no-gutter > [class*='col-'] {
