@@ -1,12 +1,10 @@
-var email = null;
-var password = null;
 
 var app = angular.module('login', ['ngRoute']);
 app.controller('loginCtrl', function($scope, $http){
-    $scope.submit = function(){
-        email = $scope.username;
-        password = $scope.password;
-        var url = 'http://localhost:4900/login';
+    $scope.login = function(){
+       var email = $scope.username;
+       var password = $scope.password;
+        var url = '/login';
         var data = {
             email: email,
             password: password
@@ -20,6 +18,33 @@ app.controller('loginCtrl', function($scope, $http){
         });
     };
 
-
 });
 
+app.controller('registerCtrl', function($scope, $http){
+   $scope.register = function() {
+       var name = $scope.name;
+       var email = $scope.username;
+       var password = $scope.password;
+       var confirm = $scope.confirmPassword;
+       var url = '/editors/invoke'
+       var message = {
+           type : 'user',
+           command : 'register',
+           data : {
+               name : name,
+               email : email,
+               password : password,
+               confirm : confirm,
+               roles : ['Basic User']
+           }
+       };
+        if (name != null && email != null && password != null && confirm != null) {
+            $http.post(url, message).
+                then(function (response) {
+                    console.log(response);
+                }, function (error) {
+                    console.log(error);
+                });
+        } 
+   };
+});

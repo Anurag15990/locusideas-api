@@ -47,12 +47,12 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-<div class="container register" ng-controller="loginCtrl">
+<div class="container register" ng-controller="registerCtrl">
 
     <form class="form-register">
         <h2 class="form-register-heading">Please Register</h2>
         <label for="inputName" class="sr-only">Name</label>
-        <input type="text" id="inputName" class="form-control" placeholder="Name" required="" ng-model="name" pattern="[A-Za-z]" title="only alphabets allowed">
+            <input type="text" id="inputName" class="form-control" placeholder="Name" required="" ng-model="name">
         <br>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="" ng-model="username">
@@ -64,7 +64,7 @@
         <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Confirm Password" required="" ng-model="confirmPassword">
         <br>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="submit()">REGISTER</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="register()">REGISTER</button>
     </form>
 
 </div>
