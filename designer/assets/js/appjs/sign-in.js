@@ -45,6 +45,6 @@ app.controller('registerCtrl', function($scope, $http){
                 }, function (error) {
                     console.log(error);
                 });
-        } 
+        }
    };
 });

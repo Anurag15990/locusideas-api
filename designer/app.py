@@ -14,13 +14,16 @@ from jinja2 import Environment, FileSystemLoader
 env = Environment(loader=FileSystemLoader(settings.TEMPLATE_FOLDER))
 
 
+engine = MongoEngine()
+
+
 sys.setrecursionlimit(10000)
 
 flaskapp = Flask(__name__, static_folder='assets', template_folder='webapps/')
 flaskapp.jinja_env.add_extension('jinja2.ext.loopcontrols')
 assets = Environment(flaskapp)
 flaskapp.jinja_env.cache = {}
-
+engine.init_app(flaskapp)
 from designer.models.extra.session import MongoSessionInterface
 flaskapp.session_interface = MongoSessionInterface(db='designerHub')
 
@@ -33,8 +36,6 @@ flaskapp.config['MONGODB_SETTINGS'] = {
 client = MongoClient(settings.MONGODB_HOST, settings.MONGODB_PORT)
 db = client.designerHub
 
-engine = MongoEngine()
-engine.init_app(flaskapp)
 
 api = MongoRest(flaskapp)
 
@@ -110,6 +111,6 @@ def register():
     except Exception,e:
         raise e
 
-if __name__ == '__main__':
-    flaskapp.run(host='0.0.0.0', port=4901, debug=True)
+# if __name__ == '__main__':
+#     flaskapp.run(host='0.0.0.0', port=4901, debug=True)
 
