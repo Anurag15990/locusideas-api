@@ -84,6 +84,10 @@ def render_home_template():
     except Exception,e:
         raise e
 
+@flaskapp.route("/profile")
+def show_profile():
+    return render_template('pages/profile.html')
+
 @flaskapp.route("/login", methods=['GET', 'POST'])
 def login():
     try:

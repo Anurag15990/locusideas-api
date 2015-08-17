@@ -9808,3 +9808,33 @@ body {
 .register-main .register .form-register .checkbox {
   color: #ffffff;
 }
+.cover-photo {
+  linearGradient: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.4);
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  width: 100%;
+  min-height: auto;
+  background-position: center;
+  text-align: center;
+  color: white;
+}
+@media (min-width: 768px) {
+  .cover-photo {
+    min-height: 60%;
+  }
+}
+.cover-photo .container .user-pro {
+  max-width: 150px;
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-position: center;
+  padding-top: 15%;
+  text-align: center;
+}
+.cover-photo .container .name-location {
+  font-family: sans-serif;
+  position: relative;
+}
