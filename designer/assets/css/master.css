@@ -8865,7 +8865,7 @@ hr.light {
   border-color: white;
 }
 hr.contact {
-  border-color: #f05f40;
+  border-color: #fdbc11;
 }
 a {
   -webkit-transition: all 0.35s;
@@ -9111,6 +9111,21 @@ header .header-content .header-content-inner p {
   .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
     font-size: 22px;
   }
+}
+.section-heading-contact {
+  color: #0087cb;
+}
+.fa-phone {
+  color: #fdbc11;
+}
+.fa-envelope-o {
+  color: #fdbc11;
+}
+.contact-details {
+  color: #0087cb;
+}
+.contact-details a {
+  color: #0087cb;
 }
 .call-to-action h2 {
   margin: 0 auto 20px;
