@@ -9821,7 +9821,7 @@ body {
 }
 @media (min-width: 768px) {
   .cover-photo {
-    min-height: 60%;
+    min-height: 70%;
   }
 }
 .cover-photo .container .user-pro {
@@ -9834,7 +9834,20 @@ body {
   padding-top: 15%;
   text-align: center;
 }
-.cover-photo .container .name-location {
-  font-family: sans-serif;
+.cover-photo .container h2 {
+  font-family: arial, verdana, sans-serif;
   position: relative;
+  font-size: 40px;
+  font-weight: 600;
+}
+.cover-photo .container h4 {
+  font-family: 'ArialRoundedMTBold', Arial;
+  font-size: 22px;
+  font-weight: 400;
+}
+.cover-photo .container .joined-section h4 {
+  padding-top: 5%;
+  font-family: roboto_slabregular;
+  font-size: 17px;
+  font-weight: 350;
 }
