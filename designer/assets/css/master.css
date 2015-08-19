@@ -8991,7 +8991,7 @@ header {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  background-image: url('../../assets/images/header.jpg');
+  background-image: url('https://s3-us-west-2.amazonaws.com/designerzone/assets/images/nyc.jpg');
   text-align: center;
   color: white;
 }
@@ -9716,7 +9716,7 @@ body {
   background-size: contain;
 }
 .sign-in-main {
-  background-image: url(../images/header.jpg);
+  background-image: url(https://s3-us-west-2.amazonaws.com/designerzone/assets/images/nyc.jpg);
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -9747,5 +9747,44 @@ body {
   text-align: center;
 }
 .sign-in-main .sign-in .form-signin .checkbox {
+  color: #ffffff;
+}
+.register-main {
+  background-image: url(https://s3-us-west-2.amazonaws.com/designerzone/assets/images/nyc.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.register-main .register {
+  margin-top: 50px;
+}
+.register-main .register .form-register {
+  max-width: 390px;
+  margin: 0 auto;
+  padding: 200px 0;
+}
+.register-main .register .form-register input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.register-main .register .form-register input[type="password"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.register-main .register .form-register .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.register-main .register .form-register .form-register-heading {
+  color: #ffffff;
+  text-align: center;
+}
+.register-main .register .form-register .checkbox {
   color: #ffffff;
 }

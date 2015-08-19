@@ -8903,122 +8903,6 @@ aside {
 .no-padding {
   padding: 0;
 }
-header {
-  position: relative;
-  width: 40%;
-  min-height: auto;
-  background-position: top;
-  background-image: url('../../images/header.jpg');
-  text-align: center;
-  color: white;
-}
-header .header-content {
-  position: relative;
-  text-align: center;
-  padding: 50px 15px 50px;
-  width: 100%;
-}
-header .header-content .header-content-inner h1 {
-  font-weight: 200;
-  text-transform: uppercase;
-  margin-top: 0;
-  margin-bottom: 60px;
-}
-header .header-content .header-content-inner .form-control {
-  width: 40%;
-  margin-bottom: 50px;
-}
-header .header-content .header-content-inner hr {
-  margin: 30px auto;
-}
-header .header-content .header-content-inner p {
-  font-weight: 100;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 16px;
-  margin-bottom: 50px;
-}
-@media (min-width: 768px) {
-  header {
-    min-height: 100%;
-  }
-  header .header-content {
-    position: absolute;
-    top: 20%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    padding: 0 50px;
-  }
-  header .header-content .header-content-inner {
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  header .header-content .header-content-inner p {
-    font-size: 18px;
-    max-width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-html,
-body {
-  height: 100%;
-  width: 100%;
-}
-body {
-  font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
-}
-hr {
-  border-color: #f05f40;
-  border-width: 3px;
-  max-width: 50px;
-}
-hr.light {
-  border-color: white;
-}
-a {
-  -webkit-transition: all 0.35s;
-  -moz-transition: all 0.35s;
-  transition: all 0.35s;
-  color: #f05f40;
-}
-a:hover,
-a:focus {
-  color: #eb3812;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-}
-p {
-  font-size: 16px;
-  line-height: 1.5;
-  margin-bottom: 20px;
-}
-.bg-primary {
-  background-color: #f05f40;
-}
-.bg-dark {
-  background-color: #222222;
-  color: white;
-}
-.text-faded {
-  color: rgba(255, 255, 255, 0.7);
-}
-section {
-  padding: 100px 0;
-}
-aside {
-  padding: 50px 0;
-}
-.no-padding {
-  padding: 0;
-}
 .navbar-default {
   background-color: white;
   border-color: rgba(34, 34, 34, 0.05);
@@ -9107,7 +8991,7 @@ header {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  background-image: url('../../assets/images/header.jpg');
+  background-image: url('../../assets/images/bnwbanner.jpg');
   text-align: center;
   color: white;
 }
@@ -9829,4 +9713,77 @@ body {
   height: 300px;
   background-repeat: no-repeat;
   background-size: contain;
+}
+.sign-in-main {
+  background-image: url(../images/header.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.sign-in-main .sign-in {
+  margin-top: 50px;
+}
+.sign-in-main .sign-in .form-signin {
+  max-width: 390px;
+  margin: 0 auto;
+  padding: 200px 0;
+}
+.sign-in-main .sign-in .form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.sign-in-main .sign-in .form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.sign-in-main .sign-in .form-signin .form-signin-heading {
+  color: #ffffff;
+  text-align: center;
+}
+.sign-in-main .sign-in .form-signin .checkbox {
+  color: #ffffff;
+}
+.register-main {
+  background-image: url(../images/header.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.register-main .register {
+  margin-top: 50px;
+}
+.register-main .register .form-register {
+  max-width: 390px;
+  margin: 0 auto;
+  padding: 200px 0;
+}
+.register-main .register .form-register input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.register-main .register .form-register input[type="password"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.register-main .register .form-register .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.register-main .register .form-register .form-register-heading {
+  color: #ffffff;
+  text-align: center;
+}
+.register-main .register .form-register .checkbox {
+  color: #ffffff;
 }

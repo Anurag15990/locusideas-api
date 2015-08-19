@@ -6,19 +6,24 @@ from flask.ext.mongoengine import MongoEngine
 from flask.ext.mongorest import MongoRest
 from pymongo import MongoClient
 import sys
-from designer.services.utils import setup_context
+from designer.services.utils import setup_context, login_user_session
+
 import json
-from jinja2 import FileSystemLoader, Environment
+from jinja2 import Environment, FileSystemLoader
 
 env = Environment(loader=FileSystemLoader(settings.TEMPLATE_FOLDER))
+
 
 sys.setrecursionlimit(10000)
 
 flaskapp = Flask(__name__, static_folder='assets', template_folder='webapps/')
+flaskapp.jinja_env.add_extension('jinja2.ext.loopcontrols')
+assets = Environment(flaskapp)
+flaskapp.jinja_env.cache = {}
+
 from designer.models.extra.session import MongoSessionInterface
 flaskapp.session_interface = MongoSessionInterface(db='designerHub')
 
-flaskapp.jinja_env.add_extension('jinja2.ext.loopcontrols')
 flaskapp.config['MONGODB_SETTINGS'] = {
     'db': settings.MONGODB_DB,
     'host': settings.MONGODB_HOST,
@@ -33,8 +38,7 @@ engine.init_app(flaskapp)
 
 api = MongoRest(flaskapp)
 
-assets = Environment(flaskapp)
-flaskapp.jinja_env.cache = {()}
+
 
 @flaskapp.before_request
 def before_request():
@@ -70,12 +74,7 @@ def extractor_invoke():
     except Exception, e:
         return jsonify(dict(status='error', message='Something went wrong', exception=str(e)), context=setup_context())
 
-@flaskapp.route('/user/add')
-def render_template_for_user():
-    try:
-        return render_template('pages/index.html')
-    except Exception, e:
-        raise e
+
 
 @flaskapp.route("/")
 def render_home_template():
@@ -84,13 +83,33 @@ def render_home_template():
     except Exception,e:
         raise e
 
-@flaskapp.route("/login")
+@flaskapp.route("/login", methods=['GET', 'POST'])
 def login():
     try:
-        return render_template('pages/sign-in.html')
+        if request.method == 'POST':
+            from designer.models.user import User
+            message = request.get_json(force=True)
+            email, password = message['email'], message['password']
+            user = User.authenticate(email, password)
+            if user and user.id:
+                login_user_session(user)
+                target = request.args.get('target', None)
+                response =  jsonify(dict(status='success', message='Successfully logged in', node=user, my_page=target if target is not None and len(target) > 0 else user.slug))
+                return response
+            else:
+                return jsonify(dict(status='error', message='Invalid EmailId and/or Password'))
+        else:
+            return render_template('pages/sign-in.html')
+    except Exception,e:
+        raise e
+
+@flaskapp.route("/register")
+def register():
+    try:
+        return render_template('pages/register.html')
     except Exception,e:
         raise e
 
 if __name__ == '__main__':
-    flaskapp.run(host='0.0.0.0', port=4900)
+    flaskapp.run(host='0.0.0.0', port=4901, debug=True)
 
