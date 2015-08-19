@@ -69,13 +69,13 @@ def register(data):
     try:
         user.change_password(confirm=confirm, password=password)
 
-        if data['address'] is not None:
+        if hasattr(data, 'address') and data['address'] is not None:
             user.address = data['address']
 
-        if data['phone'] is not None:
+        if hasattr(data, 'phone') and data['phone'] is not None:
             user.phone = data['phone']
 
-        if data['mobile'] is not None:
+        if hasattr(data, 'mobile') and data['mobile'] is not None:
             user.mobile = data['mobile']
 
         user.is_verified = False

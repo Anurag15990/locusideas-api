@@ -8854,12 +8854,18 @@ body {
   font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
 }
 hr {
-  border-color: #f05f40;
+  border-color: #17a697;
   border-width: 3px;
   max-width: 50px;
 }
+hr.top {
+  border-color: #f05f40;
+}
 hr.light {
   border-color: white;
+}
+hr.contact {
+  border-color: #fdbc11;
 }
 a {
   -webkit-transition: all 0.35s;
@@ -8885,7 +8891,7 @@ p {
   margin-bottom: 20px;
 }
 .bg-primary {
-  background-color: #f05f40;
+  background-color: #6f4c9e;
 }
 .bg-dark {
   background-color: #222222;
@@ -9065,7 +9071,7 @@ header .header-content .header-content-inner p {
   color: white;
   opacity: 0;
   display: block;
-  background: rgba(240, 95, 64, 0.9);
+  background: rgba(255, 103, 99, 0.8);
   position: absolute;
   bottom: 0;
   text-align: center;
@@ -9106,11 +9112,26 @@ header .header-content .header-content-inner p {
     font-size: 22px;
   }
 }
+.section-heading-contact {
+  color: #0087cb;
+}
+.fa-phone {
+  color: #fdbc11;
+}
+.fa-envelope-o {
+  color: #fdbc11;
+}
+.contact-details {
+  color: #0087cb;
+}
+.contact-details a {
+  color: #0087cb;
+}
 .call-to-action h2 {
   margin: 0 auto 20px;
 }
 .text-primary {
-  color: #f05f40;
+  color: #17a697;
 }
 .no-gutter > [class*='col-'] {
   padding-right: 0;
@@ -9787,4 +9808,48 @@ body {
 }
 .register-main .register .form-register .checkbox {
   color: #ffffff;
+}
+.cover-photo {
+  linearGradient: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.4);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  width: 100%;
+  min-height: auto;
+  background-position: center;
+  text-align: left;
+  color: white;
+}
+@media (min-width: 768px) {
+  .cover-photo {
+    min-height: 70%;
+  }
+}
+.cover-photo .container .user-pro {
+  max-width: 250px;
+  position: relative;
+  background-position: center;
+  padding-top: 25%;
+  text-align: center;
+}
+.cover-photo .container .details-section {
+  padding-top: 24%;
+  padding-left: 5%;
+}
+.cover-photo .container h2 {
+  font-family: arial, verdana, sans-serif;
+  position: relative;
+  font-size: 40px;
+  font-weight: 600;
+}
+.cover-photo .container h4 {
+  font-family: 'ArialRoundedMTBold', Arial;
+  font-size: 20px;
+  font-weight: 400;
+}
+.cover-photo .container .joined-section h4 {
+  padding-top: 10%;
+  font-family: roboto_slabregular;
+  font-size: 14px;
+  font-weight: 350;
 }
