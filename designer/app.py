@@ -7,6 +7,8 @@ from flask.ext.mongorest import MongoRest
 from pymongo import MongoClient
 import sys
 from designer.services.utils import setup_context, login_user_session
+from boto.s3.connection import S3Connection
+from boto.s3.key import Key
 
 import json
 from jinja2 import Environment, FileSystemLoader
@@ -38,6 +40,12 @@ db = client.designerHub
 
 
 api = MongoRest(flaskapp)
+
+
+botoConnection = S3Connection(settings.AWSAccessKeyId, settings.AWSSecretKey)
+bucket = botoConnection.get_bucket('designerzone')
+bucket_key = Key(bucket)
+
 
 
 

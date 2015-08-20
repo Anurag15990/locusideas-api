@@ -23,24 +23,65 @@ class ImageModel(engine.Document):
     }
 
 def save_image(base64String):
+    from designer.settings import CDN_URL, USE_CDN
+    from designer.app import bucket_key
     ImageFile.LOAD_TRUNCATED_IMAGES = True
     size = 300, 300
     icon_size = 64, 64
-    if not os.path.exists(MEDIA_FOLDER):
-        os.mkdir(MEDIA_FOLDER)
+
+
+    if not os.path.exists(os.getcwd() + '/designer/' + MEDIA_FOLDER):
+        os.mkdir(os.getcwd() + '/designer/' + MEDIA_FOLDER)
     file_content = decode_base64(str(base64String))
     name = str(datetime.datetime.now()).split(' ')[0].replace('-', '') + "-" + str(random.randrange(9999999999999, 999999999999999999))
-    path = "%s/%s.jpg" %(MEDIA_FOLDER, name)
+    if USE_CDN:
+
+        path = '/tmp/%s.jpg' %name
+        file = open(path, 'wb')
+        file.write(file_content)
+
+
+        thumbnail_name = '%s-thumbnail.jpg' %name
+        icon_name = '%s-icon.jpg' %name
+        thumbnail_path = '/tmp/%s' %thumbnail_name
+        icon_path = '/tmp/%s' %icon_name
+
+        bucket_key.key = MEDIA_FOLDER + name + '.jpg'
+        bucket_key.set_contents_from_string(file_content)
+        cdn_path = CDN_URL + MEDIA_FOLDER + name + '.jpg'
+
+        bucket_key.key = MEDIA_FOLDER + thumbnail_name
+        thumbnail_image = Image.open(path)
+        thumbnail_image.thumbnail(size, Image.ADAPTIVE)
+        thumbnail_image.save(thumbnail_path, "JPEG")
+
+        with open(thumbnail_path, 'rb') as thumbnail_image:
+            bucket_key.set_contents_from_string(decode_base64(str(base64.b64encode(thumbnail_image.read()))))
+        cdn_thumbnail_path = CDN_URL + MEDIA_FOLDER + thumbnail_name
+
+        bucket_key.key = MEDIA_FOLDER + icon_name
+        icon_image = Image.open(path)
+        icon_image.thumbnail(icon_size, Image.ADAPTIVE)
+        icon_image.save(icon_path, "JPEG")
+
+        with open(icon_path, 'rb') as icon_image:
+            bucket_key.set_contents_from_string(decode_base64(str(base64.b64encode(icon_image.read()))))
+        cdn_icon_path = CDN_URL + MEDIA_FOLDER + icon_name
+
+        return cdn_path, cdn_thumbnail_path, cdn_icon_path, path
+
+    path = os.getcwd() + '/designer/' +  "%s/%s.jpg" %(MEDIA_FOLDER, name)
     file = open(path, "wb")
     file.write(file_content)
-    thumbnail_path = "%s/%s-thumbnail.jpg" %(MEDIA_FOLDER, name)
-    icon_path = "%s/%s-icon.jpg" %(MEDIA_FOLDER, name)
-    image = Image.open(path)
-    original_image = image
-    image.thumbnail(size, Image.ADAPTIVE)
-    image.save(thumbnail_path, "JPEG")
-    image.thumbnail(icon_size, Image.ADAPTIVE)
-    image.save(icon_path, "JPEG")
+    thumbnail_path = os.getcwd() + '/designer/' +"%s/%s-thumbnail.jpg" %(MEDIA_FOLDER, name)
+    icon_path = os.getcwd() + '/designer/' + "%s/%s-icon.jpg" %(MEDIA_FOLDER, name)
+    thumbnail_image = Image.open(path)
+    thumbnail_image.thumbnail(size, Image.ADAPTIVE)
+    thumbnail_image.save(thumbnail_path, "JPEG")
+
+    icon_image  = Image.open(path)
+    icon_image.thumbnail(icon_size, Image.ADAPTIVE)
+    icon_image.save(icon_path, "JPEG")
     file.close()
     return path, thumbnail_path, icon_path, path
 

@@ -11,7 +11,7 @@ class ImageEditor(BaseEditor):
             return upload_creative_image(self.data, self.node)
 
 
-@response_handler('Successfully uploaded User Image', 'Failed to upload User Image')
+#@response_handler('Successfully uploaded User Image', 'Failed to upload User Image')
 def upload_user_image(data, node):
     if data['image'] is not None:
         return UserImage.create(data, node)
