@@ -41,10 +41,10 @@ db = client.designerHub
 
 api = MongoRest(flaskapp)
 
-
-botoConnection = S3Connection(settings.AWSAccessKeyId, settings.AWSSecretKey)
-bucket = botoConnection.get_bucket('designerzone')
-bucket_key = Key(bucket)
+if settings.USE_CDN:
+    botoConnection = S3Connection(settings.AWSAccessKeyId, settings.AWSSecretKey)
+    bucket = botoConnection.get_bucket('designerzone')
+    bucket_key = Key(bucket)
 
 
 

@@ -9,10 +9,10 @@ MONGODB_DB = 'designerHub'
 MEDIA_FOLDER = "/assets/media/"
 TEMPLATE_FOLDER = "webapps/"
 
-AWSAccessKeyId = "AKIAIVHAXW74BS2AR6QQ"
-AWSSecretKey = "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"
+AWSAccessKeyId = ""
+AWSSecretKey = ""
 
-USE_CDN = True
+USE_CDN = False
 CDN_URL = "https://s3-us-west-2.amazonaws.com/designerzone"
 
 

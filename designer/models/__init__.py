@@ -23,8 +23,8 @@ class ImageModel(engine.Document):
     }
 
 def save_image(base64String):
+
     from designer.settings import CDN_URL, USE_CDN
-    from designer.app import bucket_key
     ImageFile.LOAD_TRUNCATED_IMAGES = True
     size = 300, 300
     icon_size = 64, 64
@@ -35,6 +35,7 @@ def save_image(base64String):
     file_content = decode_base64(str(base64String))
     name = str(datetime.datetime.now()).split(' ')[0].replace('-', '') + "-" + str(random.randrange(9999999999999, 999999999999999999))
     if USE_CDN:
+        from designer.app import bucket_key
 
         path = '/tmp/%s.jpg' %name
         file = open(path, 'wb')
