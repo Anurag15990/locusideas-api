@@ -3,7 +3,7 @@ __author__ = 'anurag'
 from designer.app import flaskapp
 from flask import session, g, request, jsonify, render_template
 from designer.services.utils import login_required, login_user_session, setup_context
-
+from designer.services.extractors.user import UserExtractor
 
 @flaskapp.before_request
 def before_request():
@@ -28,16 +28,16 @@ def editor_invoke():
     except Exception, e:
         return jsonify(dict(status='error', message='Something went wrong', exception=str(e)), context=setup_context())
 
-@flaskapp.route('/extractors/invoke', methods=['POST'])
-def extractor_invoke():
-    try:
-        message = request.get_json(force=True)
-        from designer.services.extractors.base import BaseExtractor
-        extractor = BaseExtractor.factory(message)
-        response = extractor._invoke()
-        return jsonify(response)
-    except Exception, e:
-        return jsonify(dict(status='error', message='Something went wrong', exception=str(e)), context=setup_context())
+# @flaskapp.route('/extractors/invoke', methods=['POST'])
+# def extractor_invoke():
+#     try:
+#         message = request.get_json(force=True)
+#         from designer.services.extractors.base import BaseExtractor
+#         extractor = BaseExtractor.factory(message)
+#         response = extractor._invoke()
+#         return jsonify(response)
+#     except Exception, e:
+#         return jsonify(dict(status='error', message='Something went wrong', exception=str(e)), context=setup_context())
 
 
 
@@ -48,9 +48,6 @@ def render_home_template():
     except Exception,e:
         raise e
 
-@flaskapp.route("/profile")
-def show_profile():
-    return render_template('pages/profile.html')
 
 @flaskapp.route("/login", methods=['GET', 'POST'])
 def login():
@@ -80,10 +77,9 @@ def register():
         raise e
 
 
-@flaskapp.route("/user/<id>")
-def get_user_by_id(id):
-    from designer.models.user import User
-    node = User.objects(pk=id).first()
+@flaskapp.route("/user/<slug>")
+def get_user_by_id(slug):
+    node = UserExtractor.get_by_slug(slug)
     if node is not None:
         return render_template('templates/profile.html', user=node, model=node)
     else:

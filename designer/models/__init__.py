@@ -135,7 +135,7 @@ def update_content(sender, document):
 
 def update_slug(sender, document, type, id):
     _doc = document.__class__.objects(pk=str(id)).first()
-    original_slug = '%s/%s' %(type, str(id))
+    original_slug = '/%s/%s' %(type, str(id))
     if not _doc:
         _slug = original_slug
         count = 1

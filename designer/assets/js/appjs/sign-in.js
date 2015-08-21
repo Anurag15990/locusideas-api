@@ -42,6 +42,9 @@ app.controller('registerCtrl', function($scope, $http){
             $http.post(url, message).
                 then(function (response) {
                     console.log(response);
+                    var context = response['context']
+                    var user = context['user']
+                    window.location = user['slug']
                 }, function (error) {
                     console.log(error);
                 });
