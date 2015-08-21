@@ -1,0 +1,26 @@
+{% extends '/templates/layout.html' %}
+{% block body %}
+<div class="cover-photo" style="background-image: url(../../assets/images/nyc.jpg)">
+    <div class="container">
+        <div class="row">
+            <div class="user-pro col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <img src="../../assets/images/profile.jpg">
+            </div>
+            {% if model %}
+            <div class="details-section col-lg-9 col-md-4 col-sm-4 col-xs-12">
+                <div class="name-section">
+                    <h2>{{ model.email }}</h2>
+                </div>
+                <div class="location-section">
+                    <h4><i class="fa fa-map-marker"></i>&nbsp;{{ model.address }}</h4>
+                </div>
+                <div class="joined-section">
+                    <h4>Member since {{ model.created_timestamp }}</h4>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
