@@ -1,9 +1,16 @@
 __author__ = 'anurag'
 
 from designer.app import flaskapp
-from flask import session, g, request, jsonify, render_template
+from flask import session, g, request, jsonify, render_template, redirect
 from designer.services.utils import login_required, login_user_session, setup_context
 from designer.services.extractors.user import UserExtractor
+
+
+def get_logged_in_user():
+    user_id = session.get('user', None)
+    if user_id:
+        return UserExtractor.get_by_id(user_id)
+    return None
 
 @flaskapp.before_request
 def before_request():
@@ -44,7 +51,7 @@ def editor_invoke():
 @flaskapp.route("/")
 def render_home_template():
     try:
-        return render_template('templates/main_landing.html')
+        return render_template('templates/main_landing.html', user=get_logged_in_user())
     except Exception,e:
         raise e
 
@@ -80,8 +87,9 @@ def register():
 @flaskapp.route("/user/<slug>")
 def get_user_by_id(slug):
     node = UserExtractor.get_by_slug(slug)
+    user = get_logged_in_user()
     if node is not None:
-        return render_template('templates/profile.html', user=node, model=node)
+        return render_template('templates/profile.html', user=user, model=node)
     else:
         return jsonify(dict(status='failure', message='User not found'))
 
@@ -94,3 +102,10 @@ def get_portfolio_by_id(id):
         return render_template('pages/portfolio.html', model=node)
     else:
         return jsonify(dict(status='failure', message='Portfolio not found'))
+
+@flaskapp.route("/logout")
+def logout():
+    if hasattr(g, 'user'):
+        g.user = None
+        session.clear()
+        return redirect('/')

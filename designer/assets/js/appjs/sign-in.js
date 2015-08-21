@@ -1,4 +1,5 @@
 
+
 var app = angular.module('login', ['ngRoute']);
 app.controller('loginCtrl', function($scope, $http){
     $scope.login = function(){
@@ -13,6 +14,9 @@ app.controller('loginCtrl', function($scope, $http){
         $http.post(url, data).
             then(function(response) {
                 console.log(response);
+                var data = response['data']
+                var user = data['node']
+                window.location = user['slug']
             }, function(response) {
                 console.log(response);
         });
@@ -42,8 +46,8 @@ app.controller('registerCtrl', function($scope, $http){
             $http.post(url, message).
                 then(function (response) {
                     console.log(response);
-                    var context = response['context']
-                    var user = context['user']
+                    var data = response['data']
+                    var user = data['node']
                     window.location = user['slug']
                 }, function (error) {
                     console.log(error);

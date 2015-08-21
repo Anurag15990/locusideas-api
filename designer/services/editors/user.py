@@ -30,8 +30,6 @@ class UserEditor(BaseEditor):
             response = update_contact_info(self.node, self.data)
         elif self.command == 'change-password':
             response = change_password(self.node, self.data)
-        elif self.command == 'logout':
-            response = logout()
         elif self.command == 'update-work-focus':
             response = update_work_focus(self.node,self.data)
         elif self.command == 'update-work-style':
@@ -82,6 +80,7 @@ def register(data):
         user.admin_approved = False
 
         user.save()
+        login_user_session(user)
     except Exception,e:
         raise Exception(e)
     return user
@@ -150,12 +149,8 @@ def update_contact_info(user, data):
     node.save()
     return node
 
-@response_handler('Logged out successfully', 'Error Logging out')
-def logout():
-    if hasattr(g, 'user'):
-        g.user = None
-        session.clear()
-        return None
+
+
 
 @response_handler('Successfully changed password', 'Error while changing password')
 def change_password(user, data):

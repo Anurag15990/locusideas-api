@@ -11,11 +11,13 @@
                 <div class="name-section">
                     <h2>{{ model.name }}</h2>
                 </div>
+                 {% if model.address %}
                 <div class="location-section">
                     <h4><i class="fa fa-map-marker"></i>&nbsp;{{ model.address }}</h4>
                 </div>
+                {% endif %}
                 <div class="joined-section">
-                    <h4>Member since {{ model.created_timestamp }}</h4>
+                    <h4>Member since {{ model.created_timestamp.strftime('%B %d, %Y') }}</h4>
                 </div>
             </div>
             {% endif %}
