@@ -44,7 +44,7 @@ def extractor_invoke():
 @flaskapp.route("/")
 def render_home_template():
     try:
-        return render_template('pages/index2.html')
+        return render_template('templates/main_landing.html')
     except Exception,e:
         raise e
 

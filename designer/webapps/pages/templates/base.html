@@ -1,12 +1,32 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Sign In</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/master.css') }}">
-</head>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-<body class="sign-in-main" ng-app="login">
+        <title>Home - DesignVerve</title>
+        <link rel="stylesheet" type="text/css" href="../../assets/css/master.css">
+
+        <!-- Custom Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+
+
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    {% endblock %}
+</head>
+<body class="page-top" id="page-top">
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -17,7 +37,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" href="/">DesignVerve</a>
+            <a class="navbar-brand page-scroll" href="#page-top">DesignVerve</a>
             <ul class="nav navbar-nav navbar-left">
                 <li>
                     <a class="page-scroll" href="#portfolio">Trending Designs</a>
@@ -34,6 +54,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
+
                 <li>
                     <a class="page-scroll" href=/login>Login</a>
                 </li>
@@ -46,26 +67,8 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-<div class="container sign-in" ng-controller="loginCtrl">
-
-    <form class="form-signin">
-        <h2 class="form-signin-heading">Login</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="" ng-model="username">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" ng-model="password">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login()">Login</button>
-    </form>
-
-</div>
+{% block content %}{% endblock %}
 <script src="../../assets/js/external/jquery-1.11.3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-route.min.js"></script>
 <script src="../../assets/js/external/parallax.min.js"></script>
 <script src="../../assets/js/external/wow.js"></script>
 
@@ -77,10 +80,9 @@
 <!-- Plugin JavaScript -->
 <script src="../../assets/js/external/jquery.easing.min.js"></script>
 <script src="../../assets/js/external/jquery.fittext.js"></script>
-
+<script src="../../assets/js/external/wow.js"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="../../assets/js/external/creative.js"></script>
-<script src="../../assets/js/appjs/sign-in.js"></script>
 </body>
 </html>
