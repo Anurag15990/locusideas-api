@@ -1,12 +1,12 @@
 {% extends '/templates/layout.html' %}
 {% block body %}
+{% if model %}
 <div class="cover-photo" style="background-image: url(../../assets/images/nyc.jpg)">
     <div class="container">
         <div class="row">
             <div class="user-pro col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <img src="../../assets/images/profile.jpg">
             </div>
-            {% if model %}
             <div class="details-section col-lg-9 col-md-4 col-sm-4 col-xs-12">
                 <div class="name-section">
                     <h2>{{ model.name }}</h2>
@@ -20,9 +20,25 @@
                     <h4>Member since {{ model.created_timestamp.strftime('%B %d, %Y') }}</h4>
                 </div>
             </div>
-            {% endif %}
         </div>
 
     </div>
 </div>
+<section class="container-fluid p-0">
+    <div role="tabpanel" data-example-id="togglable-tabs">
+        <div class="border-grey-t border-grey-b h-25">
+            <div class="container text-center">
+                <ul id="myTab" class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#personaldetails" role="tab" data-toggle="tab" aria-controls="personal-details" aria-expanded="false">
+                        <strong>Personal Details</strong></a></li>
+                    <li class=""><a href="#workdetails" role="tab" data-toggle="tab" aria-controls="work-details" aria-expanded="false">
+                        <strong>Work Details</strong></a></li>
+                    <li class=""><a href="#myWorks" role="tab" data-toggle="tab" aria-controls="work-details" aria-expanded="false"><strong>My Works</strong></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endif %}
 {% endblock %}
