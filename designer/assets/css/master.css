@@ -9852,3 +9852,12 @@ body {
   font-size: 14px;
   font-weight: 350;
 }
+.contact-section {
+  font-family: "Open Sans";
+}
+.contact-section .details-info {
+  background: #FFFFFF;
+  font-family: Arial, Baskerville, monospace;
+  font-size: 14px;
+  color: #99A4A6;
+}
