@@ -9821,7 +9821,7 @@ body {
 }
 @media (min-width: 768px) {
   .cover-photo {
-    min-height: 70%;
+    min-height: 80%;
   }
 }
 .cover-photo .container .user-pro {
