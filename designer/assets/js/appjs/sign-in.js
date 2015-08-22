@@ -1,6 +1,6 @@
 
 
-var app = angular.module('login', ['ngRoute']);
+var app = angular.module('app', ['ngRoute']);
 app.controller('loginCtrl', function($scope, $http){
     $scope.login = function(){
        var email = $scope.username;

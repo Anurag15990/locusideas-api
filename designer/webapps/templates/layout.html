@@ -26,7 +26,7 @@
 </head>
 
 
-<body>
+<body class="{% block body_class %}{% endblock %}" ng-app="app">
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -79,6 +79,8 @@
 
 {% endblock %}
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-route.min.js"></script>
 <script src="../../assets/js/external/jquery-1.11.3.min.js"></script>
 <script src="../../assets/js/external/parallax.min.js"></script>
 <script src="../../assets/js/external/wow.js"></script>
@@ -95,5 +97,6 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="../../assets/js/external/creative.js"></script>
+<script src="../../assets/js/appjs/sign-in.js"></script>
 </body>
 </html>

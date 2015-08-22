@@ -79,7 +79,7 @@ def login():
 @flaskapp.route("/register")
 def register():
     try:
-        return render_template('pages/register.html')
+        return render_template('templates/register.html')
     except Exception,e:
         raise e
 
