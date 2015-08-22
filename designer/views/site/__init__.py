@@ -72,7 +72,7 @@ def login():
             else:
                 return jsonify(dict(status='error', message='Invalid EmailId and/or Password'))
         else:
-            return render_template('pages/sign-in.html')
+            return render_template('templates/login.html')
     except Exception,e:
         raise e
 
