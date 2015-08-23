@@ -9821,19 +9821,26 @@ body {
 }
 @media (min-width: 768px) {
   .cover-photo {
-    min-height: 80%;
+    min-height: 60%;
   }
 }
 .cover-photo .container .user-pro {
   max-width: 250px;
   position: relative;
   background-position: center;
-  padding-top: 25%;
+  padding-top: 15%;
   text-align: center;
 }
+.cover-photo .container .user-pro .img-responsive {
+  -o-object-fit: cover;
+  object-fit: cover;
+  background-color: #ffffff;
+  -o-object-position: center;
+  object-position: center;
+}
 .cover-photo .container .details-section {
-  padding-top: 24%;
-  padding-left: 5%;
+  padding-top: 14%;
+  padding-left: 3%;
 }
 .cover-photo .container h2 {
   font-family: arial, verdana, sans-serif;
@@ -9847,7 +9854,7 @@ body {
   font-weight: 400;
 }
 .cover-photo .container .joined-section h4 {
-  padding-top: 10%;
+  padding-top: 7%;
   font-family: roboto_slabregular;
   font-size: 14px;
   font-weight: 350;
@@ -9865,6 +9872,24 @@ body {
   font-family: "Open Sans";
 }
 .about-section .about-info {
+  background: #FFFFFF;
+  font-family: Arial, Baskerville, monospace;
+  font-size: 14px;
+  color: #99A4A6;
+}
+.experience-section {
+  font-family: "Open Sans";
+}
+.experience-section .experience-info {
+  background: #FFFFFF;
+  font-family: Arial, Baskerville, monospace;
+  font-size: 14px;
+  color: #99A4A6;
+}
+.education-section {
+  font-family: "Open Sans";
+}
+.education-section .education-info {
   background: #FFFFFF;
   font-family: Arial, Baskerville, monospace;
   font-size: 14px;

@@ -10,7 +10,7 @@
     color: white;
 
     @media(min-width: 768px) {
-      min-height: 80%;
+      min-height: 60%;
     }
 
     .container {
@@ -19,12 +19,21 @@
         position: relative;
         background-position: center;
 //        padding-left: -10%;
-        padding-top: 25%;
+        padding-top: 15%;
         text-align: center;
+
+        .img-responsive {
+          -o-object-fit: cover;
+          object-fit: cover;
+          background-color: #ffffff;
+          -o-object-position: center;
+          object-position: center;
+        }
       }
+
       .details-section {
-        padding-top: 24%;
-        padding-left: 5%;
+        padding-top: 14%;
+        padding-left: 3%;
       }
       h2  {
         font-family: arial, verdana, sans-serif;
@@ -41,7 +50,7 @@
 
       .joined-section {
         h4 {
-          padding-top: 10%;
+          padding-top: 7%;
           font-family: roboto_slabregular;
           font-size: 14px;
           font-weight: 350;
@@ -69,6 +78,27 @@
     font-size: 14px;
     color: #99A4A6;
 
+  }
+}
+
+.experience-section {
+  font-family: "Open Sans";
+  .experience-info {
+    background: #FFFFFF;
+    font-family: Arial, Baskerville, monospace;
+    font-size: 14px;
+    color: #99A4A6;
+
+  }
+}
+
+.education-section {
+  font-family: "Open Sans";
+  .education-info {
+    background: #FFFFFF;
+    font-family: Arial, Baskerville, monospace;
+    font-size: 14px;
+    color: #99A4A6;
   }
 }
 

@@ -44,8 +44,8 @@ class User(Node, engine.Document):
     deactivated = engine.BooleanField(default=False)
     user_since = engine.DateTimeField(default=datetime.datetime.now())
     last_login = engine.DateTimeField()
-    institution = engine.StringField()
-    experience = engine.StringField()
+    institution = engine.ListField(engine.StringField())
+    experience = engine.ListField(engine.StringField())
     proficiency = engine.StringField()
     bio = engine.StringField()
 

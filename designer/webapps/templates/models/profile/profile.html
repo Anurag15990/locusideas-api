@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="user-pro col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <img src="../../../../assets/images/profile.jpg">
+                <img src="../../../../assets/images/profile.jpg" alt="" class="center-block text-center img-responsive">
             </div>
             <div class="details-section col-lg-9 col-md-4 col-sm-4 col-xs-12">
                 <div class="name-section">
@@ -53,7 +53,7 @@
                         <div class="contact-section">
                             <strong>CONTACT INFO</strong><br/><br/>
                             <div class="border-grey-t border-grey-b border-grey-l border-grey-r details-info">
-                                    <div class="pull-right edit-button h-56 w-20 text-center m-10">
+                                    <div class="pull-right edit-contact-button h-56 w-20 text-center m-10">
                                             <span class="fa fa-pencil"></span>
                                     </div>
                                     <div class="row">
@@ -85,10 +85,12 @@
                                 </div>
                             </div>
                         <br/>
+
+
                         <div class="about-section">
                             <strong>ABOUT</strong><br/><br/>
-                            <div class="border-grey-t border-grey-b border-grey-l border-grey-r about-info">
-                                <div class="pull-right edit-button h-56 w-20 text-center m-10">
+                            <div class="border-grey-t border-grey-b border-grey-l border-grey-r about-info" onclick="">
+                                <div class="pull-right edit-about-button h-56 w-20 text-center m-10">
                                     <span class="fa fa-pencil"></span>
                                 </div>
                                 <div class="row">
@@ -118,7 +120,7 @@
                                             None
                                         {% endif %}
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10" onclick="">
                                         Work Style:
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
@@ -132,7 +134,7 @@
                                             None
                                         {% endif %}
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10" onclick="">
                                         Work Interests:
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
@@ -149,6 +151,58 @@
                                  </div>
                             </div>
                         </div>
+                        <br/>
+
+                    <div class="education-section">
+                        <strong>EDUCATION</strong><br/><br/>
+                        <div class="border-grey-t border-grey-b border-grey-l border-grey-r education-info" onclick="">
+                            <div class="pull-right edit-education-button h-25 w-20 text-center m-10">
+                                <span class="fa fa-pencil"></span>
+                            </div>
+                            {% if model.institution %}
+                            {% for institution in model.institution %}
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
+                                    <li>{{ institution }}</li>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
+                                     None
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="experience-section">
+                        <strong>EXPERIENCE</strong><br/><br/>
+                        <div class="border-grey-t border-grey-b border-grey-l border-grey-r experience-info" onclick="">
+                            <div class="pull-right edit-experience-button h-25 w-20 text-center m-10">
+                                <span class="fa fa-pencil"></span>
+                            </div>
+                            {% if model.experience %}
+                            {% for experience in model.experience %}
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
+                                    <li>{{ experience }}</li>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
+                                    None
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <br/>
+
                 </div>
             </div>
         </div>
