@@ -89,7 +89,7 @@ def get_user_by_id(slug):
     node = UserExtractor.get_by_slug(slug)
     user = get_logged_in_user()
     if node is not None:
-        return render_template('templates/profile.html', user=user, model=node)
+        return render_template('templates/models/profile/profile.html', user=user, model=node)
     else:
         return jsonify(dict(status='failure', message='User not found'))
 

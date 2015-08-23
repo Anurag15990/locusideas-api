@@ -9861,3 +9861,12 @@ body {
   font-size: 14px;
   color: #99A4A6;
 }
+.about-section {
+  font-family: "Open Sans";
+}
+.about-section .about-info {
+  background: #FFFFFF;
+  font-family: Arial, Baskerville, monospace;
+  font-size: 14px;
+  color: #99A4A6;
+}
