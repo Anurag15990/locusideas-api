@@ -108,19 +108,43 @@
                                         Work Focus:
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-50 m-10 p-10">
-                                        {{ model.work_focus }}
+                                        {% if model.work_focus %}
+                                        <ul class="work-focus p-0">
+                                            {% for focus in model.work_focus %}
+                                            <li>{{ focus }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% else %}
+                                            None
+                                        {% endif %}
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
                                         Work Style:
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
-                                        {{ model.work_style }}
+                                        {% if model.work_style %}
+                                        <ul class="work-style p-0">
+                                            {% for style in model.work_style %}
+                                            <li>{{ style }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% else %}
+                                            None
+                                        {% endif %}
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
                                         Work Interests:
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
-                                        {{ model.work_interest }}
+                                        {% if model.work_interest %}
+                                        <ul class="work-interest p-0">
+                                            {% for interest in model.work_interest %}
+                                            <li>{{ interest }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% else %}
+                                            None
+                                        {% endif %}
                                     </div>
                                  </div>
                             </div>
