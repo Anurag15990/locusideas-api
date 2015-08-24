@@ -59,11 +59,11 @@ app.controller('registerCtrl', function($scope, $http){
 app.controller('profileCtrl', function ($scope, $document , $http) {
 
     $scope.edit_contact_info = function() {
-        var phone = $('.phone-display').text().replace(/\s/g, '')
-        var mobile = $('.mobile-display').text().replace(/\s/g, '')
-        var address = $('.address-display').text()
+        var phone = $('.phone-display').text().replace(/\s/g, '');
+        var mobile = $('.mobile-display').text().replace(/\s/g, '');
+        var address = $('.address-display').text();
 
-        console.log(address)
+        console.log(address);
 
         $(".details-info").addClass('hidden');
         $(".details-info-edit").removeClass('hidden');
@@ -140,9 +140,53 @@ app.controller('profileCtrl', function ($scope, $document , $http) {
         $http.post(url, message).
             then(function (response) {
                 console.log(response);
-                var data = response['data']
-                var user = data['node']
-                window.location = user['slug']
+                var data = response['data'];
+                var user = data['node'];
+                window.location = user['slug'];
+            }, function (error) {
+                console.log(error);
+            });
+    };
+
+
+    $scope.edit_experience = function () {
+        $('.experience-info').addClass('hidden');
+        $('.experience-info-edit').removeClass('hidden');
+    };
+
+    $scope.cancel_experience_edit = function () {
+        $('.experience-info-edit').addClass('hidden');
+        $('.experience-info').removeClass('hidden');
+    };
+
+    $scope.add_experience_row = function() {
+        console.log('Reached Add Experience Row');
+        $('.experience-rows-section').append("<div class='row'><div class='col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10'><input class='form-control experience-field' value=''></div></div>");
+    };
+
+    $scope.update_experience_info = function () {
+        var experience_array = [];
+        $('.experience-field').each(function (index) {
+            experience_array.push($(this).val());
+        });
+
+        console.log(experience_array);
+
+        var message = {
+            node : $('.profile-id').val(),
+            type : 'user',
+            command : 'update-experience',
+            data : {
+                experience : experience_array
+            }
+        };
+        var url = '/editors/invoke';
+        $http.post(url, message).
+            then(function (response) {
+                console.log(response);
+                var data = response['data'];
+                var user = data['node'];
+                window.location = user['slug'];
             }, function (error) {
                 console.log(error);
             });
