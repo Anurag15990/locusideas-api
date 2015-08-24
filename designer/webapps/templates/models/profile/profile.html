@@ -196,11 +196,36 @@
                         </div>
                         <br/>
 
+
+
                     <div class="education-section">
                         <strong>EDUCATION</strong><br/><br/>
+                        <div class="border-grey-t border-grey-b border-grey-r border-grey-l education-info-edit transwhite-bg hidden">
+                            <div class="add-education-button h-50 m-10 ml-40 p-10">
+                                <span class="fa fa-plus-circle" ng-click="add_education_row()">&nbsp; Add Education</span>
+                            </div>
+                            {% if model.institution %}
+                            <div class="education-rows-section">
+                            {%for institution in model.institution%}
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
+                                    <input class="form-control education-field" value="{{ institution }}">
+                                </div>
+                            </div>
+                            {% endfor %}
+                            </div>
+                            {% endif %}
+                            <br/>
+                            <div class="center-block p-10 text-center">
+                                <button class="btn-group-lg w-10" ng-click="update_education_info()">Save</button>
+                                <button class="btn-group-lg w-10 ml-5" ng-click="cancel_education_edit()">Cancel</button>
+                            </div>
+                        </div>
+
+
                         <div class="border-grey-t border-grey-b border-grey-l border-grey-r education-info transwhite-bg">
                             <div class="pull-right edit-education-button h-25 w-20 text-center m-10">
-                                <span class="fa fa-pencil"></span>
+                                <span class="fa fa-pencil" ng-click="edit_education()"></span>
                             </div>
                             {% if model.institution %}
                             {% for institution in model.institution %}

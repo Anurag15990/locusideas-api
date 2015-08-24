@@ -103,5 +103,49 @@ app.controller('profileCtrl', function ($scope, $document , $http) {
                 console.log(error);
             });
     }
+
+
+    $scope.edit_education = function () {
+        $('.education-info').addClass('hidden');
+        $('.education-info-edit').removeClass('hidden');
+    };
+
+    $scope.cancel_education_edit = function () {
+        $('.education-info-edit').addClass('hidden');
+        $('.education-info').removeClass('hidden');
+    };
+
+    $scope.add_education_row = function() {
+        console.log('Reached Add Education Row');
+        $('.education-rows-section').append("<div class='row'><div class='col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10'><input class='form-control education-field' value=''></div></div>");
+    };
+
+    $scope.update_education_info = function () {
+        var education_array = [];
+        $('.education-field').each(function (index) {
+            education_array.push($(this).val());
+        });
+
+        console.log(education_array);
+
+        var message = {
+            node : $('.profile-id').val(),
+            type : 'user',
+            command : 'update-institution',
+            data : {
+                institution : education_array
+            }
+        };
+        var url = '/editors/invoke';
+        $http.post(url, message).
+            then(function (response) {
+                console.log(response);
+                var data = response['data']
+                var user = data['node']
+                window.location = user['slug']
+            }, function (error) {
+                console.log(error);
+            });
+    };
 });
 
