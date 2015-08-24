@@ -109,3 +109,8 @@ def logout():
         g.user = None
         session.clear()
         return redirect('/')
+
+
+@flaskapp.route("/update-contact-info")
+def update_contact_info():
+    return render_template('templates/models/profile/update-contact.html', user=get_logged_in_user())

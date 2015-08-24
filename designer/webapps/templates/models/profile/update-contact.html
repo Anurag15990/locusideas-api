@@ -1,21 +1,40 @@
-<section class="container-fluid update-contact">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <form class="input-group">
-            <input id="profile-id" type="hidden" value="{{ user.id }}"/>
-            <div class="form-group">
-                <label for="heading">Update Phone</label>
-                <input id="update-phone" type="text" class="form-control" value="{{user.phone}}">
+    <strong>CONTACT INFO</strong>
+    <br/><br/>
+    <div class="border-grey-t border-grey-b border-grey-l border-grey-r details-info fadeInDown" id="details-info-edit">
+        <input class="profile-id" type="text" value="{{ user.id }}" style="display: none" ng-model="user_id"/>
+        <input class="profile-slug" type="text" value="{{ user.slug }}" style="display: none" ng-model="user_slug"/>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
+                Email:
             </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
+                {{ user.email }}
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
+                Phone:
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
+               <input class="phone-number-edit" type="text" value="{{user.phone}}" ng-model="phone">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 h-50 m-10 ml-40 p-10">
+                Mobile:
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-50 m-10 p-10">
+                <input class="mobile-number-edit" type="text" value="{{ user.mobile }}" ng-model="mobile">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
+                Address:
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
+                <input class="address-edit" type="text" value="{{ user.address }}" ng-model="address">
+            </div>
+        </div>
+        <br/>
+        <div class="center-block p-10 text-center">
+            <button class="btn-group-lg w-10" ng-click="update_contact_info()">Save</button>
+            <button class="btn-group-lg w-10 ml-5" ng-click="cancel_update_contact()">Cancel</button>
+        </div>
 
-            <div class="form-group">
-                <label for="heading">Update Mobile</label>
-                <input id="update-mobile" type="text" class="form-control" value="{{user.mobile}}">
-            </div>
 
-            <div class="form-group">
-                <label for="heading">Update Address</label>
-                <input id="update-address" type="text" class="form-control" value="{{user.address}}">
-            </div>
-        </form>
     </div>
-</section>
+

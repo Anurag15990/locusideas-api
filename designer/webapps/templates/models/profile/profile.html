@@ -1,6 +1,8 @@
 {% extends '/templates/layout.html' %}
 {% block body %}
 {% if model %}
+<input type="hidden" value="{{ model }}" ng-model="model">
+<input type="hidden" value="{{ user.id }}" ng-model="user">
 <div class="cover-photo" style="background-image: url(../../../../assets/images/nyc.jpg)">
     <div class="container">
         <div class="row">
@@ -24,7 +26,7 @@
 
     </div>
 </div>
-<section class="container-fluid p-0">
+<section class="container-fluid p-0" ng-controller="profileCtrl">
     <div role="tabpanel" data-example-id="togglable-tabs">
 
         <div class="border-grey-t border-grey-b h-56">
@@ -52,9 +54,50 @@
                 <div role="tabpanel" class="tab-pane fade active in" id="personal-details" aria-labelledby="my-stream">
                         <div class="contact-section">
                             <strong>CONTACT INFO</strong><br/><br/>
+
+
+                            <div class="border-grey-t border-grey-b border-grey-l border-grey-r details-info-edit fadeInDown hidden" id="details-info-edit">
+                                <input class="profile-id" type="hidden" value="{{ model.id }}"/>
+                                <input type="hidden" value="{{ model.slug }}" ng-model="profile_slug"/>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
+                                        Email:
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
+                                        {{ model.email }}
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
+                                        Phone:
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10 w-25">
+                                        <input class="phone-number-edit form-control" type="text" value="{{ model.phone }}" ng-model="phone">
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 h-50 m-10 ml-40 p-10">
+                                        Mobile:
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-50 m-10 p-10 w-25">
+                                        <input class="mobile-number-edit form-control" type="text" value="{{ model.mobile }}" ng-model="mobile">
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
+                                        Address:
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10 w-25">
+                                        <textarea class="address-edit form-control" ng-model="address"></textarea>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="center-block p-10 text-center">
+                                    <button class="btn-group-lg w-10" ng-click="update_contact_info()">Save</button>
+                                    <button class="btn-group-lg w-10 ml-5" ng-click="cancel_update_contact()">Cancel</button>
+                                </div>
+
+                            </div>
+
+
+
                             <div class="border-grey-t border-grey-b border-grey-l border-grey-r details-info">
                                     <div class="pull-right edit-contact-button h-56 w-20 text-center m-10">
-                                            <span class="fa fa-pencil"></span>
+                                            <span class="fa fa-pencil" ng-click="edit_contact_info()"></span>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
@@ -66,19 +109,19 @@
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
                                             Phone:
                                         </div>
-                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
+                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10 phone-display">
                                             {{ model.phone }}
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 h-50 m-10 ml-40 p-10">
                                             Mobile:
                                         </div>
-                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-50 m-10 p-10">
+                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-50 m-10 p-10 mobile-display">
                                             {{ model.mobile }}
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
                                             Address:
                                         </div>
-                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
+                                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10 address-display">
                                             {{ model.address }}
                                         </div>
                                     </div>

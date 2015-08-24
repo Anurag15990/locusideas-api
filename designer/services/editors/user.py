@@ -137,13 +137,13 @@ def update_experience(user, data):
 @response_handler('Successfully updated contact info', "Failed to update contact info")
 def update_contact_info(user, data):
     node = User.objects(pk=user).first()
-    if data['address'] is not None:
+    if data.has_key('address') and data['address'] is not None:
         node.address = data['address']
 
-    if data['mobile'] is not None:
+    if data.has_key('mobile') and data['mobile'] is not None:
         node.mobile = data['mobile']
 
-    if data['phone'] is not None:
+    if data.has_key('phone') and data['phone'] is not None:
         node.phone = data['phone']
 
     node.save()

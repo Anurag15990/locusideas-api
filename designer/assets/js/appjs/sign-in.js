@@ -1,6 +1,6 @@
 
 
-var app = angular.module('app', ['ngRoute']);
+var app = angular.module('app', ['ngRoute', 'ui.bootstrap']);
 app.controller('loginCtrl', function($scope, $http){
     $scope.login = function(){
        var email = $scope.username;
@@ -55,3 +55,53 @@ app.controller('registerCtrl', function($scope, $http){
         }
    };
 });
+
+app.controller('profileCtrl', function ($scope, $document , $http) {
+
+    $scope.edit_contact_info = function() {
+        var phone = $('.phone-display').text().replace(/\s/g, '')
+        var mobile = $('.mobile-display').text().replace(/\s/g, '')
+        var address = $('.address-display').text()
+
+        console.log(address)
+
+        $(".details-info").addClass('hidden');
+        $(".details-info-edit").removeClass('hidden');
+        $(".phone-number-edit").val(phone);
+        $(".mobile-number-edit").val(mobile);
+        $(".address-edit").text(address.trim());
+
+    }
+
+    $scope.cancel_update_contact = function () {
+        console.log('Reached Cancel')
+        $(".details-info-edit").addClass('hidden');
+        $(".details-info").removeClass('hidden');
+    }
+
+    $scope.update_contact_info = function () {
+        console.log('Reached Update')
+        var message = {
+            node : $('.profile-id').val(),
+            type : 'user',
+            command : 'update-contact-info',
+            data : {
+                address : $scope.address,
+                phone : $scope.phone,
+                mobile : $scope.mobile
+            }
+        };
+        console.log(message);
+        var url = '/editors/invoke';
+        $http.post(url, message).
+            then(function (response) {
+                console.log(response);
+                var data = response['data']
+                var user = data['node']
+                window.location = user['slug']
+            }, function (error) {
+                console.log(error);
+            });
+    }
+});
+
