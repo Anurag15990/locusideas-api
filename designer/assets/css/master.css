@@ -9863,16 +9863,18 @@ body {
   font-family: "Open Sans";
 }
 .contact-section .details-info {
-  background: #FFFFFF;
   font-family: Arial, Baskerville, monospace;
   font-size: 14px;
   color: #99A4A6;
+}
+.contact-section .details-info-edit {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
 }
 .about-section {
   font-family: "Open Sans";
 }
 .about-section .about-info {
-  background: #FFFFFF;
   font-family: Arial, Baskerville, monospace;
   font-size: 14px;
   color: #99A4A6;
@@ -9881,7 +9883,6 @@ body {
   font-family: "Open Sans";
 }
 .experience-section .experience-info {
-  background: #FFFFFF;
   font-family: Arial, Baskerville, monospace;
   font-size: 14px;
   color: #99A4A6;
@@ -9890,7 +9891,6 @@ body {
   font-family: "Open Sans";
 }
 .education-section .education-info {
-  background: #FFFFFF;
   font-family: Arial, Baskerville, monospace;
   font-size: 14px;
   color: #99A4A6;

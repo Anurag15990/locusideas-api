@@ -280,3 +280,7 @@
 .nav-tabs > li:last-child{
     border-right: 1px solid #d1d1d1;
 }
+
+.transwhite-bg{
+    background:rgba(247, 247, 249, 0.5);
+}
