@@ -41,4 +41,5 @@ jQuery(document).ready(function($){
     };
 
     window.App = App
+
 });
