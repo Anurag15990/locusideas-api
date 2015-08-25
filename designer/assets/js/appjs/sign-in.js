@@ -191,5 +191,123 @@ app.controller('profileCtrl', function ($scope, $document , $http) {
                 console.log(error);
             });
     };
+
+    $scope.edit_about_info = function () {
+
+        var bio = $('.bio-display').text();
+        var proficiency = $('.proficiency-display').text();
+
+        console.log(bio);
+        console.log(proficiency);
+
+        $('.about-info').addClass('hidden');
+        $('.about-info-edit').removeClass('hidden');
+
+        $('.bio-edit').val(bio.trim());
+        $('.proficiency-edit').val(proficiency.trim());
+    };
+
+    $scope.cancel_about_edit = function () {
+        $('.about-info-edit').addClass('hidden');
+        $('.about-info').removeClass('hidden');
+    };
+
+    $('.work-focus-tags-list').on('click', '.focus-tags', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $(e.target).remove();
+    });
+
+    $('.work-focus-add-row').keypress(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if(code == 13 || code == 188) { //Enter keycode
+            var tag = $('.work-focus-add-row').val();
+            $(".work-focus-tags-list").append('<a class="focus-tags" data-tag="'+tag+'">'+tag+'&nbsp;|&nbsp;X</a>');
+            $('.work-focus-add-row').val('');
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    });
+
+    $('.work-style-tags-list').on('click', '.style-tags', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $(e.target).remove();
+    });
+
+    $('.work-style-add-row').keypress(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if(code == 13 || code == 188) { //Enter keycode
+            var tag = $('.work-style-add-row').val();
+            $(".work-style-tags-list").append('<a class="style-tags" data-tag="'+tag+'">'+tag+'&nbsp;|&nbsp;X</a>');
+            $('.work-style-add-row').val('');
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    });
+
+    $('.work-interests-tags-list').on('click', '.interests-tags', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $(e.target).remove();
+    });
+
+    $('.work-interests-add-row').keypress(function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if(code == 13 || code == 188) { //Enter keycode
+            var tag = $('.work-interests-add-row').val();
+            $(".work-interests-tags-list").append('<a class="interests-tags" data-tag="'+tag+'">'+tag+'&nbsp;|&nbsp;X</a>');
+            $('.work-interests-add-row').val('');
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    });
+
+    $scope.update_about_info = function () {
+
+        var work_focus = [];
+        var work_styles = [];
+        var work_interests = [];
+
+        var bio = $scope.bio;
+        var proficiency = $scope.proficiency;
+
+        $('.focus-tags').each(function (index) {
+            work_focus.push($(this).attr('data-tag'));
+        });
+
+        $('.style-tags').each(function (index) {
+            work_styles.push($(this).attr('data-tag'));
+        });
+
+        $('.interests-tags').each(function (index) {
+            work_interests.push($(this).attr('data-tag'));
+        });
+
+        var url = '/editors/invoke';
+        var message = {
+            node : $('.profile-id').val(),
+            type : 'user',
+            command : 'update-about-info',
+            data : {
+                bio : bio,
+                proficiency : proficiency,
+                work_focus : work_focus,
+                work_style : work_styles,
+                work_interest : work_interests
+            }
+        };
+
+        $http.post(url, message).
+            then(function (response) {
+                console.log(response);
+                var data = response['data'];
+                var user = data['node'];
+                window.location = user['slug'];
+            }, function (error) {
+                console.log(error);
+        });
+    };
+
 });
 

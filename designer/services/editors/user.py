@@ -36,6 +36,8 @@ class UserEditor(BaseEditor):
             response = update_work_style(self.node,self.data)
         elif self.command == 'update-work-interest':
             response = update_work_interest(self.node,self.data)
+        elif self.command == 'update-about-info':
+            response = update_about_info(self.node, self.data)
         return response
 
 
@@ -177,5 +179,28 @@ def update_work_style(user,data):
 def update_work_interest(user,data):
     node = User.objects(pk=user).first()
     node.work_interest = data['work-interest']
+    node.save()
+    return node
+
+@response_handler('Successfully updated About info', 'Error while updating About Info')
+def update_about_info(user, data):
+
+    node = User.objects(pk=user).first()
+
+    if data.has_key('bio') and data['bio'] is not None:
+        node.bio = data['bio']
+
+    if data.has_key('proficiency') and data['proficiency'] is not None:
+        node.proficiency = data['proficiency']
+
+    if data.has_key('work_focus') and data['work_focus'] is not None:
+        node.work_focus = data['work_focus']
+
+    if data.has_key('work_style') and data['work_style'] is not None:
+        node.work_style = data['work_style']
+
+    if data.has_key('work_interest') and data['work_interest'] is not None:
+        node.work_interest = data['work_interest']
+
     node.save()
     return node

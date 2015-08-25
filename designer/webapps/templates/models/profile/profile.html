@@ -148,64 +148,76 @@
                                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
                                         <input class="proficiency-edit form-control" type="text" value="{{ model.proficiency }}" ng-model="proficiency">
                                     </div>
+
+
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 h-25 ml-40 p-10 m-10">
                                         Work Focus:
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
-                                        <input class="work-focus-add-row form-control" type="text">
-                                        <div class="h-25 m-10 p-10 custom-tags-list">
+                                        <input class="work-focus-add-row form-control" type="text" placeholder="Write a Work Focus and press Enter">
+                                        <div class="h-25 m-10 p-10 custom-tags-list work-focus-tags-list">
                                             {% if model.work_focus %}
                                             {% for focus in model.work_focus %}
-                                            <a class="focus-tags">{{ focus }}&nbsp;|&nbsp;X</a>
+                                            <a class="focus-tags" data-tag="{{focus}}">{{ focus }}&nbsp;|&nbsp;X</a>
                                             {% endfor %}
                                             {% endif %}
                                         </div>
                                     </div>
+
+
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 h-25 ml-40 p-10 m-10">
                                         Work Style:
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
-                                        <input class="work-style-add-row form-control" type="text">
-                                        <div class="h-25 m-10 p-10 custom-tags-list">
+                                        <input class="work-style-add-row form-control" type="text" placeholder="Write a Work Style and press Enter">
+                                        <div class="h-25 m-10 p-10 custom-tags-list work-style-tags-list">
                                             {% if model.work_style %}
                                             {% for style in model.work_style %}
-                                            <a class="style-tags">{{ style }}&nbsp;|&nbsp;X</a>
+                                            <a class="style-tags" data-tag="{{style}}">{{ style }}&nbsp;|&nbsp;X</a>
                                             {% endfor %}
                                             {% endif %}
                                         </div>
                                     </div>
+
+
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 h-25 ml-40 p-10 m-10">
                                         Work Interests:
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
-                                        <input class="work-interests-add-row form-control" type="text">
-                                        <div class="h-25 m-10 p-10 custom-tags-list">
+                                        <input class="work-interests-add-row form-control" type="text" placeholder="Write a Work Interest and press Enter">
+                                        <div class="h-25 m-10 p-10 custom-tags-list work-interests-tags-list">
                                             {% if model.work_interest %}
                                             {% for interest in model.work_interest %}
-                                            <a class="interest-tags">{{ interest }}&nbsp;|&nbsp;X</a>
+                                            <a class="interests-tags" data-tag="{{interest}}">{{ interest }}&nbsp;|&nbsp;X</a>
                                             {% endfor %}
                                             {% endif %}
                                         </div>
                                     </div>
+                                </div>
+
+                                <br/>
+                                <div class="center-block p-10 text-center">
+                                    <button class="btn-group-lg w-10" ng-click="update_about_info()">Save</button>
+                                    <button class="btn-group-lg w-10 ml-5" ng-click="cancel_about_edit()">Cancel</button>
                                 </div>
                             </div>
 
 
                             <div class="border-grey-t border-grey-b border-grey-l border-grey-r about-info transwhite-bg">
                                 <div class="pull-right edit-about-button h-56 w-20 text-center m-10">
-                                    <span class="fa fa-pencil"></span>
+                                    <span class="fa fa-pencil" ng-click="edit_about_info()"></span>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
                                         Bio:
                                     </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10 bio-display">
                                         {{ model.bio }}
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
                                         Proficiency:
                                     </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10">
+                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 h-25 m-10 p-10 proficiency-display">
                                         {{ model.proficiency }}
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 h-50 m-10 ml-40 p-10">
