@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>File uplaod Demo</title>
+    <script type="application/javascript">
+        function upload() {
+            var formData = new FormData();
+            var target = "http://0.0.0.0:4901/";
+            formData.append("file", document.getElementById("file").files[0]);
+            var xhr = new XMLHttpRequestUpload();
+            var eventSource = xhr.upload || xhr;
+            eventSource.onload(addEventListener("progress",function(e){var current = e.loaded || e.position ;
+                var total = e.total || e.totalSize;
+                var percant = parseInt((current/total)*100, 10);}));
+
+            xhr.open("POST", target, true);
+            xhr.send(formData);
+            xhr.onload = function() {
+                if (this.status === 200){
+                    console.log("success");
+                }
+                // SUCCESS
+                        };
+            }
+    </script>
+</head>
+<body>
+<input type="file" id="file">
+</body>
+</html>
