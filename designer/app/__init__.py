@@ -1,7 +1,8 @@
 __author__ = 'anurag'
+__author__ = 'anurag'
 
 from flask import Flask, g, redirect
-import settings
+from designer import settings
 from flask.ext.mongoengine import MongoEngine
 from flask.ext.mongorest import MongoRest
 from pymongo import MongoClient
@@ -23,7 +24,7 @@ engine = MongoEngine()
 
 sys.setrecursionlimit(10000)
 
-flaskapp = Flask(__name__, static_folder='assets', template_folder='webapps/')
+flaskapp = Flask(__name__, static_folder='../assets', template_folder='../webapps/')
 flaskapp.jinja_env.add_extension('jinja2.ext.loopcontrols')
 assets = Environment(flaskapp)
 flaskapp.jinja_env.cache = {}
@@ -59,6 +60,7 @@ def start_app():
                 return redirect('/')
             return super(MyAdminIndexView, self).index()
 
-from .views import *
 start_app()
+from designer.views import *
+
 
