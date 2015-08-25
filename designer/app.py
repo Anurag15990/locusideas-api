@@ -7,7 +7,6 @@ from flask.ext.mongoengine import MongoEngine
 from flask.ext.mongorest import MongoRest
 from pymongo import MongoClient
 import sys
-from designer.services.utils import setup_context, login_user_session
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 import flask_admin
@@ -29,8 +28,6 @@ flaskapp.jinja_env.add_extension('jinja2.ext.loopcontrols')
 assets = Environment(flaskapp)
 flaskapp.jinja_env.cache = {}
 engine.init_app(flaskapp)
-from designer.models.extra.session import MongoSessionInterface
-flaskapp.session_interface = MongoSessionInterface(db='designerHub')
 
 flaskapp.config['MONGODB_SETTINGS'] = {
     'db': settings.MONGODB_DB,
@@ -50,6 +47,9 @@ if settings.USE_CDN:
     bucket_key = Key(bucket)
 
 def start_app():
+    from designer.models.extra.session import MongoSessionInterface
+    flaskapp.session_interface = MongoSessionInterface(db='designerHub')
+
     global admin
 
     class MyAdminIndexView(AdminIndexView):
