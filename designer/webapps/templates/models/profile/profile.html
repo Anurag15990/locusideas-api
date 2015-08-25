@@ -269,8 +269,8 @@
                             <div class="add-education-button h-50 m-10 ml-40 p-10">
                                 <span class="fa fa-plus-circle" ng-click="add_education_row()">&nbsp; Add Education</span>
                             </div>
-                            {% if model.institution %}
                             <div class="education-rows-section">
+                            {% if model.institution %}
                             {%for institution in model.institution%}
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
@@ -278,8 +278,8 @@
                                 </div>
                             </div>
                             {% endfor %}
-                            </div>
                             {% endif %}
+                            </div>
                             <br/>
                             <div class="center-block p-10 text-center">
                                 <button class="btn-group-lg w-10" ng-click="update_education_info()">Save</button>
@@ -318,8 +318,8 @@
                             <div class="add-experience-button h-50 m-10 ml-40 p-10">
                                 <span class="fa fa-plus-circle" ng-click="add_experience_row()">&nbsp; Add Experience</span>
                             </div>
-                            {% if model.experience %}
                             <div class="experience-rows-section">
+                                {% if model.experience %}
                                 {%for experience in model.experience%}
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 m-10 ml-40 h-25 p-10">
@@ -327,8 +327,8 @@
                                     </div>
                                 </div>
                                 {% endfor %}
+                                {% endif %}
                             </div>
-                            {% endif %}
                             <br/>
                             <div class="center-block p-10 text-center">
                                 <button class="btn-group-lg w-10" ng-click="update_experience_info()">Save</button>
