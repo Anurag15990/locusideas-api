@@ -9358,7 +9358,7 @@ fieldset[disabled] .btn-primary.active {
 .btn {
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   border: none;
-  border-radius: 300px;
+  border-radius: 4px;
   font-weight: 700;
   text-transform: uppercase;
 }
