@@ -414,7 +414,7 @@ app.directive('image', function($q) {
             var maxHeight = options.resizeMaxHeight || 300;
             var maxWidth = options.resizeMaxWidth || 250;
             var quality = options.resizeQuality || 0.7;
-            var type = options.resizeType || 'image/jpg';
+            var type = options.resizeType || 'image/jpeg';
 
             var canvas = getResizeArea();
 
@@ -448,6 +448,33 @@ app.directive('image', function($q) {
         var createImage = function(url, callback) {
             var image = new Image();
             image.onload = function() {
+                var MAX_SIZE = 1100;
+                var width = image.width;
+                var height = image.height;
+                var ratio = width / height;
+                var _width, _height;
+                if (width > height) {
+                    if (width > MAX_SIZE) {
+                        _width = MAX_SIZE;
+                        _height = (1 / ratio) * MAX_SIZE;
+                    } else {
+                        _width = width;
+                        _height = height;
+                    }
+                } else {
+                    if (height > MAX_SIZE) {
+                        _width = ratio * MAX_SIZE;
+                        _height = MAX_SIZE;
+                    } else {
+                        _width = width;
+                        _height = height;
+                    }
+                }
+                var canvas = document.createElement("canvas");
+                canvas.width = _width;
+                canvas.height = _height;
+                canvas.getContext("2d").drawImage(this, 0, 0, width, height, 0, 0, _width, _height);
+                image.dataURL = canvas.toDataURL('image/jpeg', 0.7);
                 callback(image);
             };
             image.src = url;
