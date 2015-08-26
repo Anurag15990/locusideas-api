@@ -23,7 +23,7 @@ engine = MongoEngine()
 
 sys.setrecursionlimit(10000)
 
-flaskapp = Flask(__name__, static_folder='assets', template_folder='webapps/')
+flaskapp = Flask(__name__, static_folder='assets', template_folder='webapps/', static_url_path='')
 flaskapp.jinja_env.add_extension('jinja2.ext.loopcontrols')
 assets = Environment(flaskapp)
 flaskapp.jinja_env.cache = {}
