@@ -13,6 +13,10 @@
                        resize-max-width="250"
                        resize-quality="0.7"/>
                 <br/>
+                <div>
+                    <img ng-show="image" ng-src="{{image.url | angular}}" type="{{image.file.type | angular}}"/>
+                </div>
+                <br/><br/>
                 <button type="submit" ng-click="upload_user_profile_image(image.resized)">Upload</button>
                 <button type="reset" ng-click="close_modal()">Close</button>
             </div>
