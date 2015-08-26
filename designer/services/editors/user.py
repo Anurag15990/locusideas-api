@@ -101,16 +101,23 @@ def edit_role(action, user, role):
 
 @response_handler('Successfully updated cover photo', 'Failed to update cover photo')
 def update_cover_photo(user, data):
+    node = User.objects(pk=user).first()
     if data['cover_image'] is not None:
         cover_image = data['cover_image']
         cover_Image = UserImage.set_Cover(cover_image, user=user)
-    return cover_Image
+        node.cover_image_path = cover_Image.image_path
+        node.save()
+    return node
 
+@response_handler('Successfully updated profile photo', 'Failed to update profile photo')
 def update_profile_photo(user, data):
+    node = User.objects(pk=user).first()
     if data['profile_photo'] is not None:
         profile_photo = data['profile_photo']
         profile_image = UserImage.set_Profile(profile_photo, user=user)
-    return profile_image
+        node.profile_image_path = profile_image.image_path
+        node.save()
+    return node
 
 @response_handler('Successfully updated bio', 'Failed to update bio')
 def update_bio(user, data):

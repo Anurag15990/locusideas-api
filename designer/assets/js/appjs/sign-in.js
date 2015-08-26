@@ -1,5 +1,5 @@
 
-
+var modalInstance;
 var app = angular.module('app', ['ngRoute', 'ui.bootstrap']);
 app.controller('loginCtrl', function($scope, $http){
     $scope.login = function(){
@@ -56,7 +56,7 @@ app.controller('registerCtrl', function($scope, $http){
    };
 });
 
-app.controller('profileCtrl', function ($scope, $document , $http) {
+app.controller('profileCtrl', function ($scope, $document, $modal , $http) {
 
     $scope.edit_contact_info = function() {
         var phone = $('.phone-display').text().replace(/\s/g, '');
@@ -71,16 +71,24 @@ app.controller('profileCtrl', function ($scope, $document , $http) {
         $(".mobile-number-edit").val(mobile);
         $(".address-edit").text(address.trim());
 
-    }
+    };
+
+    $scope.upload_image = function () {
+        modalInstance = $modal.open({
+            templateUrl : '/upload_image',
+            controller : 'ImageCtrl',
+            size: 'lg'
+        })
+    };
 
     $scope.cancel_update_contact = function () {
-        console.log('Reached Cancel')
+        console.log('Reached Cancel');
         $(".details-info-edit").addClass('hidden');
         $(".details-info").removeClass('hidden');
-    }
+    };
 
     $scope.update_contact_info = function () {
-        console.log('Reached Update')
+        console.log('Reached Update');
         var message = {
             node : $('.profile-id').val(),
             type : 'user',
@@ -310,4 +318,213 @@ app.controller('profileCtrl', function ($scope, $document , $http) {
     };
 
 });
+
+
+app.controller('ImageCtrl', function($scope, $http){
+
+    var imageNode = null;
+
+    $scope.close_modal = function () {
+        console.log('Reached Close Modal');
+        modalInstance.close();
+    };
+
+    $scope.upload_user_profile_image = function (image) {
+        var image = image;
+        var image_name = image.name;
+
+        var url = '/editors/invoke';
+
+        var node = $('.data-model-id').val();
+
+        console.log(image);
+        console.log(image.name);
+
+        var base64String = image.dataURL.replace('data:image/jpeg;base64,', '');
+        base64String = base64String.replace('data:image/png;base64,', '');
+
+        var message = {
+            node : node,
+            type : 'photo',
+            command : 'upload-user-image',
+            data : {
+                image: image.dataURL.replace('data:image/jpeg;base64,', '').replace('data:image/png;base64', '')
+            }
+        };
+
+        console.log(message);
+
+        $http.post(url, message).then(function (response) {
+            console.log(response);
+            var data = response['data'];
+            console.log(data);
+            var image = data['node'];
+            var id = image['_id'];
+            imageNode = id['$oid'];
+
+            var message2 = {
+                node : node,
+                type : 'user',
+                command : 'update-profile-photo',
+                data : {
+                    profile_photo : imageNode
+                }
+            };
+
+            console.log(message2);
+
+            $http.post(url, message2).then(function (response) {
+                console.log(response);
+                var data = response['data'];
+                var user = data['node'];
+                modalInstance.close();
+                window.location = user['slug'];
+            }, function (error) {
+                console.log(error);
+            });
+
+        }, function (error) {
+            console.log(error);
+        });
+    };
+});
+
+app.directive('image', function($q) {
+        'use strict'
+
+        var URL = window.URL || window.webkitURL;
+
+        var getResizeArea = function () {
+            var resizeAreaId = 'fileupload-resize-area';
+
+            var resizeArea = document.getElementById(resizeAreaId);
+
+            if (!resizeArea) {
+                resizeArea = document.createElement('canvas');
+                resizeArea.id = resizeAreaId;
+                resizeArea.style.visibility = 'hidden';
+                document.body.appendChild(resizeArea);
+            }
+
+            return resizeArea;
+        };
+
+
+        var resizeImage = function (origImage, options) {
+            var maxHeight = options.resizeMaxHeight || 300;
+            var maxWidth = options.resizeMaxWidth || 250;
+            var quality = options.resizeQuality || 0.7;
+            var type = options.resizeType || 'image/jpg';
+
+            var canvas = getResizeArea();
+
+            var height = origImage.height;
+            var width = origImage.width;
+
+            // calculate the width and height, constraining the proportions
+            if (width > height) {
+                if (width > maxWidth) {
+                    height = Math.round(height *= maxWidth / width);
+                    width = maxWidth;
+                }
+            } else {
+                if (height > maxHeight) {
+                    width = Math.round(width *= maxHeight / height);
+                    height = maxHeight;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            //draw image on canvas
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(origImage, 0, 0, width, height);
+
+            // get the data from canvas as 70% jpg (or specified type).
+            return canvas.toDataURL(type, quality);
+        };
+
+        var createImage = function(url, callback) {
+            var image = new Image();
+            image.onload = function() {
+                callback(image);
+            };
+            image.src = url;
+        };
+
+        var fileToDataURL = function (file) {
+            var deferred = $q.defer();
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                deferred.resolve(e.target.result);
+            };
+            reader.readAsDataURL(file);
+            return deferred.promise;
+        };
+
+
+        return {
+            restrict: 'A',
+            scope: {
+                image: '=',
+                resizeMaxHeight: '@?',
+                resizeMaxWidth: '@?',
+                resizeQuality: '@?',
+                resizeType: '@?'
+            },
+            link: function postLink(scope, element, attrs, ctrl) {
+
+                var doResizing = function(imageResult, callback) {
+                    createImage(imageResult.url, function(image) {
+                        var dataURL = resizeImage(image, scope);
+                        imageResult.resized = {
+                            dataURL: dataURL,
+                            type: dataURL.match(/:(.+\/.+);/)[1]
+                        };
+                        callback(imageResult);
+                    });
+                };
+
+                var applyScope = function(imageResult) {
+                    scope.$apply(function() {
+                        //console.log(imageResult);
+                        if(attrs.multiple)
+                            scope.image.push(imageResult);
+                        else
+                            scope.image = imageResult;
+                    });
+                };
+
+
+                element.bind('change', function (evt) {
+                    //when multiple always return an array of images
+                    if(attrs.multiple)
+                        scope.image = [];
+
+                    var files = evt.target.files;
+                    for(var i = 0; i < files.length; i++) {
+                        //create a result object for each file in files
+                        var imageResult = {
+                            file: files[i],
+                            url: URL.createObjectURL(files[i])
+                        };
+
+                        fileToDataURL(files[i]).then(function (dataURL) {
+                            imageResult.dataURL = dataURL;
+                        });
+
+                        if(scope.resizeMaxHeight || scope.resizeMaxWidth) { //resize image
+                            doResizing(imageResult, function(imageResult) {
+                                applyScope(imageResult);
+                            });
+                        }
+                        else { //no resizing
+                            applyScope(imageResult);
+                        }
+                    }
+                });
+            }
+        };
+    });
 

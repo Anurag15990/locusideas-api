@@ -48,6 +48,8 @@ class User(Node, engine.Document):
     experience = engine.ListField(engine.StringField())
     proficiency = engine.StringField()
     bio = engine.StringField()
+    profile_image_path = engine.StringField()
+    cover_image_path = engine.StringField()
 
     meta = {
         'indexes' : [

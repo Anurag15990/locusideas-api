@@ -6,7 +6,8 @@ MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 
 MONGODB_DB = 'designerHub'
-MEDIA_FOLDER = "/assets/media/"
+MEDIA_FOLDER = "/assets/images/"
+IMAGES_FOLDER = "/images/"
 TEMPLATE_FOLDER = "webapps/"
 
 AWSAccessKeyId = ""
