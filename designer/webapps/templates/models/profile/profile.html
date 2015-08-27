@@ -1,17 +1,30 @@
 {% extends '/templates/layout.html' %}
 {% block body %}
 {% if model %}
-<input type="hidden" value="{{ model }}" ng-model="model">
+<input type="hidden" value="{{ model }}" ng-model="model" xmlns="http://www.w3.org/1999/html">
 <input type="hidden" value="{{ user.id }}" ng-model="user">
 <div class="cover-photo" style="background-image: url(/images/nyc.jpg)" ng-controller="profileCtrl">
+
+
+
+
+
+
     <div class="container">
+
+
         <div class="row">
+
+
             <div class="user-pro col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <img src="{%if not model.profile_image_path or model.profile_image_path|length == 0%}/images/profile.jpg{%else%}{{model.profile_image_path}}{%endif%}" alt="" class="center-block text-center img-responsive border-white-4" ng-click="upload_image()">
+
+                <button type="button" class="btn-toolbar fadeOutDown text-faded border-black-l transwhite-bg"><span class="fa fa-cog">settings</span></button>
             </div>
+
             <div class="details-section col-lg-9 col-md-4 col-sm-4 col-xs-12">
                 <div class="name-section">
-                    <h2>{{ model.name }}</h2>
+                    <h2>{{ model.name }}<span><small><sup class="fa fa-pencil" ng-click=""></sup></small></span></h2>
                 </div>
                  {% if model.address %}
                 <div class="location-section">
@@ -22,9 +35,15 @@
                     <h4>Member since {{ model.created_timestamp.strftime('%B %d, %Y') }}</h4>
                 </div>
             </div>
+
         </div>
 
+        <button type="button" class="btn-toolbar fadeOutDown text-faded transwhite-bg border-black-l bottom-right pull-right ">Change Cover Image</button>
+
+
+
     </div>
+
 </div>
 <section class="container-fluid p-0" ng-controller="profileCtrl">
     <div role="tabpanel" data-example-id="togglable-tabs">
