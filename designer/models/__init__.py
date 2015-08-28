@@ -5,7 +5,7 @@ import datetime
 from designer.services.utils import get_random, decode_base64
 from PIL import Image, ImageFile
 import os, random, base64
-from designer.settings import MEDIA_FOLDER
+from designer.settings import MEDIA_FOLDER, IMAGES_FOLDER
 from mongoengine import signals
 
 class ImageModel(engine.Document):
@@ -71,11 +71,11 @@ def save_image(base64String):
 
         return cdn_path, cdn_thumbnail_path, cdn_icon_path, path
 
-    path = os.getcwd() + '/designer/' +  "%s/%s.jpg" %(MEDIA_FOLDER, name)
+    path = os.getcwd() + '/designer' +  "%s%s.jpg" %(MEDIA_FOLDER, name)
     file = open(path, "wb")
     file.write(file_content)
-    thumbnail_path = os.getcwd() + '/designer/' +"%s/%s-thumbnail.jpg" %(MEDIA_FOLDER, name)
-    icon_path = os.getcwd() + '/designer/' + "%s/%s-icon.jpg" %(MEDIA_FOLDER, name)
+    thumbnail_path = os.getcwd() + '/designer' +"%s%s-thumbnail.jpg" %(MEDIA_FOLDER, name)
+    icon_path = os.getcwd() + '/designer' + "%s%s-icon.jpg" %(MEDIA_FOLDER, name)
     thumbnail_image = Image.open(path)
     thumbnail_image.thumbnail(size, Image.ADAPTIVE)
     thumbnail_image.save(thumbnail_path, "JPEG")
@@ -84,7 +84,8 @@ def save_image(base64String):
     icon_image.thumbnail(icon_size, Image.ADAPTIVE)
     icon_image.save(icon_path, "JPEG")
     file.close()
-    return path, thumbnail_path, icon_path, path
+    storage_path, storage_thumbnail_path, storage_icon_path = IMAGES_FOLDER + name + '.jpg', IMAGES_FOLDER + name + "-thumbnail.jpg", IMAGES_FOLDER + name + "-icon.jpg"
+    return storage_path, storage_thumbnail_path, storage_icon_path, path
 
 class Node(object):
 

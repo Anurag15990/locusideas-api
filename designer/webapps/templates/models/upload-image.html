@@ -1,0 +1,26 @@
+<div>
+    <script src="{{url_for('static', filename='js/appjs/sign-in.js')}}"></script>
+    <div class="" ng-app="app" ng-controller="ImageCtrl">
+        <div class="modal-header" style="background-color: teal">
+            <label for="header" style="font-family: Arial, Verdana, sans-serif; font-size: 16px; color: #ffffff">Upload Image</label>
+        </div>
+        <br/>
+        <input class="data-model-id" value="{{ user.id }}" type="hidden">
+        <div class="form-group">
+            <div class="container-fluid">
+                <label for="tags" style="font-family: 'Open Sans'">Select Image to upload</label><br/><br/>
+                <input id="inputImage" class="inputImage" type="file" accept="image/*" image="image" resize-max-height="250"
+                       resize-max-width="250"
+                       resize-quality="0.7"/>
+                <br/>
+                <div>
+                    <img ng-show="image" ng-src="{{image.url | angular}}" type="{{image.file.type | angular}}"/>
+                </div>
+                <br/><br/>
+                <button class="btn btn-primary w-10" ng-click="upload_user_profile_image(image.resized)" style="background-color: teal">Upload</button>
+                <button class="btn btn-primary w-10 ml-5" ng-click="close_modal()" style="background-color: teal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

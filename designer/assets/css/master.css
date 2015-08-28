@@ -9358,12 +9358,22 @@ fieldset[disabled] .btn-primary.active {
 .btn {
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   border: none;
-  border-radius: 300px;
+  border-radius: 4px;
   font-weight: 700;
   text-transform: uppercase;
 }
 .btn-xl {
   padding: 15px 30px;
+}
+.btn-background-image {
+  font-family: 'oswald', Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  border-radius: 4px;
+  font-size: 12px;
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 ::-moz-selection {
   color: white;
@@ -9840,7 +9850,7 @@ body {
   object-position: center;
 }
 .cover-photo .container .details-section {
-  padding-top: 14%;
+  padding-top: 1%;
   padding-left: 3%;
 }
 .cover-photo .container h2 {

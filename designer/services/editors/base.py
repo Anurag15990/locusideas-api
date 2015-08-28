@@ -14,7 +14,7 @@ def response_handler(success, failure, login_required=True):
                 node = f(*kargs, **kwargs)
                 return dict(status='success', message=success, node=node, context=setup_context())
             except Exception, e:
-                return dict(staus='error', message=failure, exception=str(e))
+                return dict(status='error', message=failure, exception=str(e))
         return wrapped_f
     return wrap
 

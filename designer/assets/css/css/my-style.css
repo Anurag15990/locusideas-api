@@ -285,6 +285,11 @@
     background:rgba(247, 247, 249, 0.5);
 }
 
+.transwhite-bg2 {
+    background: rgba(205, 205, 205, 0.5);
+}
+
+
 .fitrangi-tags-list h2{
     font-family: 'oswald', Arial, Helvetica, sans-serif;
     color: #FFF;

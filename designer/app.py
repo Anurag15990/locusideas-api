@@ -11,6 +11,7 @@ from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 import flask_admin
 from flask.ext.admin import AdminIndexView, expose
+from flask.ext.triangle import Triangle
 
 import json
 from jinja2 import Environment, FileSystemLoader
@@ -25,6 +26,7 @@ sys.setrecursionlimit(10000)
 
 flaskapp = Flask(__name__, static_folder='assets', template_folder='webapps/', static_url_path='')
 flaskapp.jinja_env.add_extension('jinja2.ext.loopcontrols')
+Triangle(flaskapp)
 assets = Environment(flaskapp)
 flaskapp.jinja_env.cache = {}
 engine.init_app(flaskapp)
