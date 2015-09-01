@@ -4,4 +4,4 @@
 *.pyc
 *.codekit
 .DS_Store
-images/
+img/
