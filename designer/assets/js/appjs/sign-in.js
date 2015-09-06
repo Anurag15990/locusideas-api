@@ -1,6 +1,17 @@
 
 var modalInstance;
 var app = angular.module('app', ['ngRoute', 'ui.bootstrap']);
+
+app.controller('HomeController', function ($scope, $http, $modal) {
+    $scope.openLoginForm = function () {
+        modalInstance = $modal.open({
+            templateUrl : '/login',
+            controller : 'loginCtrl',
+            size: 'md'
+        })
+    };
+});
+
 app.controller('loginCtrl', function($scope, $http){
     $scope.login = function(){
        var email = $scope.username;
