@@ -1,7 +1,8 @@
 <div>
     <script src="{{url_for('static', filename='js/appjs/sign-in.js')}}"></script>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/css/my-style.css')}}">
     <div class="modal-header">
-        <label for="header">Login</label>
+        <label for="header">SIGN IN</label>
     </div>
     <br/>
     <div class="container-fluid" ng-controller="loginCtrl">
@@ -17,7 +18,7 @@
                     &nbsp;<input type="checkbox" value="remember-me"> Remember me
                 </label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login()">Login</button>
+            <button class="btn btn-login btn-block btn-md" type="submit" ng-click="login()">Login</button>
         </form>
 
     </div>

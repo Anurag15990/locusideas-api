@@ -9952,12 +9952,23 @@ body {
   background-size: contain;
 }
 .modal-header {
-  background-color: #17a697;
+  background-color: #16a698;
   text-align: center;
 }
 .modal-header label {
   font-family: Verdana, Arial, helvetica, sans-serif;
   font-size: 16px;
+  color: white;
+}
+.btn-login {
+  position: relative;
+  background-color: #02a4af;
+  color: white;
+  background-position: center;
+}
+.btn-login:hover,
+.btn-login:focus,
+.btn-login:active {
   color: white;
 }
 .register-main {
