@@ -54,7 +54,13 @@ p {
 }
 
 .bg-primary {
-    background-color: @voilet;
+    background-color: @lightestblue;
+    font-size: large;
+    span {
+      color: @theme-green;
+      font-style: italic;
+      font-size: large;
+    }
 }
 
 .bg-dark {
@@ -63,7 +69,10 @@ p {
 }
 
 .text-faded {
-    color: fade(white, 70%);
+    color: lightslategray;
+    font-size: medium;
+    padding-top: 10%;
+    padding-bottom: 10%;
 }
 
 section {
@@ -373,7 +382,7 @@ header {
                     font-size: 46px;
                     text-align: center;
                     vertical-align: middle;
-                    color: #ee4b28;
+                    color: @theme-blue;
                 }
                 h3,p{
                     //float: left;
@@ -399,6 +408,10 @@ header {
 
 .section-heading {
     margin-top: 0;
+    color: lightslategray;
+    font-size: larger;
+    padding-top: 20%;
+    padding-bottom: 10%;
 }
 
 .service-box {
@@ -425,7 +438,7 @@ header {
         position: absolute;
         bottom: 0;
         text-align: center;
-        width: 100%;
+        width: 50%;
         height: 100%;
         .transition-all;
         .portfolio-box-caption-content {
