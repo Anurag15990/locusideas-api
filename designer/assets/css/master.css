@@ -8893,12 +8893,7 @@ p {
 }
 .bg-primary {
   background-color: #e8feff;
-  font-size: large;
-}
-.bg-primary span {
-  color: #049e8f;
-  font-style: italic;
-  font-size: large;
+  font-size: larger;
 }
 .bg-dark {
   background-color: #222222;
@@ -8907,7 +8902,6 @@ p {
 .text-faded {
   color: lightslategray;
   font-size: medium;
-  padding-top: 10%;
   padding-bottom: 10%;
 }
 section {
@@ -9264,9 +9258,14 @@ header .header-content .header-content-inner .tags h1 {
 .section-heading {
   margin-top: 0;
   color: lightslategray;
-  font-size: larger;
-  padding-top: 20%;
-  padding-bottom: 10%;
+  font-size: xx-large;
+  padding-right: 6%;
+  border-right: 1px solid #eeeeee;
+}
+.section-heading span {
+  color: #049e8f;
+  font-style: italic;
+  font-size: large;
 }
 .service-box {
   max-width: 400px;
