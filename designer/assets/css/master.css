@@ -8944,7 +8944,7 @@ aside {
 }
 .navbar-default .nav > li.active > a,
 .navbar-default .nav > li.active > a:focus {
-  color: #f05f40 !important;
+  color: #049e8f !important;
   background-color: transparent;
 }
 .navbar-default .nav > li.active > a:hover,
@@ -9615,6 +9615,16 @@ img::-moz-selection {
 }
 body {
   webkit-tap-highlight-color: #222222;
+}
+#bottom-banner {
+  background-image: url(../../images/contact-background.png);
+  height: 370px;
+  width: 100%;
+}
+.footer {
+  width: 100%;
+  position: relative;
+  min-height: auto;
 }
 .home {
   background-color: #000;
