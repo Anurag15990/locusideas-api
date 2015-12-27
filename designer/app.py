@@ -64,5 +64,6 @@ def start_app():
 
 start_app()
 from designer.views import *
+from designer.mobile import *
 
 

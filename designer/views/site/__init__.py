@@ -114,3 +114,6 @@ def logout():
 @flaskapp.route("/upload_image")
 def update_contact_info():
     return render_template('templates/models/upload-image.html', user=get_logged_in_user())
+
+
+
